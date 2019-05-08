@@ -11,7 +11,8 @@ export const Keyboard = ({playNote}) => {
 
   const onMouseOver = (e, note) => {
     if(e.nativeEvent.buttons === 1)
-      playNote(note)
+      playNote(note);
+    return false;
   };
   
   const keys = [];
@@ -26,7 +27,7 @@ export const Keyboard = ({playNote}) => {
     // black key
     if(key !== 2 && key !== 6) {
       const onBlackKey = (e) => onMouseOver(e, blackKeys[key] + octave);
-      keys.push(<div key={i + 'b'} className="piano-key key-black" onMouseDown={onBlackKey} onMouseOver={onBlackKey} />)
+      keys.push(<div key={i + 'b'} className="piano-key key-black" onMouseDown={onBlackKey} onMouseOver={onBlackKey}  />)
     }
   }
   
