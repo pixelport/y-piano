@@ -1,0 +1,38 @@
+:root {
+    /* Anzahl Weiße Tasten */
+    --key-size: calc(95% / 14);
+}
+
+.piano-key{
+    background-color: white;
+    filter: drop-shadow(0 3px 2px #0000002C);
+    border-radius: 2px;
+    transition: background-color .2s ease-out;
+    margin-right: 2px;
+    float: left;
+    width: var(--key-size);
+    height: 140px;
+}
+
+.key-black{
+    background-color: black;
+    margin-left: -2%;
+    margin-right: -2%;
+    width: 4%;
+    z-index: 2;
+    position: relative;
+    height: 80px;
+}
+
+.key-black:hover{
+    background-color: #404040 !important;
+}
+
+.piano-key:hover{
+    background-color: #e9ecef;
+}
+
+.piano{
+    width: 1000px;
+    display: block;
+}
