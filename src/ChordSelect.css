@@ -1,0 +1,43 @@
+
+.selectField{
+    height: 200px;
+    width: 1000px;
+    display: block;
+    background: #232534;
+    border-radius: 20px;
+}
+
+.selectButton{
+    height: 75%;
+    width: 20%;
+    display: block;
+    background: #ffffff;
+    border-radius: 5px;
+    float: left;
+    margin: 2.5%;
+    font-size: 25px;
+}
+
+
+
+.selectWindow{
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 250px;
+    z-index: 3;
+
+    background: #d3cfff;
+    border-radius: 10px;
+}
+
+.X{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #b7b3dd;
+}

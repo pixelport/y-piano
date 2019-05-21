@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Keyboard} from "./Keyboard";
+import ChordSelect from './ChordSelect';
 import Tone from 'tone';
 
 class App extends Component {
@@ -63,6 +64,10 @@ class App extends Component {
           
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+
+          <br/>
+          <ChordSelect/>
+
         </header>
       </div>
     );
