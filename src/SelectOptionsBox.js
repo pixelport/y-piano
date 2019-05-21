@@ -23,7 +23,7 @@ export class SelectOptionsBox extends React.Component {
             <div className={"optionlist-"+theme}>
                 <label>{theme.toString()}</label>
                 <select value={this.state.value} onChange={this.onChange.bind(this)} className="form-control">
-                    {optionList.map((item, key) => <option id={key.id}>{optionList[key]}</option>)}
+                    {optionList.map((item) => <option>{item}</option>)}
                 </select>
             </div>
         )

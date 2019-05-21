@@ -5,7 +5,7 @@ import {Keyboard} from "./Keyboard";
 import {SelectOptionsBox} from "./SelectOptionsBox";
 import Tone from 'tone';
 
-const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Third Option4'];
+const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
 class App extends Component {
   
@@ -21,7 +21,9 @@ class App extends Component {
         ["A4", "C5", "E5"],
         ["F4", "A4", "C5"]
       ],
+
       isPlaying: false,
+
     };
     
     //create a 4 voice Synth and connect it to the master output (your speakers)
@@ -64,7 +66,7 @@ class App extends Component {
           <p>Test</p>
           <Keyboard playNote={this.playNote}/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
-        <br />
+          <br />
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
         </header>
