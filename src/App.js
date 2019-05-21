@@ -37,7 +37,22 @@ class App extends Component {
       this.cnt++;
     }.bind(this), "3n");
   }
-  
+
+  componentDidMount(){
+    document.addEventListener('keydown', this.handleKeyInput);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown',this.handleKeyInput);
+  }
+
+  handleKeyInput = event=>{
+    console.log(event.key);
+    //test
+    let note="C4";
+    this.playNote(note);
+  };
+
   onPlayPauseClick = () => {
     this.setState(prevState => {
       const newIsPlaying = !prevState.isPlaying;
@@ -65,6 +80,7 @@ class App extends Component {
         <header className="App-header">
           <p>Test</p>
           <Keyboard playNote={this.playNote}/>
+          <br/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br />
           <br/>
