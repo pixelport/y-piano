@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Keyboard} from "./Keyboard";
+import {SelectOptionsBox} from "./SelectOptionsBox";
 import Tone from 'tone';
+
+const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Third Option4'];
 
 class App extends Component {
   
@@ -60,7 +63,8 @@ class App extends Component {
         <header className="App-header">
           <p>Test</p>
           <Keyboard playNote={this.playNote}/>
-          
+          <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
+        <br />
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
         </header>
