@@ -28,7 +28,7 @@ var F = ["F4", "A4", "C5"];
         this.refreshAllButtonsText();
     }
 
-        clickButton(buttonNumber){
+    clickButton(buttonNumber){
         this.state.whichButton = buttonNumber;
         console.log("Button Number: " + buttonNumber );
         document.getElementById("pChord").innerHTML = "Chord: " + buttonNumber;
@@ -51,10 +51,12 @@ var F = ["F4", "A4", "C5"];
             = this.arraytoString(this.state.chords[button-1]);
     }
     refreshAllButtonsText() {
+        let saveWhichButton = this.state.whichButton;
         for (let i = 1; i<5; i++){
             this.state.whichButton = i;
             this.refreshButtonText();
         }
+        this.state.whichButton = saveWhichButton;
     }
     arraytoString(arr){
         let str = "";
@@ -76,10 +78,10 @@ var F = ["F4", "A4", "C5"];
                     </button>
                     <p id="pChord"></p>
                     <div>
-                        <button onClick={this.clickChordButton.bind(this, C)}>C</button>
-                        <button onClick={this.clickChordButton.bind(this, G)}>G</button>
-                        <button onClick={this.clickChordButton.bind(this, Am)}>Am</button>
-                        <button onClick={this.clickChordButton.bind(this, F)}>F</button>
+                        <button className="chordButton" onClick={this.clickChordButton.bind(this, C)}>C</button>
+                        <button className="chordButton" onClick={this.clickChordButton.bind(this, G)}>G</button>
+                        <button className="chordButton" onClick={this.clickChordButton.bind(this, Am)}>Am</button>
+                        <button className="chordButton" onClick={this.clickChordButton.bind(this, F)}>F</button>
                     </div>
                 </div>
 

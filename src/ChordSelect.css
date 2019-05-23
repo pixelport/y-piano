@@ -31,13 +31,31 @@
     height: 250px;
     z-index: 3;
 
-    background: #d3cfff;
+    background: #232534;
     border-radius: 10px;
+    border: 5px solid #000000;
 }
 
 .X{
     position: absolute;
     top: 5px;
     right: 5px;
-    background: #b7b3dd;
+    display: block;
+    background: #232534;
+    border: 0;
+    color: #ffffff;
+    font-size: 20px;
 }
+
+.chordButton{
+    height: 75%;
+    width: 20%;
+    display: block;
+    background: #ffffff;
+    border-radius: 5px;
+    float: left;
+    margin: 2.5%;
+    font-size: 25px;
+}
+
+
