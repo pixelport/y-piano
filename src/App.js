@@ -36,21 +36,19 @@ class App extends Component {
       this.polySynth.triggerAttackRelease(chordToPlay, "8n");
       this.cnt++;
     }.bind(this), "3n");
+
   }
 
   componentDidMount(){
-    document.addEventListener('keydown', this.handleKeyInput);
+    window.addEventListener('keydown', this.handleKeyInput);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown',this.handleKeyInput);
+    window.removeEventListener('keydown',this.handleKeyInput);
   }
 
-  handleKeyInput = event=>{
-    console.log(event.key);
-    //test
-    let note="C4";
-    this.playNote(note);
+  handleKeyInput = (event) =>{
+      console.log(event.key);
   };
 
   onPlayPauseClick = () => {
