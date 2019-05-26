@@ -24,6 +24,8 @@ class App extends Component {
 
       isPlaying: false,
 
+      currentKey: 'a'
+
     };
     
     //create a 4 voice Synth and connect it to the master output (your speakers)
@@ -40,16 +42,18 @@ class App extends Component {
   }
 
   componentDidMount(){
-    window.addEventListener('keydown', this.handleKeyInput);
+    window.addEventListener("keypress", this.handleKeyInput);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown',this.handleKeyInput);
+    window.removeEventListener("keypress", this.handleKeyInput);
   }
 
   handleKeyInput = (event) =>{
-      console.log(event.key);
+    
+    this.setState({currentKey: event.key})
   };
+
 
   onPlayPauseClick = () => {
     this.setState(prevState => {
@@ -72,12 +76,12 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying } = this.state;
+    const { isPlaying,currentKey } = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <p>Test</p>
-          <Keyboard playNote={this.playNote}/>
+          <Keyboard playNote={this.playNote} keyInput={currentKey}/>
           <br/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br />
