@@ -24,7 +24,7 @@ class App extends Component {
 
       isPlaying: false,
 
-      currentKey: 'a'
+      currentKey: ""
 
     };
     
@@ -50,7 +50,6 @@ class App extends Component {
   }
 
   handleKeyInput = (event) =>{
-    
     this.setState({currentKey: event.key})
   };
 
