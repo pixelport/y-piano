@@ -4,6 +4,7 @@
 }
 
 .piano-key{
+    color: grey;
     background-color: white;
     filter: drop-shadow(0 3px 2px #0000002C);
     border-radius: 2px;

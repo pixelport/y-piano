@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Keyboard} from "./Keyboard";
+import {SelectOptionsBox} from "./SelectOptionsBox";
 import ChordSelect from './ChordSelect';
 import Tone from 'tone';
+
+const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
 class App extends Component {
   
@@ -19,7 +22,11 @@ class App extends Component {
         ["A4", "C5", "E5"],
         ["F4", "A4", "C5"]
       ],
+
       isPlaying: false,
+
+      currentKey: ""
+
     };
     
     //create a 4 voice Synth and connect it to the master output (your speakers)
@@ -32,8 +39,22 @@ class App extends Component {
       this.polySynth.triggerAttackRelease(chordToPlay, "8n");
       this.cnt++;
     }.bind(this), "3n");
+
   }
-  
+
+  componentDidMount(){
+    window.addEventListener("keypress", this.handleKeyInput);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keypress", this.handleKeyInput);
+  }
+
+  handleKeyInput = (event) =>{
+    this.setState({currentKey: event.key})
+  };
+
+
   onPlayPauseClick = () => {
     this.setState(prevState => {
       const newIsPlaying = !prevState.isPlaying;
@@ -55,13 +76,15 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying } = this.state;
+    const { isPlaying,currentKey } = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <p>Test</p>
-          <Keyboard playNote={this.playNote}/>
-          
+          <Keyboard playNote={this.playNote} keyInput={currentKey}/>
+          <br/>
+          <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
+          <br />
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
 
