@@ -54,6 +54,11 @@ class App extends Component {
     this.setState({currentKey: event.key})
   };
 
+  setSelectedChords = (newSelectedChords) => {
+    this.setState({
+      selectedChords: newSelectedChords
+    })
+  }
 
   onPlayPauseClick = () => {
     this.setState(prevState => {
@@ -76,7 +81,7 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying,currentKey } = this.state;
+    const { isPlaying,currentKey, selectedChords } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -89,7 +94,7 @@ class App extends Component {
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
 
           <br/>
-          <ChordSelect/>
+          <ChordSelect selectedChords={selectedChords} setSelectedChords={this.setSelectedChords}/>
 
         </header>
       </div>

@@ -18,46 +18,32 @@ var F = ["F4", "A4", "C5"];
         this.clickButton=this.clickButton.bind(this)
 
         this.state = {
-            whichButton: 0,
-            chords: [C,G,Am,F]
+            editedChord: 0
         }
 
     }
 
     componentDidMount() {
-        this.refreshAllButtonsText();
     }
 
     clickButton(buttonNumber){
-        this.state.whichButton = buttonNumber;
+        this.state.editedChord = buttonNumber;
         console.log("Button Number: " + buttonNumber );
         document.getElementById("pChord").innerHTML = "Chord: " + buttonNumber;
         document.getElementById("selectWindow").style.display = "";
     }
 
     clickChordButton(chord){
-        this.state.chords[this.state.whichButton-1] = chord;
-        console.log("Chord " + this.state.whichButton + " changed to " + chord);
-        this.refreshAllButtonsText();
+        let newChords = this.props.selectedChords;
+        newChords[this.state.editedChord] = chord;
+        this.props.setSelectedChords(newChords);
+        console.log("Chord " + this.state.editedChord + " changed to " + chord);
     }
 
     clickX(){
         document.getElementById("selectWindow").style.display = "none";
     }
 
-    refreshButtonText(){
-        let button = this.state.whichButton;
-        document.getElementsByClassName("selectButton")[button-1].innerHTML
-            = this.arraytoString(this.state.chords[button-1]);
-    }
-    refreshAllButtonsText() {
-        let saveWhichButton = this.state.whichButton;
-        for (let i = 1; i<5; i++){
-            this.state.whichButton = i;
-            this.refreshButtonText();
-        }
-        this.state.whichButton = saveWhichButton;
-    }
     arraytoString(arr){
         let str = "";
         for(let element of arr){
@@ -65,7 +51,7 @@ var F = ["F4", "A4", "C5"];
         }
         return str;
     }
-
+    
     render() {
 
 
@@ -86,18 +72,11 @@ var F = ["F4", "A4", "C5"];
                 </div>
 
                 <div className="selectField">
-                    <button className="selectButton" onClick={this.clickButton.bind(this, 1)}>
-
-                    </button>
-                    <button className="selectButton" onClick={this.clickButton.bind(this, 2)}>
-
-                    </button>
-                    <button className="selectButton" onClick={this.clickButton.bind(this, 3)}>
-
-                    </button>
-                    <button className="selectButton" onClick={this.clickButton.bind(this, 4)}>
-
-                    </button>
+                    {this.props.selectedChords.map(((chord, i) => {
+                        return (<button className="selectButton" onClick={this.clickButton.bind(this, i)}>
+                            {chord[0]}
+                        </button>)
+                    }))}
                 </div>
             </div>
 
