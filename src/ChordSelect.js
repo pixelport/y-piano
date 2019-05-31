@@ -14,8 +14,8 @@ var F = ["F4", "A4", "C5"];
     class ChordSelect extends React.Component{
 
     constructor(props){
-        super(props)
-        this.clickButton=this.clickButton.bind(this)
+        super(props);
+        this.clickButton = this.clickButton.bind(this);
 
         this.state = {
             editedChord: 0
@@ -53,7 +53,7 @@ var F = ["F4", "A4", "C5"];
     }
     
     render() {
-
+        const { isPlaying, chordIndex, selectedChords } = this.props
 
         return(
             <div>
@@ -72,8 +72,8 @@ var F = ["F4", "A4", "C5"];
                 </div>
 
                 <div className="selectField">
-                    {this.props.selectedChords.map(((chord, i) => {
-                        return (<button className="selectButton" onClick={this.clickButton.bind(this, i)}>
+                    {selectedChords.map(((chord, i) => {
+                        return (<button className={"selectButton" + (i === chordIndex ? " highlight" : "")} onClick={this.clickButton.bind(this, i)}>
                             {chord[0]}
                         </button>)
                     }))}

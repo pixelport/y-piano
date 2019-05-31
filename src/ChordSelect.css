@@ -18,6 +18,9 @@
     font-size: 25px;
 }
 
+.selectButton.highlight{
+    background: #bbbec1 !important;
+}
 
 
 .selectWindow{

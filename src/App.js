@@ -13,8 +13,8 @@ class App extends Component {
   constructor (){
     super();
 
-    this.cnt = 0;
     this.state = {
+      chordIndex: -1,
       selectedChords: [
         // very often used chords (in the key of C): C, G, Am, F
         ["C4", "E4", "G4"],
@@ -22,9 +22,8 @@ class App extends Component {
         ["A4", "C5", "E5"],
         ["F4", "A4", "C5"]
       ],
-
+      highlightedChord: null,
       isPlaying: false,
-
       currentKey: ""
 
     };
@@ -33,11 +32,14 @@ class App extends Component {
     this.polySynth  = new Tone.PolySynth(4, Tone.Synth).toMaster();
 
     this.loop = new Tone.Loop(function(time){
-      
-      const chordToPlay = this.state.selectedChords[this.cnt % 4];
-      console.log('loop', time, 'chordToPlay', chordToPlay);
+      const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
+      const chordToPlay = this.state.selectedChords[chordIndex];
+      console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
+      this.setState(prevState => ({
+        highlightedChord: chordToPlay,
+        chordIndex: chordIndex,
+      }));
       this.polySynth.triggerAttackRelease(chordToPlay, "8n");
-      this.cnt++;
     }.bind(this), "3n");
 
   }
@@ -65,13 +67,16 @@ class App extends Component {
       const newIsPlaying = !prevState.isPlaying;
       if(!newIsPlaying) {
         this.loop.stop();
-        this.cnt = 0;
       }
       else {
         this.loop.start(0);
       }
       Tone.Transport.start();
-      return {isPlaying: newIsPlaying}
+      return {
+        isPlaying: newIsPlaying,
+        highlightedChord: null,
+        chordIndex: -1,
+      }
     })
   };
   
@@ -81,20 +86,21 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying,currentKey, selectedChords } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex } = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <p>Test</p>
-          <Keyboard playNote={this.playNote} keyInput={currentKey}/>
+          <Keyboard highlightedChord={highlightedChord} playNote={this.playNote} keyInput={currentKey}/>
           <br/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
-          <br />
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
-
           <br/>
-          <ChordSelect selectedChords={selectedChords} setSelectedChords={this.setSelectedChords}/>
+          <ChordSelect
+            chordIndex={chordIndex} 
+            selectedChords={selectedChords} 
+            setSelectedChords={this.setSelectedChords}/>
 
         </header>
       </div>
