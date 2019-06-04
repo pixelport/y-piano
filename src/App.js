@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Keyboard} from "./Keyboard";
+import {Progressbar} from "./Progressbar";
 import {SelectOptionsBox} from "./SelectOptionsBox";
 import ChordSelect from './ChordSelect';
 import Tone from 'tone';
@@ -100,6 +101,7 @@ class App extends Component {
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+          <Progressbar min={20} max={100} percentage={50}/>
           <br/>
           <ChordSelect
             chordIndex={chordIndex} 

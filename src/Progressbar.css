@@ -1,0 +1,14 @@
+.progressbar{
+    position: relative;
+    height: 10px;
+    width: 200px;
+    border-radius: 50px;
+    background: #61dafb;
+}
+.filler{
+    position: relative;
+    height: 10px;
+    width: 200px;
+    border-radius: 50px;
+    background: brown;
+}
