@@ -28,8 +28,8 @@ class App extends Component {
       ],
       highlightedChord: null,
       isPlaying: false,
-      currentKey: "",
-      increaseBPM: 0
+      currentKey: "", //TODO wechselwirkung bei Render() mit anderen states (in Keyboard verlegen?)
+      increaseBPM: 0 //TODO wechselwirkung bei Render() mit anderen states (in progressbar verlegen?)
 
     };
     
