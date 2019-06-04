@@ -8,6 +8,9 @@ import ChordSelect from './ChordSelect';
 import Tone from 'tone';
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
+const minBPM_progress = 20;
+const maxBPM_progress = 200;
+const increase_percent = 5;
 
 class App extends Component {
   
@@ -61,7 +64,7 @@ class App extends Component {
   };
 
   handleWheelInput = (event) =>{
-    this.setState({increaseBPM: event.deltaY<0? 1:-1})
+    this.setState({increaseBPM: event.deltaY<0? increase_percent:-increase_percent})
   };
 
   setSelectedChords = (newSelectedChords) => {
@@ -108,7 +111,8 @@ class App extends Component {
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
-          <Progressbar min={10} max={100} percentage={20} increase={increaseBPM}/>
+          <br/>
+          <Progressbar minValue={minBPM_progress} maxValue={maxBPM_progress} increasePercent={increaseBPM}/>
           <br/>
           <ChordSelect
             chordIndex={chordIndex} 

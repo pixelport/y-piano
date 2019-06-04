@@ -3,38 +3,53 @@ import './App.css';
 import './Progressbar.css'
 import Tone from "tone";
 
-const onePercent = 200/100;
+const maximumTotal = 200;
 
 export class Progressbar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            currentlyProgress: 0,
+            progressTotal: 0,
             currentlyValue: 0
         }
     }
 
-    fillBar = (percentage,min,max) => {
+    updateProgressTotal(increasePercent){
+        console.log(increasePercent);
 
-        let range=max-min;
-        let foo=range*percentage/100;
-        let foo_2=min+foo;
+        let increaseTotal=maximumTotal/100*increasePercent;
 
-        let progress= percentage*onePercent;
-        this.state = { currentlyProgress: progress, currentlyValue: foo_2};
-        return <div className="filler" style={{width: progress}}/>
-    };
+        if(this.state.progressTotal+increaseTotal<0) {
+            this.state.progressTotal = 0;
+            return;
+        }
+        if(this.state.progressTotal+increaseTotal>maximumTotal){
+            this.state.progressTotal=maximumTotal;
+            return;
+        }
 
+        this.state.progressTotal+=increaseTotal;
 
+        //console.log(this.state.progressTotal);
+    }
 
+    updateCurrentlyValue(minValue,maxValue){
+        let range=maxValue-minValue;
+        let progressValue= ((this.state.progressTotal/maximumTotal)*range)+minValue;
+
+        this.state.currentlyValue=Math.round(progressValue);
+
+        //console.log(progressValue);
+    }
 
     render() {
-        const{min,max,percentage,increase} = this.props;
+        const{minValue,maxValue,increasePercent} = this.props;
+        this.updateProgressTotal(increasePercent);
+        this.updateCurrentlyValue(minValue,maxValue);
         return (
-            <div className="progressbar">
-                {console.log(increase)}
-                {this.fillBar(percentage,min,max)}
+            <div className="progressbar" style={{width: maximumTotal}}>
+                <div className="filler" style={{width: this.state.progressTotal}}/>
                 <label>{this.state.currentlyValue+" BPM"}</label>
             </div>
         )
