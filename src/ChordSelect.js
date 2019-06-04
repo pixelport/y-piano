@@ -25,16 +25,16 @@ var F = ["F4", "A4", "C5"];
     componentDidMount() {
     }
 
-    static clickX(){
+    clickX(){
         document.getElementById("selectWindow").style.display = "none";
     }
 
-    static getRandomNumberBetween(min, max){
+    getRandomNumberBetween(min, max){
         return Math.floor(Math.random() * (+max - +min)) + +min;
     }
 
     clickButton(buttonNumber){
-        this.state.editedChord.setState(buttonNumber);
+        this.state.editedChord = buttonNumber;
         console.log("Button Number: " + buttonNumber );
         document.getElementById("pChord").innerHTML = "Chord: " + buttonNumber;
         document.getElementById("selectWindow").style.display = "";
@@ -64,7 +64,7 @@ var F = ["F4", "A4", "C5"];
 
         for(var i = 0; i<4; i++){
             let chord =  AllChords[this.getRandomNumberBetween(0,4)];
-            this.state.editedChord.setState(i);
+            this.state.editedChord = i;
             let newChords = this.props.selectedChords;
             newChords[this.state.editedChord] = chord;
             this.props.setSelectedChords(newChords);
