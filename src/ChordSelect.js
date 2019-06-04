@@ -20,40 +20,59 @@ var F = ["F4", "A4", "C5"];
         this.state = {
             editedChord: 0
         }
-
     }
 
     componentDidMount() {
     }
 
+    static clickX(){
+        document.getElementById("selectWindow").style.display = "none";
+    }
+
+    static getRandomNumberBetween(min, max){
+        return Math.floor(Math.random() * (+max - +min)) + +min;
+    }
+
     clickButton(buttonNumber){
-        this.state.editedChord = buttonNumber;
+        this.state.editedChord.setState(buttonNumber);
         console.log("Button Number: " + buttonNumber );
         document.getElementById("pChord").innerHTML = "Chord: " + buttonNumber;
         document.getElementById("selectWindow").style.display = "";
     }
-
-    clickChordButton(chord){
-        let newChords = this.props.selectedChords;
-        newChords[this.state.editedChord] = chord;
-        this.props.setSelectedChords(newChords);
-        console.log("Chord " + this.state.editedChord + " changed to " + chord);
-    }
-
-    clickX(){
-        document.getElementById("selectWindow").style.display = "none";
-    }
-
+    /*
     arraytoString(arr){
         let str = "";
         for(let element of arr){
             str += element + " "
         }
         return str;
+    }*/
+
+    clickChordButton(chord){
+        //Play chord
+        this.props.playChord(chord);
+        //Set chord
+        let newChords = this.props.selectedChords;
+        newChords[this.state.editedChord] = chord;
+        this.props.setSelectedChords(newChords);
+        console.log("Chord " + this.state.editedChord + " changed to " + chord);
     }
+
+    onRandomClick = () =>{
+
+        let AllChords = [C,G,Am,F];
+
+        for(var i = 0; i<4; i++){
+            let chord =  AllChords[this.getRandomNumberBetween(0,4)];
+            this.state.editedChord.setState(i);
+            let newChords = this.props.selectedChords;
+            newChords[this.state.editedChord] = chord;
+            this.props.setSelectedChords(newChords);
+        }
+    };
     
     render() {
-        const { isPlaying, chordIndex, selectedChords } = this.props
+        const { isPlaying, chordIndex, selectedChords } = this.props;
 
         return(
             <div>
@@ -78,6 +97,9 @@ var F = ["F4", "A4", "C5"];
                         </button>)
                     }))}
                 </div>
+
+                <button className="uk-button uk-button-primary" onClick={this.onRandomClick}>{"Generate Chords"}</button>
+
             </div>
 
         )

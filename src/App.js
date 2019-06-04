@@ -60,7 +60,7 @@ class App extends Component {
     this.setState({
       selectedChords: newSelectedChords
     })
-  }
+  };
 
   onPlayPauseClick = () => {
     this.setState(prevState => {
@@ -82,7 +82,11 @@ class App extends Component {
   
   playNote = (note) => {
     //play the note for the duration of an 8th note
-    this.polySynth .triggerAttackRelease(note, '8n')
+    this.polySynth.triggerAttackRelease(note, '8n')
+  };
+
+  playChord = (chord) => {
+    this.polySynth.triggerAttackRelease(chord, '8n')
   };
   
   render() {
@@ -100,7 +104,8 @@ class App extends Component {
           <ChordSelect
             chordIndex={chordIndex} 
             selectedChords={selectedChords} 
-            setSelectedChords={this.setSelectedChords}/>
+            setSelectedChords={this.setSelectedChords}
+            playChord={this.playChord}/>
 
         </header>
       </div>
