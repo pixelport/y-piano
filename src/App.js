@@ -25,7 +25,8 @@ class App extends Component {
       ],
       highlightedChord: null,
       isPlaying: false,
-      currentKey: ""
+      currentKey: "",
+      increaseBPM: 0
 
     };
     
@@ -47,14 +48,20 @@ class App extends Component {
 
   componentDidMount(){
     window.addEventListener("keypress", this.handleKeyInput);
+    window.addEventListener("wheel", this.handleWheelInput);
   }
 
   componentWillUnmount() {
     window.removeEventListener("keypress", this.handleKeyInput);
+    window.removeEventListener("wheel", this.handleWheelInput);
   }
 
   handleKeyInput = (event) =>{
     this.setState({currentKey: event.key})
+  };
+
+  handleWheelInput = (event) =>{
+    this.setState({increaseBPM: event.deltaY<0? 1:-1})
   };
 
   setSelectedChords = (newSelectedChords) => {
@@ -91,7 +98,7 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, increaseBPM } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -101,7 +108,7 @@ class App extends Component {
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
-          <Progressbar min={20} max={100} percentage={50}/>
+          <Progressbar min={10} max={100} percentage={20} increase={increaseBPM}/>
           <br/>
           <ChordSelect
             chordIndex={chordIndex} 

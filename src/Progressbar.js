@@ -30,9 +30,10 @@ export class Progressbar extends React.Component {
 
 
     render() {
-        const{min,max,percentage} = this.props;
+        const{min,max,percentage,increase} = this.props;
         return (
             <div className="progressbar">
+                {console.log(increase)}
                 {this.fillBar(percentage,min,max)}
                 <label>{this.state.currentlyValue+" BPM"}</label>
             </div>
