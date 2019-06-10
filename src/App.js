@@ -45,15 +45,21 @@ class App extends Component {
   }
 
   componentDidMount(){
-    window.addEventListener("keypress", this.handleKeyInput);
+    window.addEventListener("keydown", this.setCurrentKey);
+    window.addEventListener( "keyup", this.resetCurrentKey);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("keypress", this.handleKeyInput);
+    window.removeEventListener("keydown", this.setCurrentKey);
+    window.removeEventListener("keyup", this.resetCurrentKey);
   }
 
-  handleKeyInput = (event) =>{
+  setCurrentKey = (event) =>{
     this.setState({currentKey: event.key})
+  };
+
+  resetCurrentKey = () =>{
+    this.setState({currentKey: ""})
   };
 
   setSelectedChords = (newSelectedChords) => {
