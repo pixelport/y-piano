@@ -55,11 +55,11 @@ class App extends Component {
   }
 
   setCurrentKey = (event) =>{
-    this.setState({currentKey: event.key})
+    this.setState({currentKey: event.key});
   };
 
   resetCurrentKey = () =>{
-    this.setState({currentKey: ""})
+     this.setState({currentKey: ""})
   };
 
   setSelectedChords = (newSelectedChords) => {

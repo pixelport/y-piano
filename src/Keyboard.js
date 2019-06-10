@@ -16,7 +16,19 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
     return false;
   };
 
-  const notes=[];
+  //testbeginn
+  //erstellt map für tatsturtaste->note
+  const keyInputsWhite = new Map();
+  for(let i = 0; i < 14; i++){
+    const key = i % 7;
+    const octave = 4 + Math.floor(i / 7);
+    const whiteNote = whiteKeys[key] + octave;
+    keyInputsWhite.set(keyboardInput[i],whiteNote)
+  }
+  //testende
+
+
+  //const keyInputsBlack = new Map();
   const keys = [];
   for(let i = 0; i < 14; i++){
     const key = i % 7;
@@ -25,14 +37,17 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
     // white key
     const onWhiteKey = (e) => onMouseOver(e, whiteKeys[key] + octave);
     const whiteNote = whiteKeys[key] + octave;
+
+    keyInputsWhite.set(whiteNote,keyboardInput[i]);
+
     keys.push(<div 
                 key={i}
-                className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) ? " highlighted" : "")}
+                className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) || (keyInputsWhite.get(keyInput)===whiteNote) ? " highlighted" : "")}
                 onMouseDown={onWhiteKey} 
-                onMouseOver={onWhiteKey}/>);
+                onMouseOver={onWhiteKey}
+                note={whiteNote}
+    />);
 
-    notes.push(whiteKeys[key] + octave);
-    
     // black key
     if(key !== 2 && key !== 6) {
       const onBlackKey = (e) => onMouseOver(e, blackKeys[key] + octave);
@@ -41,9 +56,8 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
                      className={"piano-key key-black" + ((highlightedChord && highlightedChord.find(hc => hc === blackNote)) ? " highlighted" : "")}
                      onMouseDown={onBlackKey} 
                      onMouseOver={onBlackKey}
+                     note={blackNote}
       />);
-
-      notes.push(blackKeys[key] + octave);
     }
 
   }
@@ -52,14 +66,22 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
     let map = new Map();
     let index=0;
     keyboardInput.forEach(value =>{
-      map.set(value,notes[index]);  //Zuweisung von keyBoardInput->Note in map
+      map.set(value,keys[index].props.note);  //Zuweisung von keyBoardInput->Note in map
       index++;
     });
 
+    console.log("-----------------");
+
     if(map.has(keyInput)){
+      //zeichen vorhanden in map dann spiele note
       playNote(map.get(keyInput));
-      //console.log("taste:"+keyInput);
-      //console.log("note:"+map.get(keyInput));
+
+      keys.forEach(v=>{
+        if(map.get(keyInput) == v.props.note){
+          console.log(v.props.className);
+          //set class name ".... highlighted"??????????????
+        }
+      });
     }else{
       //console.log("zeichen nicht vorhanden");
     }
