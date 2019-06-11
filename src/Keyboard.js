@@ -85,9 +85,9 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
                      className={"piano-key key-black" + ((highlightedChord && highlightedChord.find(hc => hc === blackNote)) || (validateInput(keyInput,blackNote)) ? " highlighted" : "")}
                      onMouseDown={onBlackKey} 
                      onMouseOver={onBlackKey}
-      >{getInputKeyForKeyBoardKey(keyInputsBlack,blackNote)}</div>);
-    }
+      >{(validateInput(keyInput,blackNote) ? getInputKeyForKeyBoardKey(keyInputsBlack,blackNote) : "")}</div>);
 
+    }
   }
 
   //spielt Note sofern keys im keyInputArray auch keyInputsWhite oder keyInputsBlack sind
