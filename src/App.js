@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {Keyboard} from "./Keyboard";
+import {Progressbar} from "./Progressbar";
 import {SelectOptionsBox} from "./SelectOptionsBox";
 import ChordSelect from './ChordSelect';
 import Tone from 'tone';
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
+const minBPM_progress = 20;
+const maxBPM_progress = 200;
+const increase_percent = 5;
 
 const currentKeys = new Map();
 
@@ -26,7 +30,8 @@ class App extends Component {
       ],
       highlightedChord: null,
       isPlaying: false,
-      currentKey: []
+      currentKey: [],
+      increaseBPM: 0
 
     };
     
@@ -49,11 +54,13 @@ class App extends Component {
   componentDidMount(){
     window.addEventListener("keydown", this.setCurrentKey);
     window.addEventListener( "keyup", this.resetCurrentKey);
+    window.addEventListener("wheel", this.handleWheelInput);
   }
 
   componentWillUnmount() {
     window.removeEventListener("keydown", this.setCurrentKey);
     window.removeEventListener("keyup", this.resetCurrentKey);
+    window.removeEventListener("wheel", this.handleWheelInput);
   }
 
   setCurrentKey = (event) =>{
@@ -64,6 +71,11 @@ class App extends Component {
   resetCurrentKey = (event) =>{
      currentKeys.delete(event.key);
      this.setState({currentKey: currentKeys})
+  };
+
+  handleWheelInput = (event) =>{
+    this.setState({increaseBPM: event.deltaY<0? increase_percent:-increase_percent})
+      this.setState({increaseBPM: 0})
   };
 
   setSelectedChords = (newSelectedChords) => {
@@ -100,16 +112,19 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, increaseBPM } = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <p>Test</p>
           <Keyboard highlightedChord={highlightedChord} playNote={this.playNote} keyInput={currentKey}/>
           <br/>
-          <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
+          <SelectOptionsBox optionList={instrumentOptions} theme="Instruments"/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+          <br/>
+          <Progressbar minValue={minBPM_progress} maxValue={maxBPM_progress} increasePercent={increaseBPM}/>
+          <br/>
           <br/>
           <ChordSelect
             chordIndex={chordIndex} 
