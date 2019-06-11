@@ -5,7 +5,8 @@ const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
 const blackKeys = ["C#", "Eb", null, "F#", "G#", "Bb"];
 
-const keyboardInput = ["1", "2", "3", "4", "5", "6", "7","8","9","q","w","e","r","t","z","u","i","o","p","a","s","d","f","g"];
+const keyboardInput_White = ["1", "2", "3", "4", "5", "6", "7","8","9","q","w","e","r","t","z","u","i","o","p"];
+const keyboardInput_Black = ["a", "s", "d", "f", "g", "h", "j","k","l","ö","ä"];
 
 export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
 
@@ -17,21 +18,31 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
   };
 
   //testbeginn
-  //erstellt map für tatsturtaste->note
+  //erstellt maps für tatsturtaste->note -Zuweisung
   const keyInputsWhite = new Map();
+  const keyInputsBlack = new Map();
   for(let i = 0; i < 14; i++){
     const key = i % 7;
     const octave = 4 + Math.floor(i / 7);
     const whiteNote = whiteKeys[key] + octave;
-    keyInputsWhite.set(keyboardInput[i],whiteNote)
+
+    keyInputsWhite.set(keyboardInput_White[i],whiteNote);
+    if(key !== 2 && key !== 6) {
+      const blackNote = blackKeys[key] + octave;
+      keyInputsBlack.set(keyboardInput_Black[i],blackNote)
+    }
+
   }
   //testende
 
   const validateInput = (keyInput,note) => {
-    let test = false
+    let test = false;
     keyInput.forEach(k=>{
       if(keyInputsWhite.has(k) && keyInputsWhite.get(k)===note) {
-        console.log("3."+(keyInputsWhite.has(k) && keyInputsWhite.has(k)===note))
+        test = true
+      }
+
+      if(keyInputsBlack.has(k) && keyInputsBlack.get(k)===note) {
         test = true
       }
     });
@@ -49,8 +60,6 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
     const onWhiteKey = (e) => onMouseOver(e, whiteKeys[key] + octave);
     const whiteNote = whiteKeys[key] + octave;
 
-    keyInputsWhite.set(whiteNote,keyboardInput[i]);
-
     keys.push(<div 
                 key={i}
                 className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) || (validateInput(keyInput,whiteNote)) ? " highlighted" : "")}
@@ -64,7 +73,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
       const onBlackKey = (e) => onMouseOver(e, blackKeys[key] + octave);
       const blackNote = blackKeys[key] + octave;
       keys.push(<div key={i + 'b'}
-                     className={"piano-key key-black" + ((highlightedChord && highlightedChord.find(hc => hc === blackNote)) ? " highlighted" : "")}
+                     className={"piano-key key-black" + ((highlightedChord && highlightedChord.find(hc => hc === blackNote)) || (validateInput(keyInput,blackNote)) ? " highlighted" : "")}
                      onMouseDown={onBlackKey} 
                      onMouseOver={onBlackKey}
                      note={blackNote}
@@ -73,32 +82,29 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
 
   }
 
-  const onKeyInputChange = (keyInput) => {
-    let map = new Map();
-    let index=0;
-    keyboardInput.forEach(value =>{
-      map.set(value,keys[index].props.note);  //Zuweisung von keyBoardInput->Note in map
-      index++;
-    });
+  const onKeyInputPlayNote = (keyInput) => {
+
 
     console.log("-----------------");
 
-    if(map.has(keyInput)){
-      //zeichen vorhanden in map dann spiele note
-      playNote(map.get(keyInput));
+    keyInput.forEach(k=>{
 
-      keys.forEach(v=>{
-        if(map.get(keyInput) == v.props.note){
-          console.log(v.props.className);
-          //set class name ".... highlighted"??????????????
-        }
-      });
-    }else{
-      console.log("zeichen nicht vorhanden");
-    }
+      if(keyInputsWhite.has(k)) {
+        playNote(keyInputsWhite.get(k));
+        console.log("spiele Note:"+keyInputsWhite.get(k));
+      }
+
+      if(keyInputsBlack.has(k)) {
+        playNote(keyInputsBlack.get(k));
+        console.log("spiele Note:"+keyInputsWhite.get(k));
+      }
+
+    });
+
+
   };
 
-  onKeyInputChange(keyInput);
+  onKeyInputPlayNote(keyInput);
 
   return (
     <div className="piano">
