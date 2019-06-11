@@ -13,6 +13,7 @@
     float: left;
     width: var(--key-size);
     height: 140px;
+    font-size: 15px;
 
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */

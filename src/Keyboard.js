@@ -48,7 +48,8 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
     return test
   };
 
-  const getInputForNote = (keyInputs,note) => {
+  //gibt entsprechende Tasturtaste für zu spielende Note zurück
+  const getInputKeyForKeyBoardKey = (keyInputs,note) => {
     let k="a";
     for (const entry of keyInputs.entries()) {
       if(entry[1]==note){
@@ -74,7 +75,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
                 className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) || (validateInput(keyInput,whiteNote)) ? " highlighted" : "")}
                 onMouseDown={onWhiteKey} 
                 onMouseOver={onWhiteKey}
-    >{getInputForNote(keyInputsWhite,whiteNote)}</div>);
+    >{getInputKeyForKeyBoardKey(keyInputsWhite,whiteNote)}</div>);
 
     // black key
     if(key !== 2 && key !== 6) {
@@ -84,17 +85,13 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
                      className={"piano-key key-black" + ((highlightedChord && highlightedChord.find(hc => hc === blackNote)) || (validateInput(keyInput,blackNote)) ? " highlighted" : "")}
                      onMouseDown={onBlackKey} 
                      onMouseOver={onBlackKey}
-      >{getInputForNote(keyInputsBlack,blackNote)}</div>);
+      >{getInputKeyForKeyBoardKey(keyInputsBlack,blackNote)}</div>);
     }
 
   }
 
   //spielt Note sofern keys im keyInputArray auch keyInputsWhite oder keyInputsBlack sind
   const onKeyInputPlayNote = (keyInput) => {
-
-
-    console.log("-----------------");
-
     keyInput.forEach(k=>{
 
       if(keyInputsWhite.has(k)) {
@@ -108,8 +105,6 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
       }
 
     });
-
-
   };
 
   onKeyInputPlayNote(keyInput);
