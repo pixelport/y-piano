@@ -6,7 +6,7 @@ const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 const blackKeys = ["C#", "Eb", null, "F#", "G#", "Bb"];
 
 const keyboardInput_White = ["1", "2", "3", "4", "5", "6", "7","8","9","q","w","e","r","t","z","u","i","o","p"];
-const keyboardInput_Black = ["a", "s", "d", "f", "g", "h", "j","k","l","ö","ä"];
+const keyboardInput_Black = ["a", "s", "d", "f", "g", "h", "j","k","l","ö","ä","#","y"];
 
 export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
 
@@ -17,24 +17,23 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
     return false;
   };
 
-  //testbeginn
   //erstellt maps für tatsturtaste->note -Zuweisung
   const keyInputsWhite = new Map();
   const keyInputsBlack = new Map();
   for(let i = 0; i < 14; i++){
-    const key = i % 7;
-    const octave = 4 + Math.floor(i / 7);
-    const whiteNote = whiteKeys[key] + octave;
+    let key = i % 7;
+    let octave = 4 + Math.floor(i / 7);
+    let whiteNote = whiteKeys[key] + octave;
 
     keyInputsWhite.set(keyboardInput_White[i],whiteNote);
     if(key !== 2 && key !== 6) {
-      const blackNote = blackKeys[key] + octave;
+      let blackNote = blackKeys[key] + octave;
       keyInputsBlack.set(keyboardInput_Black[i],blackNote)
     }
 
   }
-  //testende
 
+  //validiert inputArray um zu entscheiden ob taste als highlighted
   const validateInput = (keyInput,note) => {
     let test = false;
     keyInput.forEach(k=>{
@@ -47,6 +46,16 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
       }
     });
     return test
+  };
+
+  const getInputForNote = (keyInputs,note) => {
+    let k="a";
+    for (const entry of keyInputs.entries()) {
+      if(entry[1]==note){
+        k=entry[0]
+      }
+    }
+    return k;
   };
 
 
@@ -65,8 +74,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
                 className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) || (validateInput(keyInput,whiteNote)) ? " highlighted" : "")}
                 onMouseDown={onWhiteKey} 
                 onMouseOver={onWhiteKey}
-                note={whiteNote}
-    />);
+    >{getInputForNote(keyInputsWhite,whiteNote)}</div>);
 
     // black key
     if(key !== 2 && key !== 6) {
@@ -76,12 +84,12 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
                      className={"piano-key key-black" + ((highlightedChord && highlightedChord.find(hc => hc === blackNote)) || (validateInput(keyInput,blackNote)) ? " highlighted" : "")}
                      onMouseDown={onBlackKey} 
                      onMouseOver={onBlackKey}
-                     note={blackNote}
-      />);
+      >{getInputForNote(keyInputsBlack,blackNote)}</div>);
     }
 
   }
 
+  //spielt Note sofern keys im keyInputArray auch keyInputsWhite oder keyInputsBlack sind
   const onKeyInputPlayNote = (keyInput) => {
 
 
