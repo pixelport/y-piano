@@ -8,6 +8,8 @@ import Tone from 'tone';
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
+const currentKeys = new Map();
+
 class App extends Component {
   
   constructor (){
@@ -24,7 +26,7 @@ class App extends Component {
       ],
       highlightedChord: null,
       isPlaying: false,
-      currentKey: ""
+      currentKey: []
 
     };
     
@@ -55,11 +57,13 @@ class App extends Component {
   }
 
   setCurrentKey = (event) =>{
-    this.setState({currentKey: event.key});
+    currentKeys.set(event.key, event.key);
+    this.setState({currentKey: currentKeys});
   };
 
-  resetCurrentKey = () =>{
-     this.setState({currentKey: ""})
+  resetCurrentKey = (event) =>{
+     currentKeys.delete(event.key);
+     this.setState({currentKey: currentKeys})
   };
 
   setSelectedChords = (newSelectedChords) => {

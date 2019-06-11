@@ -27,6 +27,17 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
   }
   //testende
 
+  const validateInput = (keyInput,note) => {
+    let test = false
+    keyInput.forEach(k=>{
+      if(keyInputsWhite.has(k) && keyInputsWhite.get(k)===note) {
+        console.log("3."+(keyInputsWhite.has(k) && keyInputsWhite.has(k)===note))
+        test = true
+      }
+    });
+    return test
+  };
+
 
   //const keyInputsBlack = new Map();
   const keys = [];
@@ -42,7 +53,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
 
     keys.push(<div 
                 key={i}
-                className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) || (keyInputsWhite.get(keyInput)===whiteNote) ? " highlighted" : "")}
+                className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) || (validateInput(keyInput,whiteNote)) ? " highlighted" : "")}
                 onMouseDown={onWhiteKey} 
                 onMouseOver={onWhiteKey}
                 note={whiteNote}
@@ -83,7 +94,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
         }
       });
     }else{
-      //console.log("zeichen nicht vorhanden");
+      console.log("zeichen nicht vorhanden");
     }
   };
 
