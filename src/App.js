@@ -5,6 +5,7 @@ import {Keyboard} from "./Keyboard";
 import {SelectOptionsBox} from "./SelectOptionsBox";
 import ChordSelect from './ChordSelect';
 import Tone from 'tone';
+import Arpeggio from './Arpeggio.js';
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
@@ -24,7 +25,8 @@ class App extends Component {
       ],
       highlightedChord: null,
       isPlaying: false,
-      currentKey: ""
+      currentKey: "",
+      arpeggio: ""
 
     };
     
@@ -39,7 +41,8 @@ class App extends Component {
         highlightedChord: chordToPlay,
         chordIndex: chordIndex,
       }));
-      this.polySynth.triggerAttackRelease(chordToPlay, "8n");
+      this.playChord(chordToPlay);
+      //this.polySynth.triggerAttackRelease(chordToPlay, "8n");
     }.bind(this), "3n");
 
   }
@@ -59,6 +62,12 @@ class App extends Component {
   setSelectedChords = (newSelectedChords) => {
     this.setState({
       selectedChords: newSelectedChords
+    })
+  };
+
+  setArpeggio = (newArpeggio) => {
+    this.setState({
+      arpeggio: newArpeggio
     })
   };
 
@@ -86,8 +95,38 @@ class App extends Component {
   };
 
   playChord = (chord) => {
-    this.polySynth.triggerAttackRelease(chord, '8n')
+    console.log("ARPEGGIO" + this.state.arpeggio);
+
+    switch (this.state.arpeggio) {
+      case "":
+        this.playChordSameTime(chord);
+        break;
+      case "sameTime4C":
+        this.playChordSameTime4C(chord);
+        break;
+      case "successivly":
+        this.playChordSuccessivly(chord);
+        break;
+    }
   };
+
+  playChordSuccessivly = (chord) => {
+    this.polySynth.triggerAttackRelease(chord[0], '8n', '+0');
+    this.polySynth.triggerAttackRelease(chord[1], '8n', '+0.333');
+    this.polySynth.triggerAttackRelease(chord[2], '8n', '+0.666');
+  };
+
+  playChordSameTime4C = (chord) => {
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0');
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0.25');
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0.5');
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0.75');
+  };
+
+  playChordSameTime = (chord) => {
+    this.polySynth.triggerAttackRelease(chord, '8n');
+  };
+
   
   render() {
     const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex } = this.state;
@@ -107,6 +146,8 @@ class App extends Component {
             setSelectedChords={this.setSelectedChords}
             playChord={this.playChord}/>
 
+            <Arpeggio
+            setArpeggio={this.setArpeggio}/>
         </header>
       </div>
     );
