@@ -6,6 +6,7 @@ import {SelectOptionsBox} from "./SelectOptionsBox";
 import ChordSelect from './ChordSelect';
 import Tone from 'tone';
 import Arpeggio from './Arpeggio.js';
+import MidiExport from './MidiExporter'
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
@@ -94,6 +95,10 @@ class App extends Component {
     this.polySynth.triggerAttackRelease(note, '8n')
   };
 
+  onMidiExport = () => {
+    MidiExport.export(this.state.selectedChords, this.state.arpeggio);
+  }
+  
   playChord = (chord) => {
     console.log("ARPEGGIO" + this.state.arpeggio);
 
@@ -139,6 +144,8 @@ class App extends Component {
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+          <br/>
+          <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
           <br/>
           <ChordSelect
             chordIndex={chordIndex} 
