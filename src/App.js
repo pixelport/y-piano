@@ -7,6 +7,7 @@ import ChordSelect from './ChordSelect';
 import Tone from 'tone';
 import Arpeggio from './Arpeggio.js';
 import MidiExport from './MidiExporter'
+import WebMidi from 'webmidi'
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
@@ -46,6 +47,27 @@ class App extends Component {
       //this.polySynth.triggerAttackRelease(chordToPlay, "8n");
     }.bind(this), "3n");
 
+    Tone.context.lookAhead = 0;
+    
+    WebMidi.enable(err => {
+      if (err) {
+        console.log("WebMidi could not be enabled.", err);
+        return;
+      } else {
+        console.log("WebMidi enabled!");
+      }
+
+      if(WebMidi.inputs.length !== 0) {
+        let input = WebMidi.inputs[0];
+        input.addListener('noteon', "all",
+          (e) => {
+            console.log("Received 'noteon' message (" + e.note.name + e.note.octave + ").");
+            this.playNote(e.note.name + e.note.octave);
+          }
+        );
+      }
+    });
+    
   }
 
   componentDidMount(){
