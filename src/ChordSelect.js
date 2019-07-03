@@ -35,7 +35,7 @@ var F = ["F4", "A4", "C5"];
 
     clickButton(buttonNumber){
         this.state.editedChord = buttonNumber;
-        console.log("Button Number: " + buttonNumber );
+        //console.log("Button Number: " + buttonNumber );
         document.getElementById("pChord").innerHTML = "Chord: " + (buttonNumber*1+1);
         document.getElementById("selectWindow").style.display = "";
     }

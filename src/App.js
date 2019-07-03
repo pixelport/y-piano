@@ -11,7 +11,7 @@ import Arpeggio from './Arpeggio.js';
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
-const increase_percent = 5;
+const increase_percent = 1;
 
 const currentKeys = new Map();
 
@@ -33,8 +33,8 @@ class App extends Component {
       isPlaying: false,
       currentKey: [],
       increaseBPM: 0,
-      arpeggio: ""
-
+      arpeggio: "",
+      bpm: minBPM_progress
     };
     
     //create a 4 voice Synth and connect it to the master output (your speakers)
@@ -43,15 +43,14 @@ class App extends Component {
     this.loop = new Tone.Loop(function(time){
       const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
       const chordToPlay = this.state.selectedChords[chordIndex];
-      console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
+      //console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
       this.setState(prevState => ({
         highlightedChord: chordToPlay,
         chordIndex: chordIndex,
       }));
       this.playChord(chordToPlay);
-      //this.polySynth.triggerAttackRelease(chordToPlay, "8n");
-    }.bind(this), "+1"); //Hier die Zeit Einstellen für DPM
-
+      console.log("aktuelles looptempo:"+this.loop.interval);
+    }.bind(this), this.state.bpm); //Hier die Zeit Einstellen für DPM
   }
 
   componentDidMount(){
@@ -117,7 +116,7 @@ class App extends Component {
   };
 
   playChord = (chord) => {
-    console.log("ARPEGGIO" + this.state.arpeggio);
+    //console.log("ARPEGGIO" + this.state.arpeggio);
 
     switch (this.state.arpeggio) {
       case "":
@@ -149,6 +148,11 @@ class App extends Component {
     this.polySynth.triggerAttackRelease(chord, '8n');
   };
 
+  update_loopInterval = (bmp) =>{
+    let interval_in_sek=1/(bmp/60);
+    console.log("neus looptempo:"+(interval_in_sek).toFixed(2));
+    this.loop.interval=(interval_in_sek).toFixed(2);
+  };
 
   render() {
     const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, increaseBPM } = this.state;
@@ -162,7 +166,7 @@ class App extends Component {
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
           <br/>
-          <Progressbar minValue={minBPM_progress} maxValue={maxBPM_progress} increasePercent={increaseBPM}/>
+          <Progressbar minValue={minBPM_progress} maxValue={maxBPM_progress} increasePercent={increaseBPM} update_loopInterval={this.update_loopInterval}/>
           <br/>
           <br/>
           <ChordSelect

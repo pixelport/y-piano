@@ -16,7 +16,7 @@ export class Progressbar extends React.Component {
     }
 
     updateProgressTotal(increasePercent){
-        console.log(increasePercent);
+        //console.log(increasePercent);
 
         let increaseTotal=maximumTotal/100*increasePercent;
 
@@ -37,16 +37,15 @@ export class Progressbar extends React.Component {
     updateCurrentlyValue(minValue,maxValue){
         let range=maxValue-minValue;
         let progressValue= ((this.state.progressTotal/maximumTotal)*range)+minValue;
-
         this.state.currentlyValue=Math.round(progressValue);
-
         //console.log(progressValue);
     }
 
     render() {
-        const{minValue,maxValue,increasePercent} = this.props;
+        const{minValue,maxValue,increasePercent,update_loopInterval} = this.props;
         this.updateProgressTotal(increasePercent);
         this.updateCurrentlyValue(minValue,maxValue);
+        update_loopInterval(this.state.currentlyValue);
         return (
             <div className="progressbar" style={{width: maximumTotal}}>
                 <div className="filler" style={{width: this.state.progressTotal}}/>
