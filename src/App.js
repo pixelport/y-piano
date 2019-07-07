@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Keyboard} from "./Keyboard";
 import {SelectOptionsBox} from "./SelectOptionsBox";
@@ -7,6 +6,7 @@ import ChordSelect from './ChordSelect';
 import Tone from 'tone';
 import Arpeggio from './Arpeggio.js';
 import MidiExport from './MidiExporter'
+import {getLinkSharedAppState, ShareButton} from './Share'
 import WebMidi from 'webmidi'
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
@@ -29,8 +29,24 @@ class App extends Component {
       isPlaying: false,
       currentKey: "",
       arpeggio: ""
-
     };
+    
+    // get shared state via ?share= parameter if avaliable
+    let sharedAppState = {};
+    try {
+      sharedAppState = getLinkSharedAppState();
+    }
+    catch(e){
+      alert('Fehler: ' + e);
+    }
+    this.state = {
+      ...this.state,
+      ...sharedAppState,
+    };
+    if(Object.keys(sharedAppState).length > 0){
+      // remove share parameter from url
+      window.history.replaceState({}, document.title, "/");
+    }
     
     //create a 4 voice Synth and connect it to the master output (your speakers)
     this.polySynth  = new Tone.PolySynth(4, Tone.Synth).toMaster();
@@ -168,6 +184,7 @@ class App extends Component {
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
+          <ShareButton appState={this.state}/>
           <br/>
           <ChordSelect
             chordIndex={chordIndex} 
