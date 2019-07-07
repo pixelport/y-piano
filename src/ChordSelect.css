@@ -61,4 +61,6 @@
     font-size: 25px;
 }
 
-
+.chordButton.selected{
+    background: #bbbec1 !important;
+}

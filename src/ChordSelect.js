@@ -99,14 +99,20 @@ class ChordSelect extends React.Component{
         return(
             <div>
 
-                <div className="selectWindow" id="selectWindow" style={{display: isModalOpen ? "block" : "none"}}>
+                <div className="selectWindow" id="selectWindow" hidden={!isModalOpen}>
                     <button className="X" onClick={this.clickX}>
                         X
                     </button>
                     <p id="pChord">Chord: {editedChord*1+1}</p>
                     <div>
                       {AllChords.map(chord => {
-                        return (<button className="chordButton" key={chord.name} onClick={this.clickChordButton.bind(this, chord.chord)}>{chord.name}</button>)                       
+                        const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
+                        return (<button 
+                                  className={"chordButton" + (isChordSelected ? " selected" : "")}
+                                  key={chord.name}
+                                  onClick={this.clickChordButton.bind(this, chord.chord)}
+                                  
+                                  >{chord.name}</button>)                       
                       })}
                     </div>
                 </div>
