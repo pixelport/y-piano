@@ -8,7 +8,7 @@ const blackKeysFlatNotation = ["Db", "Eb", null, "Gb", "Ab", "Bb"];
 
 const keyboardInput = ["1", "2", "3", "4", "5", "6", "7","8","9","q","w","e","r","t","z","u","i","o","p","a","s","d","f","g"];
 
-export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys}) => {
+export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys, octaveOffset}) => {
 
   const onMouseOver = (e, note) => {
     if(e.nativeEvent.buttons === 1)
@@ -28,7 +28,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys})
   const keys = [];
   for(let i = 0; i < 14; i++){
     const key = i % 7;
-    const octave = 4 + Math.floor(i / 7);
+    const octave = octaveOffset + Math.floor(i / 7);
     
     // white key
     const onWhiteKey = (e) => onMouseOver(e, whiteKeys[key] + octave);
@@ -42,6 +42,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys})
     notes.push(whiteKeys[key] + octave);
     
     // black key
+    // indexes 2 and 6 don't have black keys
     if(key !== 2 && key !== 6) {
       const onBlackKey = (e) => onMouseOver(e, blackKeysFlatNotation[key] + octave);
       const blackNoteFlat = blackKeysFlatNotation[key] + octave;

@@ -1,0 +1,11 @@
+.octave-label{
+    padding: 0px 20px;
+    display: inline-block;
+}
+.octave-selector{
+    margin-bottom: 10px;
+    text-align: left;
+}
+.octave-selector .uk-disabled{
+    opacity: 0.4;
+}
