@@ -16,8 +16,6 @@ export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys, 
       console.log(note);
     return false;
   };
-
-  console.log("highlightedKeys", highlightedKeys);
   
   const isKeyHighlighted = (note) => {
     return (highlightedChord && highlightedChord.find(hc => hc === note)) 

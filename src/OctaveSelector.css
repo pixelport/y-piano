@@ -9,3 +9,8 @@
 .octave-selector .uk-disabled{
     opacity: 0.4;
 }
+.small-arrow-btn{
+    line-height: 22px;
+    padding: 0 15px;
+    font-size: 0.85rem;
+}
