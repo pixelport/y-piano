@@ -8,6 +8,7 @@ import Arpeggio from './Arpeggio.js';
 import MidiExport from './MidiExporter'
 import {getLinkSharedAppState, ShareButton} from './Share'
 import WebMidi from 'webmidi'
+import {loadFromLocalStorage, saveToLocalStorage} from "./LocalStorageHelper";
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
@@ -47,6 +48,13 @@ class App extends Component {
       // remove share parameter from url
       window.history.replaceState({}, document.title, "/");
     }
+    else{
+      // no data from share link available, try to load from local storage
+      this.state = {
+        ...this.state,
+        ...loadFromLocalStorage(),
+      }
+    }
     
     //create a 4 voice Synth and connect it to the master output (your speakers)
     this.polySynth  = new Tone.PolySynth(4, Tone.Synth).toMaster();
@@ -83,7 +91,6 @@ class App extends Component {
         );
       }
     });
-    
   }
 
   componentDidMount(){
@@ -101,13 +108,15 @@ class App extends Component {
   setSelectedChords = (newSelectedChords) => {
     this.setState({
       selectedChords: newSelectedChords
-    })
+    });
+    saveToLocalStorage(this.state);
   };
 
   setArpeggio = (newArpeggio) => {
     this.setState({
       arpeggio: newArpeggio
-    })
+    });
+    saveToLocalStorage(this.state);
   };
 
   onPlayPauseClick = () => {
