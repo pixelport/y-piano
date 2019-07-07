@@ -18,26 +18,30 @@ var F = ["F4", "A4", "C5"];
         this.clickButton = this.clickButton.bind(this);
 
         this.state = {
-            editedChord: 0
+            editedChord: 0,
+            isModalOpen: false,
         }
     }
 
     componentDidMount() {
     }
 
-    clickX(){
-        document.getElementById("selectWindow").style.display = "none";
-    }
+    clickX = () =>{
+       this.setState({
+         isModalOpen: false
+       });
+    };
 
     getRandomNumberBetween(min, max){
         return Math.floor(Math.random() * (+max - +min)) + +min;
     }
 
     clickButton(buttonNumber){
-        this.state.editedChord = buttonNumber;
         console.log("Button Number: " + buttonNumber );
-        document.getElementById("pChord").innerHTML = "Chord: " + (buttonNumber*1+1);
-        document.getElementById("selectWindow").style.display = "";
+        this.setState({
+          isModalOpen: true,
+          editedChord: buttonNumber
+        })
     }
     /*
     arraytoString(arr){
@@ -48,7 +52,7 @@ var F = ["F4", "A4", "C5"];
         return str;
     }*/
 
-    clickChordButton(chord){
+    clickChordButton = (chord) => {
         //Play chord
         this.props.playChord(chord);
         //Set chord
@@ -56,7 +60,7 @@ var F = ["F4", "A4", "C5"];
         newChords[this.state.editedChord] = chord;
         this.props.setSelectedChords(newChords);
         console.log("Chord " + this.state.editedChord + " changed to " + chord);
-    }
+    };
 
     onRandomClick = () =>{
 
@@ -73,15 +77,15 @@ var F = ["F4", "A4", "C5"];
     
     render() {
         const { isPlaying, chordIndex, selectedChords } = this.props;
-
+        const { isModalOpen, editedChord } = this.state;
         return(
             <div>
 
-                <div className="selectWindow" id="selectWindow" style={{display : "none"}}>
+                <div className="selectWindow" id="selectWindow" style={{display: isModalOpen ? "block" : "none"}}>
                     <button className="X" onClick={this.clickX}>
                         X
                     </button>
-                    <p id="pChord"></p>
+                    <p id="pChord">Chord: {editedChord*1+1}</p>
                     <div>
                         <button className="chordButton" onClick={this.clickChordButton.bind(this, C)}>C</button>
                         <button className="chordButton" onClick={this.clickChordButton.bind(this, G)}>G</button>
