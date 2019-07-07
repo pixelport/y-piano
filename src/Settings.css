@@ -1,0 +1,23 @@
+.SettingsWindow{
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 600px;
+    z-index: 4;
+    text-align: left;
+    background: #232534;
+    border-radius: 10px;
+    border: 5px solid #000000;
+}
+
+.settings-btn{
+    position: fixed;
+    right: 0px;
+    margin-top: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}

@@ -9,6 +9,8 @@ import {getLinkSharedAppState, ShareButton} from './Share'
 import WebMidi from 'webmidi'
 import {loadFromLocalStorage, saveToLocalStorage} from "./LocalStorageHelper";
 import {C, G, Am, F, ChordSelect} from "./ChordSelect";
+import {Settings} from "./Settings";
+import {OctaveSelector} from "./OctaveSelector";
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
@@ -27,9 +29,11 @@ class App extends Component {
         F,
       ],
       highlightedChord: null,
+      highlightedKeys: [],
       isPlaying: false,
       currentKey: "",
-      arpeggio: ""
+      arpeggio: "",
+      octaveOffset: 4,
     };
     
     // get shared state via ?share= parameter if avaliable
@@ -73,24 +77,6 @@ class App extends Component {
 
     Tone.context.lookAhead = 0;
     
-    WebMidi.enable(err => {
-      if (err) {
-        console.log("WebMidi could not be enabled.", err);
-        return;
-      } else {
-        console.log("WebMidi enabled!");
-      }
-
-      if(WebMidi.inputs.length !== 0) {
-        let input = WebMidi.inputs[0];
-        input.addListener('noteon', "all",
-          (e) => {
-            console.log("Received 'noteon' message (" + e.note.name + e.note.octave + ").");
-            this.playNote(e.note.name + e.note.octave);
-          }
-        );
-      }
-    });
   }
 
   componentDidMount(){
@@ -118,6 +104,18 @@ class App extends Component {
       arpeggio: newArpeggio
     });
     saveToLocalStorage(this.state);
+  };
+  
+  addHighlightedNote = (note) => {
+    this.setState(prevState => ({
+      highlightedKeys: prevState.highlightedKeys.concat(note)
+    }));
+  };
+  
+  removeHighlightedNote = (note) => {
+    this.setState(prevState => ({
+      highlightedKeys: prevState.highlightedKeys.filter(n => n !== note)
+    }));
   };
 
   onPlayPauseClick = () => {
@@ -154,11 +152,17 @@ class App extends Component {
       case "":
         this.playChordSameTime(chord);
         break;
+      case "sameTime":
+        this.playChordSameTime(chord);
+        break;
       case "sameTime4C":
         this.playChordSameTime4C(chord);
         break;
       case "successivly":
         this.playChordSuccessivly(chord);
+        break;
+      default:
+        console.warn("arpeggio is not supported: " + this.state.arpeggio);
         break;
     }
   };
@@ -179,15 +183,32 @@ class App extends Component {
   playChordSameTime = (chord) => {
     this.polySynth.triggerAttackRelease(chord, '8n');
   };
-
+  
+  setOctaveOffset = (newOctaveOffset) => {
+    if(newOctaveOffset < 0)
+      return;
+    this.setState({
+      octaveOffset: newOctaveOffset
+    });
+  };
   
   render() {
-    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset } = this.state;
     return (
       <div className="App">
         <header className="App-header">
-          <p>Test</p>
-          <Keyboard highlightedChord={highlightedChord} playNote={this.playNote} keyInput={currentKey}/>
+          
+          <div className="outer-keyboard-ctn">
+            <Settings playNote={this.playNote} polySynth={this.polySynth} addHighlightedNote={this.addHighlightedNote} removeHighlightedNote={this.removeHighlightedNote}/>
+            <p className="app-title">Y-Piano</p>
+            <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
+            <Keyboard 
+              highlightedChord={highlightedChord} 
+              highlightedKeys={highlightedKeys} 
+              playNote={this.playNote} 
+              keyInput={currentKey} 
+              octaveOffset={octaveOffset}/>
+          </div>
           <br/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br/>
