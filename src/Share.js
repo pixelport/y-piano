@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export class ShareButton extends React.Component {
   state = {
     generatedShareLink: "a",  
@@ -30,13 +29,16 @@ export class ShareButton extends React.Component {
 
       <div className="uk-margin">
         <div className="uk-inline">
-          <button className="uk-button uk-button-primary" type="button" onClick={this.onShareClick}>Share</button>
+          <button className="uk-button uk-button-primary" type="button" onClick={this.onShareClick}>
+            {/*<i className="fas fa-link"></i>*/}Share
+          </button>
           <div uk-dropdown="mode: click; pos: right-center; offset: 15;">
             <ul className="uk-nav uk-dropdown-nav">
               <li className="uk-active"><a href={generatedShareLink} target="_blank">Your Link</a></li>
               <li><input 
                     type="text" 
                     className="uk-input uk-form-width-medium uk-disabled"  
+                    readOnly
                     value={generatedShareLink}
                     style={{pointerEvents: 'all'}}
                     onMouseUp={this.onLinkInputClick}
@@ -66,6 +68,6 @@ export const getLinkSharedAppState = () => {
     return JSON.parse(atob(shareParam));
   }
   catch(e){
-    throw "Dein Share Link ist nicht korrekt.";
+    throw new Error("Dein Share Link ist nicht korrekt.");
   }
 };
