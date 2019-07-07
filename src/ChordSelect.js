@@ -2,21 +2,25 @@ import React from 'react';
 import './ChordSelect.css';
 
 
-
-// we are sticking to major chords for now
+// major chords
 // http://www.piano-keyboard-guide.com/major-chords.html
-let C = ["C4", "E4", "G4"];
-let CSharp = ["C#4", "F4", "G#4"];
-let D = ["D4", "F#4", "A4"];
-let Eb = ["Eb4", "G4", "Bb4"];
-let E = ["E4", "G#4", "B4"];
-let F = ["F4", "A4", "C5"];
-let FSharp = ["F#4", "A#4", "C#5"];
-let G = ["G4", "B4", "D5"];
-let Ab = ["Ab4", "C5", "Eb5"];
-let A = ["A4", "C#5", "E5"];
-let Bb =["Bb4", "D5", "F5"];
-let B = ["B4", "D#5", "F#5"];
+export let C = ["C4", "E4", "G4"];
+export let CSharp = ["C#4", "F4", "G#4"];
+export let D = ["D4", "F#4", "A4"];
+export let Eb = ["Eb4", "G4", "Bb4"];
+export let E = ["E4", "G#4", "B4"];
+export let F = ["F4", "A4", "C5"];
+export let FSharp = ["F#4", "A#4", "C#5"];
+export let G = ["G4", "B4", "D5"];
+export let Ab = ["Ab4", "C5", "Eb5"];
+export let A = ["A4", "C#5", "E5"];
+export let Bb =["Bb4", "D5", "F5"];
+export let B = ["B4", "D#5", "F#5"];
+
+// minor chords
+// TODO: add more minor chords 
+// http://www.piano-keyboard-guide.com/minor-chords.html
+export let Am = ["A4", "C5", "E5"];
 
 const AllChords = [
   {chord: C, name: "C"},
@@ -31,9 +35,10 @@ const AllChords = [
   {chord: A, name: "A"},
   {chord: Bb, name: "Bb"},
   {chord: B, name: "B"},
+  {chord: Am, name: "Am"},
 ];
 
-class ChordSelect extends React.Component{
+export class ChordSelect extends React.Component{
 
     constructor(props){
         super(props);
@@ -85,17 +90,18 @@ class ChordSelect extends React.Component{
     };
 
     onRandomClick = () =>{
-        for(var i = 0; i < 4; i++){
-            let chord = AllChords[this.getRandomNumberBetween(0, AllChords.length)].chord;
-            let newChords = this.props.selectedChords;
-            newChords[i] = chord;
-            this.props.setSelectedChords(newChords);
-        }
+      let newChords = [];
+      for(var i = 0; i < 4; i++){
+        let chord = AllChords[this.getRandomNumberBetween(0, AllChords.length)].chord;
+        newChords.push(chord);
+      }
+      this.props.setSelectedChords(newChords);
     };
     
     render() {
         const { isPlaying, chordIndex, selectedChords } = this.props;
         const { isModalOpen, editedChord } = this.state;
+        console.log("selectedChords", selectedChords);
         return(
             <div>
 
@@ -108,7 +114,7 @@ class ChordSelect extends React.Component{
                       {AllChords.map(chord => {
                         const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
                         return (<button 
-                                  className={"chordButton" + (isChordSelected ? " selected" : "")}
+                                  className={"chordButton uk-button uk-button-default" + (isChordSelected ? " selected" : "")}
                                   key={chord.name}
                                   onClick={this.clickChordButton.bind(this, chord.chord)}
                                   
@@ -119,8 +125,19 @@ class ChordSelect extends React.Component{
 
                 <div className="selectField">
                     {selectedChords.map(((chord, i) => {
-                        return (<button key={i} className={"selectButton" + (i === chordIndex ? " highlight" : "")} onClick={this.clickButton.bind(this, i)}>
-                            {chord[0]}
+                        let className = "selectButton uk-button uk-button-default" + (i === chordIndex ? " highlight" : "");
+                        if(isModalOpen && editedChord !== i){
+                          className += " not-edited";
+                        }
+                        let chordName = "";
+                        let foundChord = AllChords.find(c => c.chord.join() === chord.join());
+                        if(!foundChord)
+                          console.warn("Warning: could not find chord name for chord:", chord);
+                        else
+                          chordName = foundChord.name;
+                        
+                        return (<button key={i} className={className} onClick={this.clickButton.bind(this, i)}>
+                            {chordName}
                         </button>)
                     }))}
                 </div>
@@ -132,5 +149,3 @@ class ChordSelect extends React.Component{
         )
     }
 }
-
-export default ChordSelect;

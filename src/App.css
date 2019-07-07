@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+
+/* change some ui kit defaults */
+
+.uk-button{
+  text-transform: initial !important;
+}
+.uk-button-default:focus, .uk-button-default:hover{
+  background: #ececec !important;
+}

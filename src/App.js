@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import {Keyboard} from "./Keyboard";
 import {SelectOptionsBox} from "./SelectOptionsBox";
-import ChordSelect from './ChordSelect';
 import Tone from 'tone';
 import Arpeggio from './Arpeggio.js';
 import MidiExport from './MidiExporter'
 import {getLinkSharedAppState, ShareButton} from './Share'
 import WebMidi from 'webmidi'
 import {loadFromLocalStorage, saveToLocalStorage} from "./LocalStorageHelper";
+import {C, G, Am, F, ChordSelect} from "./ChordSelect";
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
@@ -21,10 +21,10 @@ class App extends Component {
       chordIndex: -1,
       selectedChords: [
         // very often used chords (in the key of C): C, G, Am, F
-        ["C4", "E4", "G4"],
-        ["G4", "B4", "D5"],
-        ["A4", "C5", "E5"],
-        ["F4", "A4", "C5"]
+        C,
+        G,
+        Am,
+        F,
       ],
       highlightedChord: null,
       isPlaying: false,
@@ -106,6 +106,7 @@ class App extends Component {
   };
 
   setSelectedChords = (newSelectedChords) => {
+    console.log("setSelectedChords", newSelectedChords);
     this.setState({
       selectedChords: newSelectedChords
     });
@@ -193,6 +194,7 @@ class App extends Component {
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
+          <br/>
           <ShareButton appState={this.state}/>
           <br/>
           <ChordSelect
@@ -201,8 +203,7 @@ class App extends Component {
             setSelectedChords={this.setSelectedChords}
             playChord={this.playChord}/>
 
-            <Arpeggio
-            setArpeggio={this.setArpeggio}/>
+          <Arpeggio setArpeggio={this.setArpeggio}/>
         </header>
       </div>
     );
