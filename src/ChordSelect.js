@@ -3,15 +3,37 @@ import './ChordSelect.css';
 
 
 
+// we are sticking to major chords for now
+// http://www.piano-keyboard-guide.com/major-chords.html
+let C = ["C4", "E4", "G4"];
+let CSharp = ["C#4", "F4", "G#4"];
+let D = ["D4", "F#4", "A4"];
+let Eb = ["Eb4", "G4", "Bb4"];
+let E = ["E4", "G#4", "B4"];
+let F = ["F4", "A4", "C5"];
+let FSharp = ["F#4", "A#4", "C#5"];
+let G = ["G4", "B4", "D5"];
+let Ab = ["Ab4", "C5", "Eb5"];
+let A = ["A4", "C#5", "E5"];
+let Bb =["Bb4", "D5", "F5"];
+let B = ["B4", "D#5", "F#5"];
 
-var C = ["C4", "E4", "G4"];
-var G = ["G4", "B4", "D5"];
-var Am =["A4", "C5", "E5"];
-var F = ["F4", "A4", "C5"];
+const AllChords = [
+  {chord: C, name: "C"},
+  {chord: CSharp, name: "C#"},
+  {chord: D, name: "D"},
+  {chord: Eb, name: "Eb"},
+  {chord: E, name: "E"},
+  {chord: F, name: "F"},
+  {chord: FSharp, name: "F#"},
+  {chord: G, name: "G"},
+  {chord: Ab, name: "Ab"},
+  {chord: A, name: "A"},
+  {chord: Bb, name: "Bb"},
+  {chord: B, name: "B"},
+];
 
-
-
-    class ChordSelect extends React.Component{
+class ChordSelect extends React.Component{
 
     constructor(props){
         super(props);
@@ -63,14 +85,10 @@ var F = ["F4", "A4", "C5"];
     };
 
     onRandomClick = () =>{
-
-        let AllChords = [C,G,Am,F];
-
-        for(var i = 0; i<4; i++){
-            let chord =  AllChords[this.getRandomNumberBetween(0,4)];
-            this.state.editedChord = i;
+        for(var i = 0; i < 4; i++){
+            let chord = AllChords[this.getRandomNumberBetween(0, AllChords.length)].chord;
             let newChords = this.props.selectedChords;
-            newChords[this.state.editedChord] = chord;
+            newChords[i] = chord;
             this.props.setSelectedChords(newChords);
         }
     };
@@ -87,16 +105,15 @@ var F = ["F4", "A4", "C5"];
                     </button>
                     <p id="pChord">Chord: {editedChord*1+1}</p>
                     <div>
-                        <button className="chordButton" onClick={this.clickChordButton.bind(this, C)}>C</button>
-                        <button className="chordButton" onClick={this.clickChordButton.bind(this, G)}>G</button>
-                        <button className="chordButton" onClick={this.clickChordButton.bind(this, Am)}>Am</button>
-                        <button className="chordButton" onClick={this.clickChordButton.bind(this, F)}>F</button>
+                      {AllChords.map(chord => {
+                        return (<button className="chordButton" key={chord.name} onClick={this.clickChordButton.bind(this, chord.chord)}>{chord.name}</button>)                       
+                      })}
                     </div>
                 </div>
 
                 <div className="selectField">
                     {selectedChords.map(((chord, i) => {
-                        return (<button className={"selectButton" + (i === chordIndex ? " highlight" : "")} onClick={this.clickButton.bind(this, i)}>
+                        return (<button key={i} className={"selectButton" + (i === chordIndex ? " highlight" : "")} onClick={this.clickButton.bind(this, i)}>
                             {chord[0]}
                         </button>)
                     }))}
