@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Keyboard} from "./Keyboard";
 import {SelectOptionsBox} from "./SelectOptionsBox";
-import ChordSelect from './ChordSelect';
 import Tone from 'tone';
+import Arpeggio from './Arpeggio.js';
+import MidiExport from './MidiExporter'
+import {getLinkSharedAppState, ShareButton} from './Share'
+import WebMidi from 'webmidi'
+import {loadFromLocalStorage, saveToLocalStorage} from "./LocalStorageHelper";
+import {C, G, Am, F, ChordSelect} from "./ChordSelect";
+import {Settings} from "./Settings";
+import {OctaveSelector} from "./OctaveSelector";
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 
@@ -17,16 +23,42 @@ class App extends Component {
       chordIndex: -1,
       selectedChords: [
         // very often used chords (in the key of C): C, G, Am, F
-        ["C4", "E4", "G4"],
-        ["G4", "B4", "D5"],
-        ["A4", "C5", "E5"],
-        ["F4", "A4", "C5"]
+        C,
+        G,
+        Am,
+        F,
       ],
       highlightedChord: null,
+      highlightedKeys: [],
       isPlaying: false,
-      currentKey: ""
-
+      currentKey: "",
+      arpeggio: "",
+      octaveOffset: 4,
     };
+    
+    // get shared state via ?share= parameter if avaliable
+    let sharedAppState = {};
+    try {
+      sharedAppState = getLinkSharedAppState();
+    }
+    catch(e){
+      alert('Fehler: ' + e);
+    }
+    this.state = {
+      ...this.state,
+      ...sharedAppState,
+    };
+    if(Object.keys(sharedAppState).length > 0){
+      // remove share parameter from url
+      window.history.replaceState({}, document.title, "/");
+    }
+    else{
+      // no data from share link available, try to load from local storage
+      this.state = {
+        ...this.state,
+        ...loadFromLocalStorage(),
+      }
+    }
     
     //create a 4 voice Synth and connect it to the master output (your speakers)
     this.polySynth  = new Tone.PolySynth(4, Tone.Synth).toMaster();
@@ -39,9 +71,12 @@ class App extends Component {
         highlightedChord: chordToPlay,
         chordIndex: chordIndex,
       }));
-      this.polySynth.triggerAttackRelease(chordToPlay, "8n");
+      this.playChord(chordToPlay);
+      //this.polySynth.triggerAttackRelease(chordToPlay, "8n");
     }.bind(this), "3n");
 
+    Tone.context.lookAhead = 0;
+    
   }
 
   componentDidMount(){
@@ -63,9 +98,30 @@ class App extends Component {
   };
 
   setSelectedChords = (newSelectedChords) => {
+    console.log("setSelectedChords", newSelectedChords);
     this.setState({
       selectedChords: newSelectedChords
-    })
+    });
+    saveToLocalStorage(this.state);
+  };
+
+  setArpeggio = (newArpeggio) => {
+    this.setState({
+      arpeggio: newArpeggio
+    });
+    saveToLocalStorage(this.state);
+  };
+  
+  addHighlightedNote = (note) => {
+    this.setState(prevState => ({
+      highlightedKeys: prevState.highlightedKeys.concat(note)
+    }));
+  };
+  
+  removeHighlightedNote = (note) => {
+    this.setState(prevState => ({
+      highlightedKeys: prevState.highlightedKeys.filter(n => n !== note)
+    }));
   };
 
   onPlayPauseClick = () => {
@@ -91,21 +147,82 @@ class App extends Component {
     this.polySynth.triggerAttackRelease(note, '8n')
   };
 
+  onMidiExport = () => {
+    MidiExport.export(this.state.selectedChords, this.state.arpeggio);
+  }
+  
   playChord = (chord) => {
-    this.polySynth.triggerAttackRelease(chord, '8n')
+    console.log("ARPEGGIO" + this.state.arpeggio);
+
+    switch (this.state.arpeggio) {
+      case "":
+        this.playChordSameTime(chord);
+        break;
+      case "sameTime":
+        this.playChordSameTime(chord);
+        break;
+      case "sameTime4C":
+        this.playChordSameTime4C(chord);
+        break;
+      case "successivly":
+        this.playChordSuccessivly(chord);
+        break;
+      default:
+        console.warn("arpeggio is not supported: " + this.state.arpeggio);
+        break;
+    }
+  };
+
+  playChordSuccessivly = (chord) => {
+    this.polySynth.triggerAttackRelease(chord[0], '8n', '+0');
+    this.polySynth.triggerAttackRelease(chord[1], '8n', '+0.333');
+    this.polySynth.triggerAttackRelease(chord[2], '8n', '+0.666');
+  };
+
+  playChordSameTime4C = (chord) => {
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0');
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0.25');
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0.5');
+    this.polySynth.triggerAttackRelease(chord, '8n', '+0.75');
+  };
+
+  playChordSameTime = (chord) => {
+    this.polySynth.triggerAttackRelease(chord, '8n');
+  };
+  
+  setOctaveOffset = (newOctaveOffset) => {
+    if(newOctaveOffset < 0)
+      return;
+    this.setState({
+      octaveOffset: newOctaveOffset
+    });
   };
   
   render() {
-    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset } = this.state;
     return (
       <div className="App">
         <header className="App-header">
-          <p>Test</p>
-          <Keyboard highlightedChord={highlightedChord} playNote={this.playNote} keyInput={currentKey}/>
+          
+          <div className="outer-keyboard-ctn">
+            <Settings playNote={this.playNote} polySynth={this.polySynth} addHighlightedNote={this.addHighlightedNote} removeHighlightedNote={this.removeHighlightedNote}/>
+            <p className="app-title">Y-Piano</p>
+            <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
+            <Keyboard 
+              highlightedChord={highlightedChord} 
+              highlightedKeys={highlightedKeys} 
+              playNote={this.playNote} 
+              keyInput={currentKey} 
+              octaveOffset={octaveOffset}/>
+          </div>
           <br/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+          <br/>
+          <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
+          <br/>
+          <ShareButton appState={this.state}/>
           <br/>
           <ChordSelect
             chordIndex={chordIndex} 
@@ -113,6 +230,7 @@ class App extends Component {
             setSelectedChords={this.setSelectedChords}
             playChord={this.playChord}/>
 
+          <Arpeggio setArpeggio={this.setArpeggio}/>
         </header>
       </div>
     );

@@ -3,11 +3,12 @@ import './Keyboard.css';
 
 const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
-const blackKeys = ["C#", "Eb", null, "F#", "G#", "Bb"];
+const blackKeysSharpNotation = ["C#", "D#", null, "F#", "G#", "A#"];
+const blackKeysFlatNotation = ["Db", "Eb", null, "Gb", "Ab", "Bb"];
 
 const keyboardInput = ["1", "2", "3", "4", "5", "6", "7","8","9","q","w","e","r","t","z","u","i","o","p","a","s","d","f","g"];
 
-export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
+export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys, octaveOffset}) => {
 
   const onMouseOver = (e, note) => {
     if(e.nativeEvent.buttons === 1)
@@ -15,35 +16,43 @@ export const Keyboard= ({playNote, keyInput, highlightedChord}) => {
       console.log(note);
     return false;
   };
-
+  
+  const isKeyHighlighted = (note) => {
+    return (highlightedChord && highlightedChord.find(hc => hc === note)) 
+      || (highlightedKeys && highlightedKeys.find(hk => hk === note))
+  };
+  
   const notes=[];
   const keys = [];
   for(let i = 0; i < 14; i++){
     const key = i % 7;
-    const octave = 4 + Math.floor(i / 7);
+    const octave = octaveOffset + Math.floor(i / 7);
     
     // white key
     const onWhiteKey = (e) => onMouseOver(e, whiteKeys[key] + octave);
     const whiteNote = whiteKeys[key] + octave;
     keys.push(<div 
                 key={i}
-                className={"piano-key " + ((highlightedChord && highlightedChord.find(hc => hc === whiteNote)) ? " highlighted" : "")}
+                className={"piano-key " + (isKeyHighlighted(whiteNote) ? " highlighted" : "")}
                 onMouseDown={onWhiteKey} 
                 onMouseOver={onWhiteKey}/>);
 
     notes.push(whiteKeys[key] + octave);
     
     // black key
+    // indexes 2 and 6 don't have black keys
     if(key !== 2 && key !== 6) {
-      const onBlackKey = (e) => onMouseOver(e, blackKeys[key] + octave);
-      const blackNote = blackKeys[key] + octave;
+      const onBlackKey = (e) => onMouseOver(e, blackKeysFlatNotation[key] + octave);
+      const blackNoteFlat = blackKeysFlatNotation[key] + octave;
+      const blackNoteSharp = blackKeysSharpNotation[key] + octave;
+      const isBlackKeyHighlighted = isKeyHighlighted(blackNoteFlat) || isKeyHighlighted(blackNoteSharp);
       keys.push(<div key={i + 'b'}
-                     className={"piano-key key-black" + ((highlightedChord && highlightedChord.find(hc => hc === blackNote)) ? " highlighted" : "")}
+                     className={"piano-key key-black" + (isBlackKeyHighlighted ? " highlighted" : "")}
                      onMouseDown={onBlackKey} 
                      onMouseOver={onBlackKey}
       />);
 
-      notes.push(blackKeys[key] + octave);
+      notes.push(blackKeysFlatNotation[key] + octave);
     }
 
   }
