@@ -19,7 +19,7 @@ const maxBPM_progress = 200;
 const increase_percent = 1;
 
 class App extends Component {
-  
+
   constructor (){
     super();
 
@@ -40,7 +40,7 @@ class App extends Component {
       arpeggio: "",
       octaveOffset: 4,
     };
-    
+
     // get shared state via ?share= parameter if avaliable
     let sharedAppState = {};
     try {
@@ -64,7 +64,7 @@ class App extends Component {
         ...loadFromLocalStorage(),
       }
     }
-    
+
     //create a 4 voice Synth and connect it to the master output (your speakers)
     this.polySynth  = new Tone.PolySynth(4, Tone.Synth).toMaster();
 
@@ -81,7 +81,7 @@ class App extends Component {
     }.bind(this), "3n");
 
     Tone.context.lookAhead = 0;
-    
+
   }
 
   componentDidMount(){
@@ -118,13 +118,13 @@ class App extends Component {
     });
     saveToLocalStorage(this.state);
   };
-  
+
   addHighlightedNote = (note) => {
     this.setState(prevState => ({
       highlightedKeys: prevState.highlightedKeys.concat(note)
     }));
   };
-  
+
   removeHighlightedNote = (note) => {
     this.setState(prevState => ({
       highlightedKeys: prevState.highlightedKeys.filter(n => n !== note)
@@ -148,7 +148,7 @@ class App extends Component {
       }
     })
   };
-  
+
   playNote = (note) => {
     //play the note for the duration of an 8th note
     this.polySynth.triggerAttackRelease(note, '8n')
@@ -168,7 +168,7 @@ class App extends Component {
       this.setState({increaseBPM: event.deltaY<0? increase_percent:-increase_percent})
       this.setState({increaseBPM: 0})
   };
-  
+
   playChord = (chord) => {
     console.log("ARPEGGIO" + this.state.arpeggio);
 
@@ -207,7 +207,7 @@ class App extends Component {
   playChordSameTime = (chord) => {
     this.polySynth.triggerAttackRelease(chord, '8n');
   };
-  
+
   setOctaveOffset = (newOctaveOffset) => {
     if(newOctaveOffset < 0)
       return;
@@ -215,22 +215,22 @@ class App extends Component {
       octaveOffset: newOctaveOffset
     });
   };
-  
+
   render() {
     const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, increaseBPM } = this.state;
     return (
       <div className="App">
         <header className="App-header">
-          
+
           <div className="outer-keyboard-ctn">
             <Settings playNote={this.playNote} polySynth={this.polySynth} addHighlightedNote={this.addHighlightedNote} removeHighlightedNote={this.removeHighlightedNote}/>
             <p className="app-title">Y-Piano</p>
             <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
-            <Keyboard 
-              highlightedChord={highlightedChord} 
-              highlightedKeys={highlightedKeys} 
-              playNote={this.playNote} 
-              keyInput={currentKey} 
+            <Keyboard
+              highlightedChord={highlightedChord}
+              highlightedKeys={highlightedKeys}
+              playNote={this.playNote}
+              keyInput={currentKey}
               octaveOffset={octaveOffset}/>
           </div>
           <br/>
@@ -238,15 +238,25 @@ class App extends Component {
           <br/>
           <Progressbar minValue={minBPM_progress} maxValue={maxBPM_progress} increasePercent={increaseBPM} update_loopInterval={this.update_loopInterval}/>
           <br/>
-          <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+          <div className="control-3">
+            <button className="play-pause" onClick={this.onPlayPauseClick}>
+              <span className="button">
+                <i className="fa fa-play" aria-hidden="true"></i>
+                <i className="fa fa-pause" aria-hidden="true"></i>
+                {/* TODO: Bild herunterladen und lokal verlinken
+                auch in ChordSelect.js und Progressbar.js verlinken*/}
+                <img src="https://s5.postimg.cc/l9u1vi9lz/texture.jpg" alt="" />
+              </span>
+            </button>
+          </div>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
           <br/>
           <ShareButton appState={this.state}/>
           <br/>
           <ChordSelect
-            chordIndex={chordIndex} 
-            selectedChords={selectedChords} 
+            chordIndex={chordIndex}
+            selectedChords={selectedChords}
             setSelectedChords={this.setSelectedChords}
             playChord={this.playChord}/>
 

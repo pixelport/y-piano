@@ -18,7 +18,7 @@ export let Bb =["Bb4", "D5", "F5"];
 export let B = ["B4", "D#5", "F#5"];
 
 // minor chords
-// TODO: add more minor chords 
+// TODO: add more minor chords
 // http://www.piano-keyboard-guide.com/minor-chords.html
 export let Am = ["A4", "C5", "E5"];
 
@@ -97,54 +97,77 @@ export class ChordSelect extends React.Component{
       }
       this.props.setSelectedChords(newChords);
     };
-    
+
     render() {
         const { isPlaying, chordIndex, selectedChords } = this.props;
         const { isModalOpen, editedChord } = this.state;
         console.log("selectedChords", selectedChords);
         return(
-            <div>
+          <div className="control-2">
+            <span className="eq eq-1">
+              <span className="eq-level">
+                <img src="https://s5.postimg.cc/l9u1vi9lz/texture.jpg" alt="" />
+              </span>
+              <span className="text-1"></span>
+              <span className="text-2">C4</span>
+            </span>
+            <span className="eq eq-2">
+              <span className="eq-level">
+                <img src="https://s5.postimg.cc/l9u1vi9lz/texture.jpg" alt="" />
+              </span>
+              <span className="text-1">Accord</span>
+              <span className="text-2">G4</span>
+            </span>
+            <span className="eq eq-3">
+              <span className="eq-level">
+                <img src="https://s5.postimg.cc/l9u1vi9lz/texture.jpg" alt="" />
+              </span>
+              <span className="text-2">F4</span>
+            </span>
+          </div>
 
-                <div className="selectWindow" id="selectWindow" hidden={!isModalOpen}>
-                    <button className="X" onClick={this.clickX}>
-                        X
-                    </button>
-                    <p id="pChord">Chord: {editedChord*1+1}</p>
-                    <div>
-                      {AllChords.map(chord => {
-                        const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
-                        return (<button 
-                                  className={"chordButton uk-button uk-button-default" + (isChordSelected ? " selected" : "")}
-                                  key={chord.name}
-                                  onClick={this.clickChordButton.bind(this, chord.chord)}
-                                  
-                                  >{chord.name}</button>)                       
-                      })}
-                    </div>
-                </div>
+            // <div>
 
-                <div className="selectField">
-                    {selectedChords.map(((chord, i) => {
-                        let className = "selectButton uk-button uk-button-default" + (i === chordIndex ? " highlight" : "");
-                        if(isModalOpen && editedChord !== i){
-                          className += " not-edited";
-                        }
-                        let chordName = "";
-                        let foundChord = AllChords.find(c => c.chord.join() === chord.join());
-                        if(!foundChord)
-                          console.warn("Warning: could not find chord name for chord:", chord);
-                        else
-                          chordName = foundChord.name;
-                        
-                        return (<button key={i} className={className} onClick={this.clickButton.bind(this, i)}>
-                            {chordName}
-                        </button>)
-                    }))}
-                </div>
+            //     <div className="selectWindow" id="selectWindow" hidden={!isModalOpen}>
+            //         <button className="X" onClick={this.clickX}>
+            //             X
+            //         </button>
+            //         <p id="pChord">Chord: {editedChord*1+1}</p>
+            //         <div>
+            //           {AllChords.map(chord => {
+            //             const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
+            //             return (<button
+            //                       className={"chordButton uk-button uk-button-default" + (isChordSelected ? " selected" : "")}
+            //                       key={chord.name}
+            //                       onClick={this.clickChordButton.bind(this, chord.chord)}
 
-                <button className="uk-button uk-button-primary" onClick={this.onRandomClick}>{"Generate Chords"}</button>
+            //                       >{chord.name}</button>)
+            //           })}
+            //         </div>
+            //     </div>
 
-            </div>
+            //     <div className="selectField">
+            //         {selectedChords.map(((chord, i) => {
+            //             let className = "selectButton uk-button uk-button-default" + (i === chordIndex ? " highlight" : "");
+            //             if(isModalOpen && editedChord !== i){
+            //               className += " not-edited";
+            //             }
+            //             let chordName = "";
+            //             let foundChord = AllChords.find(c => c.chord.join() === chord.join());
+            //             if(!foundChord)
+            //               console.warn("Warning: could not find chord name for chord:", chord);
+            //             else
+            //               chordName = foundChord.name;
+
+            //             return (<button key={i} className={className} onClick={this.clickButton.bind(this, i)}>
+            //                 {chordName}
+            //             </button>)
+            //         }))}
+            //     </div>
+
+            //     <button className="uk-button uk-button-primary" onClick={this.onRandomClick}>{"Generate Chords"}</button>
+
+            // </div>
 
         )
     }

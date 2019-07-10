@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import './Progressbar.css'
+import './Progressbar.scss'
 import Tone from "tone";
 
 const maximumTotal = 200;
@@ -11,7 +11,7 @@ export class Progressbar extends React.Component {
         super(props);
         this.state = {
             progressTotal: 0,
-            currentlyValue: 0
+            currentValue: 0
         }
     }
 
@@ -34,22 +34,43 @@ export class Progressbar extends React.Component {
         //console.log(this.state.progressTotal);
     }
 
-    updateCurrentlyValue(minValue,maxValue){
+    updateCurrentValue(minValue,maxValue){
         let range=maxValue-minValue;
         let progressValue= ((this.state.progressTotal/maximumTotal)*range)+minValue;
-        this.state.currentlyValue=Math.round(progressValue);
+        // this.state.currentValue=Math.round(progressValue);
         //console.log(progressValue);
+    }
+
+    handleChange(event) {
+        this.setState({ currentValue: event.target.value });
+        console.log(this.state.currentValue, event.target.value);
+    }
+
+    get knobValue() {
+        const limit = 120;
+
+        return this.state.currentValue * 2.4 - limit;
     }
 
     render() {
         const{minValue,maxValue,increasePercent,update_loopInterval} = this.props;
         this.updateProgressTotal(increasePercent);
-        this.updateCurrentlyValue(minValue,maxValue);
-        update_loopInterval(this.state.currentlyValue);
+        this.updateCurrentValue(minValue,maxValue);
+        update_loopInterval(this.state.currentValue);
         return (
-            <div className="progressbar" style={{width: maximumTotal}}>
-                <div className="filler" style={{width: this.state.progressTotal}}/>
-                <label>{this.state.currentlyValue+" BPM"}</label>
+            <div className="control-1"  style={{'--value': this.knobValue+'deg'}}>
+              <input type="range" className="knob-input" onChange={this.handleChange.bind(this)}
+                  min="0" max="100" step="1" />
+              <span className="vol-level" />
+              <div className="volume-control">
+                <span className="panel">
+                  <img src="https://s5.postimg.cc/l9u1vi9lz/texture.jpg" alt="" />
+                </span>
+                <span className="knob">
+                  <span className="knob-indicator"></span>
+                  <img src="https://s5.postimg.cc/l9u1vi9lz/texture.jpg" alt="" />
+                </span>
+              </div>
             </div>
         )
     }

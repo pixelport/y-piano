@@ -67,3 +67,226 @@
 .chordButton.selected{
     background: #bbbec1 !important;
 }
+
+
+
+div.control-2
+{
+  /* Anpassen für Ausrichtung */
+  margin-top: 70px;
+  margin-left: 0;
+
+  /* don't touch */
+  position: relative;
+}
+
+div.control-2 span.eq
+{
+  position: relative;
+  width: 40px;
+  height: 200px;
+  display: inline-block;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.05);
+  margin-right: 45px;
+  box-shadow: inset 0 0 65px rgba(0,0,0,0.4),
+              inset 0 10px 15px rgba(0,0,0,0.3),
+              inset 0 -10px 15px rgba(0,0,0,0.3),
+              0 0 5px rgba(0,0,0,0.7);
+}
+
+div.control-2 span.eq:before,
+div.control-2 span.eq:after
+{
+  position: absolute;
+  content: '';
+  width: 10px;
+  display: inline-block;
+
+  top: 50%;
+  margin-top: -80px;
+  left: 50%;
+  margin-left: -5px;
+  border-radius: 100px;
+}
+
+div.control-2 span.eq:before
+{
+  z-index: 8;
+  height: 160px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.7),
+              inset 0 7px 10px -2px rgba(0,0,0,0.5),
+              inset 0 -7px 10px -2px rgba(0,0,0,0.5);
+}
+
+div.control-2 span.eq:after
+{
+  z-index: 9;
+  height: 160px;
+  background: #05d4f4;
+
+  box-shadow: inset 0 0 25px rgba(255,255,255,0.5),
+              0 0 10px #05d4f4;
+}
+
+span.eq span.eq-level
+{
+  position: absolute;
+  width: 50px;
+  height: 75px;
+  display: inline-block;
+  background: #373542;
+  left: 0;
+  margin-left: -5px;
+  margin-top: 0px;
+  border-radius: 100px;
+  overflow: hidden;
+  z-index: 10;
+
+  box-shadow: inset 0 5px 5px -3px rgba(255,255,255,0.4),
+              inset 0 -8px 8px -3px rgba(0,0,0,0.4),
+              inset 0 0 55px rgba(0,0,0,0.6),
+              -7px 0 5px -4px rgba(0,0,0,0.4),
+              7px 0 5px -4px rgba(0,0,0,0.4),
+              0 10px 5px -4px rgba(0,0,0,0.7),
+              0 -8px 7px -4px rgba(0,0,0,0.7);
+}
+
+span.eq span.eq-level:before,
+span.eq span.eq-level:after
+{
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 2px;
+  display: inline-block;
+}
+
+span.eq span.eq-level:before
+{
+  top: 50%;
+  margin-top: -2px;
+  background: rgba(0,0,0,0.4);
+}
+
+span.eq span.eq-level:after
+{
+  top: 50%;
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 1px 3px rgba(255,255,255,0.01);
+}
+
+span.eq span.eq-level img
+{
+  position: absolute;
+  opacity: 0.2;
+}
+
+div.control-2 span.eq-1:after
+{
+  height: 50px;
+  margin-top: 30px;
+}
+
+div.control-2 span.eq-1 span.eq-level
+{
+  margin-top: 80px;
+}
+
+div.control-2 span.eq-2:after
+{
+  height: 0px;
+  margin-top: 0px;
+}
+
+div.control-2 span.eq-2 span.eq-level
+{
+  margin-top: 125px;
+}
+
+div.control-2 span.eq-3:after
+{
+  height: 120px;
+  margin-top: -40px;
+}
+
+div.control-2 span.eq-3 span.eq-level
+{
+  margin-top: 35px;
+}
+
+div.control-2 span.text-1
+{
+  position: absolute;
+  width: 100%;
+  display: inline-block;
+  top: 0;
+  margin-top: -25px;
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0,0,0,1);
+}
+
+div.control-2 span.text-2
+{
+  position: absolute;
+  width: 100%;
+  display: inline-block;
+  bottom: 0;
+  margin-bottom: -25px;
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0,0,0,1);
+}
+
+div.control-2:before
+{
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 1px;
+  display: inline-block;
+  background: rgba(0,0,0,0.8);
+  left: 0;
+  margin-left: -40px;
+  margin-top: 10px;
+
+  box-shadow: 0 1px 1px rgba(255,255,255,0.15),
+              0 60px 0 rgba(0,0,0,0.8),
+              0 61px 1px rgba(255,255,255,0.15),
+              0 120px 0 rgba(0,0,0,0.8),
+              0 121px 1px rgba(255,255,255,0.15),
+              0 180px 0 rgba(0,0,0,0.8),
+              0 181px 1px rgba(255,255,255,0.15),
+              100px 0px 0 rgba(0,0,0,0.8),
+              100px 1px 1px rgba(255,255,255,0.15),
+              100px 60px 0 rgba(0,0,0,0.8),
+              100px 61px 1px rgba(255,255,255,0.15),
+              100px 120px 0 rgba(0,0,0,0.8),
+              100px 121px 1px rgba(255,255,255,0.15),
+              100px 180px 0 rgba(0,0,0,0.8),
+              100px 181px 1px rgba(255,255,255,0.15),
+              190px 0px 0 rgba(0,0,0,0.8),
+              190px 1px 1px rgba(255,255,255,0.15),
+              190px 60px 0 rgba(0,0,0,0.8),
+              190px 61px 1px rgba(255,255,255,0.15),
+              190px 120px 0 rgba(0,0,0,0.8),
+              190px 121px 1px rgba(255,255,255,0.15),
+              190px 180px 0 rgba(0,0,0,0.8),
+              190px 181px 1px rgba(255,255,255,0.15),
+              280px 0px 0 rgba(0,0,0,0.8),
+              280px 1px 1px rgba(255,255,255,0.15),
+              280px 60px 0 rgba(0,0,0,0.8),
+              280px 61px 1px rgba(255,255,255,0.15),
+              280px 120px 0 rgba(0,0,0,0.8),
+              280px 121px 1px rgba(255,255,255,0.15),
+              280px 180px 0 rgba(0,0,0,0.8),
+              280px 181px 1px rgba(255,255,255,0.15);
+}
+
