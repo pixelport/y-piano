@@ -11,8 +11,12 @@ import {loadFromLocalStorage, saveToLocalStorage} from "./LocalStorageHelper";
 import {C, G, Am, F, ChordSelect} from "./ChordSelect";
 import {Settings} from "./Settings";
 import {OctaveSelector} from "./OctaveSelector";
+import {Progressbar} from "./Progressbar";
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
+const minBPM_progress = 20;
+const maxBPM_progress = 200;
+const increase_percent = 1;
 
 class App extends Component {
   
@@ -31,6 +35,7 @@ class App extends Component {
       highlightedChord: null,
       highlightedKeys: [],
       isPlaying: false,
+        increaseBPM: 0, bpm: minBPM_progress,
       currentKey: "",
       arpeggio: "",
       octaveOffset: 4,
@@ -82,11 +87,13 @@ class App extends Component {
   componentDidMount(){
     window.addEventListener("keydown", this.setCurrentKey);
     window.addEventListener( "keyup", this.resetCurrentKey);
+      window.addEventListener("wheel", this.handleWheelInput);
   }
 
   componentWillUnmount() {
     window.removeEventListener("keydown", this.setCurrentKey);
     window.removeEventListener("keyup", this.resetCurrentKey);
+      window.removeEventListener("wheel", this.handleWheelInput);
   }
 
   setCurrentKey = (event) =>{
@@ -149,7 +156,18 @@ class App extends Component {
 
   onMidiExport = () => {
     MidiExport.export(this.state.selectedChords, this.state.arpeggio);
-  }
+  };
+
+  update_loopInterval = (bmp) =>{
+    let interval_in_sek=1/(bmp/60);
+    console.log("neus looptempo:"+(interval_in_sek).toFixed(2));
+    this.loop.interval=(interval_in_sek).toFixed(2);
+  };
+
+  handleWheelInput = (event) =>{
+      this.setState({increaseBPM: event.deltaY<0? increase_percent:-increase_percent})
+      this.setState({increaseBPM: 0})
+  };
   
   playChord = (chord) => {
     console.log("ARPEGGIO" + this.state.arpeggio);
@@ -199,7 +217,7 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, increaseBPM } = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -217,6 +235,8 @@ class App extends Component {
           </div>
           <br/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
+          <br/>
+          <Progressbar minValue={minBPM_progress} maxValue={maxBPM_progress} increasePercent={increaseBPM} update_loopInterval={this.update_loopInterval}/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
           <br/>
