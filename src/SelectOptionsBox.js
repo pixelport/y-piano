@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
 /**
@@ -18,7 +17,7 @@ export class SelectOptionsBox extends React.Component {
     }
 
     render() {
-        const{optionList, theme} = this.props;
+        const {optionList, theme} = this.props;
         return (
             <div className={"optionlist-"+theme}>
                 <label>{theme.toString()}</label>

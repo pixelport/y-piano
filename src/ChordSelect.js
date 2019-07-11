@@ -99,7 +99,7 @@ export class ChordSelect extends React.Component{
     };
     
     render() {
-        const { isPlaying, chordIndex, selectedChords } = this.props;
+        const { chordIndex, selectedChords } = this.props;
         const { isModalOpen, editedChord } = this.state;
         console.log("selectedChords", selectedChords);
         return(

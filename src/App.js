@@ -6,7 +6,6 @@ import Tone from 'tone';
 import Arpeggio from './Arpeggio.js';
 import MidiExport from './MidiExporter'
 import {getLinkSharedAppState, ShareButton} from './Share'
-import WebMidi from 'webmidi'
 import {loadFromLocalStorage, saveToLocalStorage} from "./LocalStorageHelper";
 import {C, G, Am, F, ChordSelect} from "./ChordSelect";
 import {Settings} from "./Settings";
@@ -35,7 +34,6 @@ class App extends Component {
       highlightedChord: null,
       highlightedKeys: [],
       isPlaying: false,
-      increaseBPM: 0,
       bpm: 100,
       currentKey: "",
       arpeggio: "",
@@ -230,7 +228,7 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, increaseBPM, bpm } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm } = this.state;
     console.log("bpm", bpm);
     return (
       <div className="App">

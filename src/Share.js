@@ -34,7 +34,7 @@ export class ShareButton extends React.Component {
           </button>
           <div uk-dropdown="mode: click; pos: right-center; offset: 15;">
             <ul className="uk-nav uk-dropdown-nav">
-              <li className="uk-active"><a href={generatedShareLink} target="_blank">Your Link</a></li>
+              <li className="uk-active"><a href={generatedShareLink} target="_blank" rel="noopener noreferrer">Your Link</a></li>
               <li><input 
                     type="text" 
                     className="uk-input uk-form-width-medium uk-disabled"  
@@ -53,6 +53,7 @@ export class ShareButton extends React.Component {
 }
 
 function getUrlParameter(name) {
+  // eslint-disable-next-line
   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
   let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
   let results = regex.exec(window.location.search);
