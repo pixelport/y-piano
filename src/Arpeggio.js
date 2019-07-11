@@ -11,9 +11,8 @@ class Arpeggio extends React.Component{
     constructor(props){
         super(props);
 
-
         this.state = {
-            selectedArpeggio: sameTime,
+            selectedArpeggio: this.props.selectedArpeggio,
             showApreggioSelectWindow: false
         }
     }
@@ -27,7 +26,7 @@ class Arpeggio extends React.Component{
     };
 
     clickSelectArpeggio = (arpeggio) =>{
-        this.setState({selectedArpeggio: arpeggio});
+        this.props.setArpeggioPic(arpeggio);
 
         switch (arpeggio) {
             case sameTime:
@@ -59,7 +58,7 @@ class Arpeggio extends React.Component{
                     <img className={"arpeggioImg"} alt="sameTime4C Arpeggio" src={sameTime4C} onClick={this.clickSelectArpeggio.bind(this, sameTime4C)}/>
                     <img className={"arpeggioImg"} alt="successivly Arpeggio" src={successivly} onClick={this.clickSelectArpeggio.bind(this, successivly)}/>
                 </div>
-                <img className={"selectArpeggio"} alt="selectArpeggio" src={this.state.selectedArpeggio} onClick={this.clickArpeggioButton}/>
+                <img className={"selectArpeggio"} alt="selectArpeggio" src={this.props.selectedArpeggio} onClick={this.clickArpeggioButton}/>
 
             </div>
         )

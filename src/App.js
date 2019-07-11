@@ -4,6 +4,7 @@ import {Keyboard} from "./Keyboard";
 import {SelectOptionsBox} from "./SelectOptionsBox";
 import Tone from 'tone';
 import Arpeggio from './Arpeggio.js';
+import {RandomGenerator} from './RandomGenerator.js'
 import MidiExport from './MidiExporter'
 import {getLinkSharedAppState, ShareButton} from './Share'
 import {loadFromLocalStorage, saveToLocalStorage} from "./LocalStorageHelper";
@@ -11,11 +12,16 @@ import {C, G, Am, F, ChordSelect} from "./ChordSelect";
 import {Settings} from "./Settings";
 import {OctaveSelector} from "./OctaveSelector";
 import {Progressbar} from "./Progressbar";
+//Picures:
+import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
+import sameTime from './pic/arpeggios/gleichzeitig.png';
+import successivly from './pic/arpeggios/nachfolgend.png';
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
 const increase_percent = 1;
+
 
 class App extends Component {
 
@@ -37,6 +43,7 @@ class App extends Component {
             bpm: 100,
             currentKey: "",
             arpeggio: "",
+            selectedArpeggio: sameTime,
             octaveOffset: 4,
         };
 
@@ -172,6 +179,10 @@ class App extends Component {
         });
     };
 
+    setBPM = (bpm) =>{
+        this.setState({bpm: bpm})
+    };
+
     /*--------------------------------------- Play Note Chord ---------------------------------------*/
     playNote = (note) => {
         //play the note for the duration of an 8th note
@@ -253,7 +264,11 @@ class App extends Component {
 
 
     /*--------------------------------------- End Play Note Chord ---------------------------------------*/
-
+    /*--------------------------------------- Arpeggios ---------------------------------------*/
+    setArpeggioPic = (arpeggio) =>{
+        this.setState({selectedArpeggio: arpeggio})
+    };
+    /*--------------------------------------- End Arpeggios ---------------------------------------*/
 
     setOctaveOffset = (newOctaveOffset) => {
         if (newOctaveOffset < 0)
@@ -291,17 +306,27 @@ class App extends Component {
                     <button className="uk-button uk-button-primary"
                             onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
                     <br/>
-                    <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
+                    <RandomGenerator
+                        setSelectedChords={this.setSelectedChords}
+                        update_loopInterval={this.update_loopInterval}
+                        setBPM={this.setBPM}
+                        setArpeggioPic={this.setArpeggioPic}
+                        setArpeggio={this.setArpeggio}/>
                     <br/>
-                    <ShareButton appState={this.state}/>
+                    <Arpeggio
+                        setArpeggioPic={this.setArpeggioPic}
+                        selectedArpeggio={this.state.selectedArpeggio}
+                        setArpeggio={this.setArpeggio}/>
                     <br/>
                     <ChordSelect
                         chordIndex={chordIndex}
                         selectedChords={selectedChords}
                         setSelectedChords={this.setSelectedChords}
                         playChord={this.playChord}/>
-
-                    <Arpeggio setArpeggio={this.setArpeggio}/>
+                    <br/>
+                    <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
+                    <br/>
+                    <ShareButton appState={this.state}/>
                 </header>
             </div>
         );

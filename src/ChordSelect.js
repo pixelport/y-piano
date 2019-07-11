@@ -50,18 +50,12 @@ export class ChordSelect extends React.Component{
         }
     }
 
-    componentDidMount() {
-    }
 
     clickX = () =>{
        this.setState({
          isModalOpen: false
        });
     };
-
-    getRandomNumberBetween(min, max){
-        return Math.floor(Math.random() * (+max - +min)) + +min;
-    }
 
     clickButton(buttonNumber){
         //console.log("Button Number: " + buttonNumber );
@@ -88,15 +82,6 @@ export class ChordSelect extends React.Component{
         this.props.setSelectedChords(newChords);
         console.log("Chord " + this.state.editedChord + " changed to " + chord);
     };
-
-    onRandomClick = () =>{
-      let newChords = [];
-      for(var i = 0; i < 4; i++){
-        let chord = AllChords[this.getRandomNumberBetween(0, AllChords.length)].chord;
-        newChords.push(chord);
-      }
-      this.props.setSelectedChords(newChords);
-    };
     
     render() {
         const { chordIndex, selectedChords } = this.props;
@@ -109,17 +94,17 @@ export class ChordSelect extends React.Component{
                     <button className="X" onClick={this.clickX}>
                         X
                     </button>
-                    <p id="pChord">Chord: {editedChord*1+1}</p>
+                    <p id="pChord">Chord: {editedChord * 1 + 1}</p>
                     <div>
-                      {AllChords.map(chord => {
-                        const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
-                        return (<button 
-                                  className={"chordButton uk-button uk-button-default" + (isChordSelected ? " selected" : "")}
-                                  key={chord.name}
-                                  onClick={this.clickChordButton.bind(this, chord.chord)}
-                                  
-                                  >{chord.name}</button>)                       
-                      })}
+                        {AllChords.map(chord => {
+                            const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
+                            return (<button
+                                className={"chordButton uk-button uk-button-default" + (isChordSelected ? " selected" : "")}
+                                key={chord.name}
+                                onClick={this.clickChordButton.bind(this, chord.chord)}
+
+                            >{chord.name}</button>)
+                        })}
                     </div>
                 </div>
 
@@ -141,9 +126,6 @@ export class ChordSelect extends React.Component{
                         </button>)
                     }))}
                 </div>
-
-                <button className="uk-button uk-button-primary" onClick={this.onRandomClick}>{"Generate Chords"}</button>
-
             </div>
 
         )
