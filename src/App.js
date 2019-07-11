@@ -17,7 +17,7 @@ const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
 const increase_percent = 1;
-let current_bpm=20;
+let current_bpm = minBPM_progress;
 
 class App extends Component {
   
