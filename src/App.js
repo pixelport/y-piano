@@ -35,7 +35,7 @@ class App extends Component {
       highlightedChord: null,
       highlightedKeys: [],
       isPlaying: false,
-        increaseBPM: 0, bpm: minBPM_progress,
+      increaseBPM: 0, bpm: minBPM_progress,
       currentKey: "",
       arpeggio: "",
       octaveOffset: 4,
@@ -148,11 +148,6 @@ class App extends Component {
       }
     })
   };
-  
-  playNote = (note) => {
-    //play the note for the duration of an 8th note
-    this.polySynth.triggerAttackRelease(note, '8n')
-  };
 
   onMidiExport = () => {
     MidiExport.export(this.state.selectedChords, this.state.arpeggio);
@@ -168,7 +163,13 @@ class App extends Component {
       this.setState({increaseBPM: event.deltaY<0? increase_percent:-increase_percent})
       this.setState({increaseBPM: 0})
   };
-  
+
+  /*--------------------------------------- Play Note Chord ---------------------------------------*/
+  playNote = (note) => {
+    //play the note for the duration of an 8th note
+    this.polySynth.triggerAttackRelease(note, '8n')
+  };
+
   playChord = (chord) => {
     console.log("ARPEGGIO" + this.state.arpeggio);
 
@@ -207,7 +208,24 @@ class App extends Component {
   playChordSameTime = (chord) => {
     this.polySynth.triggerAttackRelease(chord, '8n');
   };
-  
+
+  playLength = () => {
+    let s ='';
+    console.log("60/this.state.increaseBPM : 60/" + this.state.bpm + " = " + 60/this.state.bpm);
+    let playLength = this.roundOneDigit(60/this.state.bpm);
+    s = playLength;
+    console.log("BPM: " + this.state.bpm + "   PlayLenght: " + playLength + "   s: " + s);
+    return s;
+  };
+
+  roundOneDigit = (number) =>{
+    console.log("Rounder: Math.round( number * 10 ) / 10: " + Math.round( number * 10 ) / 10)
+    return (Math.round( number * 10 ) / 10);
+  };
+
+  /*--------------------------------------- End Play Note Chord ---------------------------------------*/
+
+
   setOctaveOffset = (newOctaveOffset) => {
     if(newOctaveOffset < 0)
       return;

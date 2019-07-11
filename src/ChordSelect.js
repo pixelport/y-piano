@@ -64,7 +64,7 @@ export class ChordSelect extends React.Component{
     }
 
     clickButton(buttonNumber){
-        console.log("Button Number: " + buttonNumber );
+        //console.log("Button Number: " + buttonNumber );
         this.setState({
           isModalOpen: true,
           editedChord: buttonNumber
@@ -101,7 +101,7 @@ export class ChordSelect extends React.Component{
     render() {
         const { isPlaying, chordIndex, selectedChords } = this.props;
         const { isModalOpen, editedChord } = this.state;
-        console.log("selectedChords", selectedChords);
+        //console.log("selectedChords", selectedChords);
         return(
             <div>
 
