@@ -17,7 +17,6 @@ const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
 const increase_percent = 1;
-let current_bpm = minBPM_progress;
 
 class App extends Component {
   
@@ -36,7 +35,8 @@ class App extends Component {
       highlightedChord: null,
       highlightedKeys: [],
       isPlaying: false,
-        increaseBPM: 0, bpm: minBPM_progress,
+      increaseBPM: 0,
+      bpm: 100,
       currentKey: "",
       arpeggio: "",
       octaveOffset: 4,
@@ -88,13 +88,13 @@ class App extends Component {
   componentDidMount(){
     window.addEventListener("keydown", this.setCurrentKey);
     window.addEventListener( "keyup", this.resetCurrentKey);
-      window.addEventListener("wheel", this.handleWheelInput);
+    window.addEventListener("wheel", this.handleWheelInput);
   }
 
   componentWillUnmount() {
     window.removeEventListener("keydown", this.setCurrentKey);
     window.removeEventListener("keyup", this.resetCurrentKey);
-      window.removeEventListener("wheel", this.handleWheelInput);
+    window.removeEventListener("wheel", this.handleWheelInput);
   }
 
   setCurrentKey = (event) =>{
@@ -160,17 +160,26 @@ class App extends Component {
   };
 
   update_loopInterval = (bpm) =>{
-    //this.setState({bpm: bpm});
-    current_bpm= bpm;
-    console.log("bpmglobal:"+current_bpm);
     let interval_in_sek=1/(bpm/60);
     //console.log("neus looptempo:"+(interval_in_sek).toFixed(2));
     this.loop.interval=(interval_in_sek).toFixed(2);
   };
 
   handleWheelInput = (event) =>{
-      this.setState({increaseBPM: event.deltaY<0? increase_percent:-increase_percent})
-      this.setState({increaseBPM: 0})
+      const bpmIncrease = event.deltaY<0? increase_percent:-increase_percent;
+      this.setState(prevState => {
+        let newBpm = prevState.bpm + bpmIncrease;
+        
+        // bpm im erlaubten Bereich halten
+        if(newBpm > maxBPM_progress) 
+          newBpm = maxBPM_progress;
+        else if(newBpm < minBPM_progress)
+          newBpm = minBPM_progress;
+      
+        this.update_loopInterval(newBpm);
+        
+        return {bpm: newBpm}
+      });
   };
   
   playChord = (chord) => {
@@ -221,7 +230,8 @@ class App extends Component {
   };
   
   render() {
-    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, increaseBPM } = this.state;
+    const { isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, increaseBPM, bpm } = this.state;
+    console.log("bpm", bpm);
     return (
       <div className="App">
         <header className="App-header">
@@ -240,7 +250,7 @@ class App extends Component {
           <br/>
           <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
           <br/>
-          <Progressbar minValue={minBPM_progress} maxValue={maxBPM_progress} increasePercent={increaseBPM} update_loopInterval={this.update_loopInterval}/>
+          <Progressbar value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
           <br/>
           <button className="uk-button uk-button-primary" onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
           <br/>
