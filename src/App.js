@@ -17,6 +17,7 @@ const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
 const increase_percent = 1;
+let current_bpm=20;
 
 class App extends Component {
   
@@ -158,9 +159,12 @@ class App extends Component {
     MidiExport.export(this.state.selectedChords, this.state.arpeggio);
   };
 
-  update_loopInterval = (bmp) =>{
-    let interval_in_sek=1/(bmp/60);
-    console.log("neus looptempo:"+(interval_in_sek).toFixed(2));
+  update_loopInterval = (bpm) =>{
+    //this.setState({bpm: bpm});
+    current_bpm= bpm;
+    console.log("bpmglobal:"+current_bpm);
+    let interval_in_sek=1/(bpm/60);
+    //console.log("neus looptempo:"+(interval_in_sek).toFixed(2));
     this.loop.interval=(interval_in_sek).toFixed(2);
   };
 
