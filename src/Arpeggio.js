@@ -18,14 +18,6 @@ class Arpeggio extends React.Component{
         }
     }
 
-    selectAnOtherArpeggioClick = (apreggio) =>{
-        console.log(apreggio)
-        switch (apreggio) {
-            case "successivly":
-                this.setState({showArpeggioSucessivly: false});
-        }
-    };
-
     clickX = () =>{
         this.setState({showApreggioSelectWindow: false})
     };
@@ -47,6 +39,9 @@ class Arpeggio extends React.Component{
             case successivly:
                 this.props.setArpeggio("successivly");
                 break;
+            default:
+                console.error("Arpeggio: " + arpeggio + " is not supported");
+                break;
         }
 
         this.clickX();
@@ -54,19 +49,17 @@ class Arpeggio extends React.Component{
 
 
     render() {
-        const { } = this.props;
-
         return(
             <div>
 
                 <div className={this.state.showApreggioSelectWindow ? "apreggioSelectWindow" : "hide"}>
                     <button className="X" onClick={this.clickX}>X</button>
 
-                    <img className={"arpeggioImg"} src={sameTime} onClick={this.clickSelectArpeggio.bind(this, sameTime)}/>
-                    <img className={"arpeggioImg"} src={sameTime4C} onClick={this.clickSelectArpeggio.bind(this, sameTime4C)}/>
-                    <img className={"arpeggioImg"} src={successivly} onClick={this.clickSelectArpeggio.bind(this, successivly)}/>
+                    <img className={"arpeggioImg"} alt="sameTime Arpeggio" src={sameTime} onClick={this.clickSelectArpeggio.bind(this, sameTime)}/>
+                    <img className={"arpeggioImg"} alt="sameTime4C Arpeggio" src={sameTime4C} onClick={this.clickSelectArpeggio.bind(this, sameTime4C)}/>
+                    <img className={"arpeggioImg"} alt="successivly Arpeggio" src={successivly} onClick={this.clickSelectArpeggio.bind(this, successivly)}/>
                 </div>
-                <img className={"selectArpeggio"} src={this.state.selectedArpeggio} onClick={this.clickArpeggioButton}/>
+                <img className={"selectArpeggio"} alt="selectArpeggio" src={this.state.selectedArpeggio} onClick={this.clickArpeggioButton}/>
 
             </div>
         )

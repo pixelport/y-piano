@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Keyboard.css';
 
 const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];

@@ -14,7 +14,6 @@ export class Settings extends React.Component{
     WebMidi.enable(err => {
       if (err) {
         console.log("WebMidi could not be enabled.", err);
-        return;
       } else {
         console.log("WebMidi enabled!");
       }
@@ -94,7 +93,7 @@ export class Settings extends React.Component{
               </select>
             </div>
           </div>
-          <a className="uk-button uk-button-primary" onClick={this.useInputDevice}>Use Input device</a>
+          <a className="uk-button uk-button-primary" href="#/" onClick={this.useInputDevice}>Use Input device</a>
         </div>
       </div>)
   }
