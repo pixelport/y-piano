@@ -298,6 +298,7 @@ class App extends Component {
                             highlightedKeys={highlightedKeys}
                             playNote={this.playNote}
                             keyInput={currentKey}
+                            keyAssignment={true}
                             octaveOffset={octaveOffset}/>
                     </div>
                     <br/>

@@ -6,79 +6,84 @@ const whiteKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 const blackKeysSharpNotation = ["C#", "D#", null, "F#", "G#", "A#"];
 const blackKeysFlatNotation = ["Db", "Eb", null, "Gb", "Ab", "Bb"];
 
-const keyboardInput = ["1", "2", "3", "4", "5", "6", "7","8","9","q","w","e","r","t","z","u","i","o","p","a","s","d","f","g"];
+const keyboardInput_white = ["q", "w", "e", "r", "t", "z","u","i","o","p","ü","a","s","d"];
+const keyboardInput_black = ["Q","W",null,"R","T","Z",null,"I","O",null,"Ü","A","S",null];
 
-export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys, octaveOffset}) => {
+export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, highlightedKeys, octaveOffset}) => {
 
-  const onMouseOver = (e, note) => {
-    if(e.nativeEvent.buttons === 1)
-      playNote(note);
-      console.log(note);
-    return false;
-  };
-  
-  const isKeyHighlighted = (note) => {
-    return (highlightedChord && highlightedChord.find(hc => hc === note)) 
+    const onMouseOver = (e, note) => {
+        if(e.nativeEvent.buttons === 1)
+            playNote(note);
+        console.log(note);
+        return false;
+    };
+
+    const keyInput_map= new Map();
+
+    const isKeyHighlighted = (note) => {
+        return (highlightedChord && highlightedChord.find(hc => hc === note)) 
       || (highlightedKeys && highlightedKeys.find(hk => hk === note))
-  };
-  
-  const notes=[];
-  const keys = [];
-  for(let i = 0; i < 14; i++){
-    const key = i % 7;
-    const octave = octaveOffset + Math.floor(i / 7);
-    
-    // white key
-    const onWhiteKey = (e) => onMouseOver(e, whiteKeys[key] + octave);
-    const whiteNote = whiteKeys[key] + octave;
-    keys.push(<div 
-                key={i}
-                className={"piano-key " + (isKeyHighlighted(whiteNote) ? " highlighted" : "")}
-                onMouseDown={onWhiteKey} 
-                onMouseOver={onWhiteKey}/>);
+        || keyInput_map.get(keyInput)===note
+    };
 
-    notes.push(whiteKeys[key] + octave);
-    
-    // black key
-    // indexes 2 and 6 don't have black keys
-    if(key !== 2 && key !== 6) {
-      const onBlackKey = (e) => onMouseOver(e, blackKeysFlatNotation[key] + octave);
-      const blackNoteFlat = blackKeysFlatNotation[key] + octave;
-      const blackNoteSharp = blackKeysSharpNotation[key] + octave;
-      const isBlackKeyHighlighted = isKeyHighlighted(blackNoteFlat) || isKeyHighlighted(blackNoteSharp);
-      keys.push(<div key={i + 'b'}
-                     className={"piano-key key-black" + (isBlackKeyHighlighted ? " highlighted" : "")}
-                     onMouseDown={onBlackKey} 
-                     onMouseOver={onBlackKey}
-      />);
+    const show_keyAssignment = (key_assignment) => {
+        return keyAssignment? key_assignment:"";
+    };
 
-      notes.push(blackKeysFlatNotation[key] + octave);
+
+    const keys = [];
+    for(let i = 0; i < 14; i++){
+        const key = i % 7;
+        const octave = octaveOffset + Math.floor(i / 7);
+
+        // white key
+        const onWhiteKey = (e) => onMouseOver(e, whiteKeys[key] + octave);
+        const whiteNote = whiteKeys[key] + octave;
+
+        keyInput_map.set(keyboardInput_white[i],whiteNote);
+
+        keys.push(<div 
+            key={i}
+            className={"piano-key " + (isKeyHighlighted(whiteNote) ? " highlighted" : "")}
+            onMouseDown={onWhiteKey} 
+            onMouseOver={onWhiteKey}
+        >{(keyInput_map.get(keyInput)===whiteNote) ? keyInput_map.get(keyInput) : show_keyAssignment(keyboardInput_white[i])}</div>);
+
+        // black key
+        // indexes 2 and 6 don't have black keys
+        if(key !== 2 && key !== 6) {
+            const onBlackKey = (e) => onMouseOver(e, blackKeysFlatNotation[key] + octave);
+
+            keyInput_map.set(keyboardInput_black[i],blackKeysFlatNotation[key] + octave);
+
+            const blackNoteFlat = blackKeysFlatNotation[key] + octave;
+            const blackNoteSharp = blackKeysSharpNotation[key] + octave;
+            const isBlackKeyHighlighted = isKeyHighlighted(blackNoteFlat) || isKeyHighlighted(blackNoteSharp);
+            keys.push(<div key={i + 'b'}
+                className={"piano-key key-black" + (isBlackKeyHighlighted ? " highlighted" : "")}
+                onMouseDown={onBlackKey} 
+                onMouseOver={onBlackKey}
+            >{(keyInput_map.get(keyInput)===blackKeysFlatNotation[key] + octave) ? keyInput_map.get(keyInput) : show_keyAssignment(keyboardInput_black[i])}</div>);
+
+        }
+
     }
 
-  }
+    const onKeyInputChange = (keyInput) => {
+        if(keyInput_map.has(keyInput)){
+            playNote(keyInput_map.get(keyInput));
+            console.log("taste:"+keyInput);
+            console.log("note:"+keyInput_map.get(keyInput));
+        }else{
+            console.log("zeichen nicht vorhanden");
+        }
+    };
 
-  const onKeyInputChange = (keyInput) => {
-    let map = new Map();
-    let index=0;
-    keyboardInput.forEach(value =>{
-      map.set(value,notes[index]);  //Zuweisung von keyBoardInput->Note in map
-      index++;
-    });
+    onKeyInputChange(keyInput);
 
-    if(map.has(keyInput)){
-      playNote(map.get(keyInput));
-      //console.log("taste:"+keyInput);
-      //console.log("note:"+map.get(keyInput));
-    }else{
-      //console.log("zeichen nicht vorhanden");
-    }
-  };
-
-  onKeyInputChange(keyInput);
-
-  return (
-    <div className="piano">
-      {keys}
-    </div>
-  )
+    return (
+        <div className="piano">
+            {keys}
+        </div>
+    )
 };
