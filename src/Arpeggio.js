@@ -13,7 +13,10 @@ class Arpeggio extends React.Component{
 
         this.state = {
             selectedArpeggio: this.props.selectedArpeggio,
-            showApreggioSelectWindow: false
+            showApreggioSelectWindow: false,
+            sameTimeBackColor: "#ffffff",
+            sameTime4CBackColor: "#ffffff",
+            successivlyBackColor: "#ffffff"
         }
     }
 
@@ -54,10 +57,11 @@ class Arpeggio extends React.Component{
                 <div className={this.state.showApreggioSelectWindow ? "apreggioSelectWindow" : "hide"}>
                     <button className="X" onClick={this.clickX}>X</button>
 
-                    <img className={"arpeggioImg"} alt="sameTime Arpeggio" src={sameTime} onClick={this.clickSelectArpeggio.bind(this, sameTime)}/>
-                    <img className={"arpeggioImg"} alt="sameTime4C Arpeggio" src={sameTime4C} onClick={this.clickSelectArpeggio.bind(this, sameTime4C)}/>
-                    <img className={"arpeggioImg"} alt="successivly Arpeggio" src={successivly} onClick={this.clickSelectArpeggio.bind(this, successivly)}/>
+                    <img className={this.props.selectedArpeggio === sameTime ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="sameTime Arpeggio" src={sameTime} onClick={this.clickSelectArpeggio.bind(this, sameTime)}/>
+                    <img className={this.props.selectedArpeggio === sameTime4C ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="sameTime4C Arpeggio" src={sameTime4C} onClick={this.clickSelectArpeggio.bind(this, sameTime4C)}/>
+                    <img className={this.props.selectedArpeggio === successivly ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="successivly Arpeggio" src={successivly} onClick={this.clickSelectArpeggio.bind(this, successivly)}/>
                 </div>
+                <div>Arpeggio</div>
                 <img className={"selectArpeggio"} alt="selectArpeggio" src={this.props.selectedArpeggio} onClick={this.clickArpeggioButton}/>
 
             </div>
