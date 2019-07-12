@@ -16,6 +16,8 @@ import {Progressbar} from "./Progressbar";
 import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
 import sameTime from './pic/arpeggios/gleichzeitig.png';
 import successivly from './pic/arpeggios/nachfolgend.png';
+//import Texture from "./pic/other/texture.jpg"
+import {Durms} from "./Drums.js";
 
 const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 const minBPM_progress = 20;
@@ -305,6 +307,9 @@ class App extends Component {
                     <br/>
                     <button className="uk-button uk-button-primary"
                             onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+                    <br/>
+                    <button className="p-button p-button-disabled" onClick={() => Tone.Transport.start()}>ON</button>
+                    <button className="p-button" onClick={() => Tone.Transport.stop()}>OFF</button>
                     <br/>
                     <RandomGenerator
                         setSelectedChords={this.setSelectedChords}
