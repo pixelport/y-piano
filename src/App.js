@@ -311,17 +311,18 @@ class App extends Component {
                     <button className="p-button p-button-disabled" onClick={() => Tone.Transport.start()}>ON</button>
                     <button className="p-button" onClick={() => Tone.Transport.stop()}>OFF</button>
                     <br/>
-                    <RandomGenerator
-                        setSelectedChords={this.setSelectedChords}
-                        update_loopInterval={this.update_loopInterval}
-                        setBPM={this.setBPM}
-                        setArpeggioPic={this.setArpeggioPic}
-                        setArpeggio={this.setArpeggio}/>
-                    <br/>
-                    <Arpeggio
-                        setArpeggioPic={this.setArpeggioPic}
-                        selectedArpeggio={this.state.selectedArpeggio}
-                        setArpeggio={this.setArpeggio}/>
+                    <div className={"siteBySite"}>
+                        <RandomGenerator
+                            setSelectedChords={this.setSelectedChords}
+                            update_loopInterval={this.update_loopInterval}
+                            setBPM={this.setBPM}
+                            setArpeggioPic={this.setArpeggioPic}
+                            setArpeggio={this.setArpeggio}/>
+                        <Arpeggio
+                            setArpeggioPic={this.setArpeggioPic}
+                            selectedArpeggio={this.state.selectedArpeggio}
+                            setArpeggio={this.setArpeggio}/>
+                    </div>
                     <br/>
                     <ChordSelect
                         chordIndex={chordIndex}
@@ -329,9 +330,10 @@ class App extends Component {
                         setSelectedChords={this.setSelectedChords}
                         playChord={this.playChord}/>
                     <br/>
-                    <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
-                    <br/>
-                    <ShareButton appState={this.state}/>
+                    <div className={"siteBySite"}>
+                        <button className="uk-button uk-button-primary buttonHeight buttonMargin" onClick={this.onMidiExport}>Midi Export</button>
+                        <ShareButton appState={this.state}/>
+                    </div>
                 </header>
             </div>
         );

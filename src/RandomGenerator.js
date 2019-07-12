@@ -4,6 +4,8 @@ import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
 import sameTime from './pic/arpeggios/gleichzeitig.png';
 import successivly from './pic/arpeggios/nachfolgend.png';
 
+import './RandomGenerator.css';
+
 //Chords
 const AllChords = [
     {chord: C, name: "C"},
@@ -94,8 +96,9 @@ export class RandomGenerator extends React.Component{
 
     render() {
         return(
-            <div>
-                <button className="uk-button uk-button-primary" onClick={this.onRandomClick}>{"Generate Chords"}</button>
+            <div className={"cen"}>
+                <div> Random Music </div>
+                <button className="uk-button uk-button-primary but" onClick={this.onRandomClick}>{"Try It"}</button>
             </div>
         )
     }

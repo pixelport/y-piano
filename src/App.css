@@ -51,3 +51,18 @@
 .uk-form-label{
   color: white;
 }
+
+.siteBySite{
+
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 50px;
+}
+
+.buttonHeight{
+  height: 40px;
+}
+
+.buttonMargin{
+  margin: 8px;
+}

@@ -42,12 +42,53 @@
     color: #ffffff;
     font-size: 20px;
 }
-.arpeggioImg{
+.arpeggioImgSelected{
+    width: 50%;
+    height: 15%;
+    object-fit:scale-down;
     display: block;
     position: relative;
     border-radius: 5px;
-    left: 20%;
+    left: 10%;
     border: 1px solid #000000;
+    background: #999999;
     margin: 10%;
+}
+
+.arpeggioImgNotSelected{
+    width: 50%;
+    height: 15%;
+    object-fit:scale-down;
+    display: block;
+    position: relative;
+    border-radius: 5px;
+    left: 10%;
+    border: 1px solid #000000;
     background: #ffffff;
+    margin: 10%;
+}
+
+.arpeggioImg{
+    width: 50%;
+    height: 15%;
+    object-fit:scale-down;
+    display: block;
+    position: relative;
+    border-radius: 5px;
+    left: 10%;
+    border: 1px solid #000000;
+    background: #ffffff;
+    margin: 10%;
+}
+
+.selectArpeggio{
+    width: 150px;
+    height: 40px;
+    object-fit:scale-down;
+    display: block;
+    position: relative;
+    left: 0px;
+
+    margin: 3%;
+    background: #1E88F0;
 }
