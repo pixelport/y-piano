@@ -301,17 +301,13 @@ class App extends Component {
                             octaveOffset={octaveOffset}/>
                     </div>
                     <br/>
-                    <SelectOptionsBox optionList={instrumentOptions} theme="instruments"/>
-                    <br/>
-                    <Progressbar value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
-                    <br/>
                     <button className="uk-button uk-button-primary"
                             onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
                     <br/>
                     <button className="p-button p-button-disabled" onClick={() => Tone.Transport.start()}>ON</button>
                     <button className="p-button" onClick={() => Tone.Transport.stop()}>OFF</button>
                     <br/>
-                    <div className={"siteBySite"}>
+                    <div className={"siteBySite smallBrBot"}>
                         <RandomGenerator
                             setSelectedChords={this.setSelectedChords}
                             update_loopInterval={this.update_loopInterval}
@@ -323,12 +319,14 @@ class App extends Component {
                             selectedArpeggio={this.state.selectedArpeggio}
                             setArpeggio={this.setArpeggio}/>
                     </div>
-                    <br/>
                     <ChordSelect
                         chordIndex={chordIndex}
                         selectedChords={selectedChords}
                         setSelectedChords={this.setSelectedChords}
                         playChord={this.playChord}/>
+                    <div className={"smallBrTop"}>
+                        <Progressbar value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
+                    </div>
                     <br/>
                     <div className={"siteBySite"}>
                         <button className="uk-button uk-button-primary buttonHeight buttonMargin" onClick={this.onMidiExport}>Midi Export</button>
