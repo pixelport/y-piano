@@ -46,6 +46,7 @@ class App extends Component {
             currentKey: "",
             arpeggio: "",
             selectedArpeggio: sameTime,
+            keyassignment: false,
             octaveOffset: 4,
         };
 
@@ -101,6 +102,10 @@ class App extends Component {
         window.removeEventListener("keyup", this.resetCurrentKey);
         window.removeEventListener("wheel", this.handleWheelInput);
     }
+
+    setKeyassignment = (bool) => {
+        this.setState({keyassignment: bool})
+    };
 
     setCurrentKey = (event) => {
         this.setState({currentKey: event.key})
@@ -290,7 +295,8 @@ class App extends Component {
                     <div className="outer-keyboard-ctn">
                         <Settings playNote={this.playNote} polySynth={this.polySynth}
                                   addHighlightedNote={this.addHighlightedNote}
-                                  removeHighlightedNote={this.removeHighlightedNote}/>
+                                  removeHighlightedNote={this.removeHighlightedNote}
+                                  keyassignment_toggle={this.setKeyassignment}/>
                         <p className="app-title">Y-Piano</p>
                         <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
                         <Keyboard
@@ -298,7 +304,7 @@ class App extends Component {
                             highlightedKeys={highlightedKeys}
                             playNote={this.playNote}
                             keyInput={currentKey}
-                            keyAssignment={true}
+                            keyAssignment={this.state.keyassignment}
                             octaveOffset={octaveOffset}/>
                     </div>
                     <br/>
