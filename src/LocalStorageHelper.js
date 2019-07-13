@@ -2,7 +2,8 @@ module.exports = {
   saveToLocalStorage: (appState) => {
     let stateToSave = {
       arpeggio: appState.arpeggio,
-      selectedChords: appState.selectedChords
+      selectedChords: appState.selectedChords,
+      bpm: appState.bpm
     };
     localStorage.setItem('appState', JSON.stringify(stateToSave));
   },
