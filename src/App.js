@@ -43,7 +43,7 @@ class App extends Component {
             highlightedKeys: [],
             isPlaying: false,
             bpm: 100,
-            currentKey: "",
+            currentKey: "", // als map für multiclickvisualisierung
             arpeggio: "",
             selectedArpeggio: sameTime,
             keyassignment: false,

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Settings.css';
 import WebMidi from "webmidi";
-import Switch from "react-switch";
+import Switch from "react-switch";  //npm install react-switch
 
 export class Settings extends React.Component{
   
