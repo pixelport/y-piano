@@ -11,7 +11,7 @@ export class Progressbar extends React.Component {
     render() {
         const {maxValue, value} = this.props;
         return (
-            <div className="progressbar">
+            <div className="progressbar smallerText">
               <input type="range" min="1" max={maxValue} value={value} onChange={this.onInputChange} className="uk-range slider" />
               <label>{value + " BPM"}</label>
             </div>

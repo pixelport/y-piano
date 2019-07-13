@@ -338,14 +338,12 @@ class App extends Component {
                     <br/>
                     <button className="uk-button uk-button-primary"
                             onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
-                    <br/>
-                      <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                      <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText">
                         <label><input className="uk-checkbox" type="checkbox" onChange={this.onKitChange} checked={isKickEnabled}/> Kit</label>
                         <label><input className="uk-checkbox" type="checkbox" onChange={this.onSnareChange} checked={isSnareEnabled}/> Snare</label>
                         <label><input className="uk-checkbox" type="checkbox" onChange={this.onHHChange} checked={isHHEnabled}/> Hi-Hat</label>
-                      </div>  
-                    <br/>
-                    <div className={"siteBySite smallBrBot"}>
+                      </div>
+                    <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
                         <RandomGenerator
                             setSelectedChords={this.setSelectedChords}
                             update_loopInterval={this.update_loopInterval}
@@ -366,7 +364,7 @@ class App extends Component {
                         <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
                     </div>
                     <br/>
-                    <div className={"siteBySite"}>
+                    <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
                         <button className="uk-button uk-button-primary buttonHeight buttonMargin" onClick={this.onMidiExport}>Midi Export</button>
                         <ShareButton appState={this.state}/>
                     </div>
