@@ -18,25 +18,23 @@ export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, hi
         return false;
     };
 
-    const keyInput_map= new Map();
-
     const isKeyHighlighted = (note) => {
         return (highlightedChord && highlightedChord.find(hc => hc === note))
       || (highlightedKeys && highlightedKeys.find(hk => hk === note))
-        || hasKeyInputMapNote(note)
+        || hasKeyInputMap_Note_ForKeyInput(note)
     };
 
     const show_keyAssignment = (key_assignment) => {
         return keyAssignment? key_assignment:"";
     };
 
-    const hasKeyInputMapNote = (note) => {
+    const keyInput_map= new Map();
+    const hasKeyInputMap_Note_ForKeyInput = (note) => {
         let decision=false;
         keyInput.forEach(key =>
         {
             if(keyInput_map.has(key) && keyInput_map.get(key)===note){
                 decision=true;
-                playNote(note);
            }
         });
         return decision
@@ -59,7 +57,7 @@ export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, hi
             className={"piano-key " + (isKeyHighlighted(whiteNote) ? " highlighted" : "")}
             onMouseDown={onWhiteKey}
             onMouseOver={onWhiteKey}
-        >{(keyInput_map.get(keyInput)===whiteNote) ? keyInput_map.get(keyInput) : show_keyAssignment(keyboardInput_white[i])}</div>);
+        >{(hasKeyInputMap_Note_ForKeyInput(whiteNote)) ? whiteNote : show_keyAssignment(keyboardInput_white[i])}</div>);
 
         // black key
         // indexes 2 and 6 don't have black keys
@@ -75,11 +73,16 @@ export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, hi
                 className={"piano-key key-black" + (isBlackKeyHighlighted ? " highlighted" : "")}
                 onMouseDown={onBlackKey}
                 onMouseOver={onBlackKey}
-            >{(keyInput_map.get(keyInput)===blackKeysFlatNotation[key] + octave) ? keyInput_map.get(keyInput) : show_keyAssignment(keyboardInput_black[i])}</div>);
+            >{(hasKeyInputMap_Note_ForKeyInput(blackNoteFlat)) ? blackNoteFlat : show_keyAssignment(keyboardInput_black[i])}</div>);
 
     }
-
   }
+
+    keyInput.forEach(key => {
+        playNote(keyInput_map.get(key))
+        console.log(key)
+    });
+
     return (
         <div className="piano">
             {keys}

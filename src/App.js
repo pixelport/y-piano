@@ -121,7 +121,7 @@ class App extends Component {
     };
 
     setCurrentKey = (event) => {
-        this.resetCurrentKey(event);
+       // this.resetCurrentKey(event);
         this.setState(prevState => ({
             currentKey: prevState.currentKey.concat(event.key)
         }));
@@ -333,7 +333,8 @@ class App extends Component {
                             playNote={this.playNote}
                             keyInput={currentKey}
                             keyAssignment={this.state.keyassignment}
-                            octaveOffset={octaveOffset}/>
+                            octaveOffset={octaveOffset}
+                            resetCurrentKey={this.resetCurrentKey}/>
                     </div>
                     <br/>
                     <button className="uk-button uk-button-primary"

@@ -106,7 +106,7 @@ export class Settings extends React.Component{
           <div>
             <br/>
             <label htmlFor="material-switch">
-              <h0 className="setting-titel1" >key assignment</h0>
+              <span className="setting-titel1" >key assignment</span>
               <Switch
                   checked={this.state.checked}
                   onChange={this.handleChange}
