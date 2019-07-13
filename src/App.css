@@ -64,7 +64,7 @@
 }
 
 .buttonMargin{
-  margin: 8px;
+  margin-top: 4px;
 }
 
 .smallBrTop{
@@ -72,4 +72,8 @@
 }
 .smallBrBot{
   margin-bottom: 15px;
+}
+
+.smallerText{
+  font-size: 25px;
 }
