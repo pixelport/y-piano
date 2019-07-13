@@ -40,9 +40,10 @@ class App extends Component {
             highlightedKeys: [],
             isPlaying: false,
             bpm: 100,
-            currentKey: "",
+            currentKey: [],
             arpeggio: "",
             selectedArpeggio: sameTime,
+            keyassignment: false,
             octaveOffset: 4,
             // drums
             isKickEnabled: false,
@@ -115,12 +116,21 @@ class App extends Component {
         window.removeEventListener("wheel", this.handleWheelInput);
     }
 
-    setCurrentKey = (event) => {
-        this.setState({currentKey: event.key})
+    setKeyassignment = (bool) => {
+        this.setState({keyassignment: bool})
     };
 
-    resetCurrentKey = () => {
-        this.setState({currentKey: ""})
+    setCurrentKey = (event) => {
+        this.resetCurrentKey(event);
+        this.setState(prevState => ({
+            currentKey: prevState.currentKey.concat(event.key)
+        }));
+    };
+
+    resetCurrentKey = (event) => {
+        this.setState(prevState => ({
+            currentKey: prevState.currentKey.filter(n => n !== event.key)
+        }));
     };
 
     setSelectedChords = (newSelectedChords) => {
@@ -313,7 +323,8 @@ class App extends Component {
                     <div className="outer-keyboard-ctn">
                         <Settings playNote={this.playNote} polySynth={this.polySynth}
                                   addHighlightedNote={this.addHighlightedNote}
-                                  removeHighlightedNote={this.removeHighlightedNote}/>
+                                  removeHighlightedNote={this.removeHighlightedNote}
+                                  keyassignment_toggle={this.setKeyassignment}/>
                         <p className="app-title">Y-Piano</p>
                         <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
                         <Keyboard
@@ -321,6 +332,7 @@ class App extends Component {
                             highlightedKeys={highlightedKeys}
                             playNote={this.playNote}
                             keyInput={currentKey}
+                            keyAssignment={this.state.keyassignment}
                             octaveOffset={octaveOffset}/>
                     </div>
                     <br/>

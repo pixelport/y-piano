@@ -7,6 +7,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8",
+    "react-switch": "^5.0.0",
     "tone": "^13.4.9",
     "uikit-react": "^3.0.20",
     "webmidi": "^2.3.3"
