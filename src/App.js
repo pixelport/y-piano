@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import {Keyboard} from "./Keyboard";
-import {SelectOptionsBox} from "./SelectOptionsBox";
 import Tone from 'tone';
 import Arpeggio from './Arpeggio.js';
 import {RandomGenerator} from './RandomGenerator.js'
