@@ -44,7 +44,7 @@ Es wird eine Hauptkomponente (App) Verwendet, die alle States verwaltet. Von die
 	 - Verwaltet die UI der Klaviatur
 	 - Reagiert auf Input beim klicken auf die Klaviatur
  - LocalStorageHelper
-	 - **???? Profit!**
+	 - Eine Hilfskomponente welche beim speichern der aktuellen Auswahl im Local Storage hilft
  - MidiExporter
 	 - Generiert und handelt den Download der Mididatei
  - OctaveSelector
@@ -54,10 +54,6 @@ Es wird eine Hauptkomponente (App) Verwendet, die alle States verwaltet. Von die
  - RandomGenerator
 	 - Wählt zufällig die Akkorde, BPM und den Arpeggio aus.
 	 - Verwaltet die dementsprechende UI
- - SelectOptionsBox
-	 - **???? Profit!**
- - ServiceWorker
-	 - **???? Profit!**
  - Settings
 	 - Auswahlmöglichkeit für den MIDI-Controller
 	 - Verwaltet die Einstellungen-UI 
