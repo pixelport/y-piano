@@ -45,6 +45,10 @@ class App extends Component {
             arpeggio: "",
             selectedArpeggio: sameTime,
             octaveOffset: 4,
+            // drums
+            isKickEnabled: false,
+            isSnareEnabled: false,
+            isHHEnabled: false
         };
 
         // get shared state via ?share= parameter if avaliable
@@ -71,8 +75,14 @@ class App extends Component {
 
         //create a 4 voice Synth and connect it to the master output (your speakers)
         this.polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
-
+        const drums = {
+          kick: new Tone.Player("https://tonejs.github.io/examples/audio/505/kick.mp3").toMaster(),
+          snare: new Tone.Player("https://tonejs.github.io/examples/audio/505/snare.mp3").toMaster(),
+          hh: new Tone.Player("https://tonejs.github.io/examples/audio/505/hh.mp3").toMaster()
+        };
+        
         this.loop = new Tone.Loop(function (time) {
+            const {isKickEnabled, isHHEnabled, isSnareEnabled} = this.state
             const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
             const chordToPlay = this.state.selectedChords[chordIndex];
             console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
@@ -81,7 +91,13 @@ class App extends Component {
                 chordIndex: chordIndex,
             }));
             this.playChord(chordToPlay);
-            //this.polySynth.triggerAttackRelease(chordToPlay, "8n");
+            
+            if(isSnareEnabled)
+                drums.snare.start();
+            if(isKickEnabled)
+                drums.kick.start();
+            if(isHHEnabled)
+                drums.hh.start();
         }.bind(this), "3n");
 
         Tone.context.lookAhead = 0;
@@ -278,8 +294,18 @@ class App extends Component {
         });
     };
 
+    onKitChange = (e) => {
+        this.setState({isKickEnabled: e.target.checked});
+    };
+    onSnareChange = (e) => {
+        this.setState({isSnareEnabled: e.target.checked});
+    };
+    onHHChange = (e) => {
+        this.setState({isHHEnabled: e.target.checked});
+    };
+    
     render() {
-        const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm} = this.state;
+        const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm, isKickEnabled, isSnareEnabled, isHHEnabled} = this.state;
         console.log("bpm", bpm);
         return (
             <div className="App">
@@ -302,8 +328,11 @@ class App extends Component {
                     <button className="uk-button uk-button-primary"
                             onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
                     <br/>
-                    <button className="p-button p-button-disabled" onClick={() => Tone.Transport.start()}>ON</button>
-                    <button className="p-button" onClick={() => Tone.Transport.stop()}>OFF</button>
+                      <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onKitChange} checked={isKickEnabled}/> Kit</label>
+                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onSnareChange} checked={isSnareEnabled}/> Snare</label>
+                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onHHChange} checked={isHHEnabled}/> Hi-Hat</label>
+                      </div>  
                     <br/>
                     <div className={"siteBySite smallBrBot"}>
                         <RandomGenerator
