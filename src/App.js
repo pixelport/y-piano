@@ -18,7 +18,6 @@ import successivly from './pic/arpeggios/nachfolgend.png';
 //import Texture from "./pic/other/texture.jpg"
 import {Durms} from "./Drums.js";
 
-const instrumentOptions = ['Keyboard', 'Guitar', 'Option3', 'Option4'];
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
 const increase_percent = 1;
@@ -324,7 +323,7 @@ class App extends Component {
                         setSelectedChords={this.setSelectedChords}
                         playChord={this.playChord}/>
                     <div className={"smallBrTop"}>
-                        <Progressbar value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
+                        <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
                     </div>
                     <br/>
                     <div className={"siteBySite"}>
