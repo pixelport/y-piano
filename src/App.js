@@ -16,7 +16,6 @@ import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
 import sameTime from './pic/arpeggios/gleichzeitig.png';
 import successivly from './pic/arpeggios/nachfolgend.png';
 //import Texture from "./pic/other/texture.jpg"
-import {Durms} from "./Drums.js";
 
 const minBPM_progress = 20;
 const maxBPM_progress = 200;

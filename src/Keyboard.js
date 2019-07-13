@@ -11,9 +11,10 @@ const keyboardInput = ["1", "2", "3", "4", "5", "6", "7","8","9","q","w","e","r"
 export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys, octaveOffset}) => {
 
   const onMouseOver = (e, note) => {
-    if(e.nativeEvent.buttons === 1)
+    if(e.nativeEvent.buttons === 1) {
       playNote(note);
       console.log(note);
+    }
     return false;
   };
   
@@ -74,7 +75,7 @@ export const Keyboard= ({playNote, keyInput, highlightedChord, highlightedKeys, 
     }
   };
 
-  onKeyInputChange(keyInput);
+  //onKeyInputChange(keyInput);
 
   return (
     <div className="piano">

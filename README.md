@@ -11,6 +11,7 @@
 ## Installationsanleitung
 ## Benutzeranleitung
 ## Tastenbelegung 
+Als Midi-Controller kann jedes beliebiges Midi-Gerät verwendet werden welches "noteon" und "noteoff" events unterstützt. Wir verwendeten ein Microbrute Red zum testen.
 ### Tastatur und Mausrad
 ### Midi Controller
 ## Verwendete Technologien

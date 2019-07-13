@@ -27,7 +27,7 @@ module.exports = {
     // Define an instrument (optional):
     track.addEvent(new MidiWriter.ProgramChangeEvent({instrument: 1}));
 
-    // Add some notes:
+    // write chord
     selectedChords.forEach(chord => {
       let note = new MidiWriter.NoteEvent({pitch: chord, duration: '4'});
       track.addEvent(note);
