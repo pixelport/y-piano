@@ -52,7 +52,7 @@ export class Settings extends React.Component{
     input.addListener('noteon', "all",
       (e) => {
         const note = e.note.name + e.note.octave;
-        console.log("Received 'noteoff' message (" + note + ").");
+        //console.log("Received 'noteoff' message (" + note + ").");
         //this.props.playNote(e.note.name + e.note.octave);
         this.props.polySynth.triggerAttack(note);
         this.props.addHighlightedNote(note);
@@ -61,7 +61,7 @@ export class Settings extends React.Component{
     input.addListener('noteoff', "all",
       (e) => {
         const note = e.note.name + e.note.octave;
-        console.log("Received 'noteoff' message (" + note + ").");
+        //console.log("Received 'noteoff' message (" + note + ").");
         this.props.polySynth.triggerRelease(note);
         this.props.removeHighlightedNote(note);
       }
@@ -69,7 +69,7 @@ export class Settings extends React.Component{
   };
   
   onSelectChange = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     this.setState({
       selectedInputId: e.target.value
     })
