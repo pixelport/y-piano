@@ -77,7 +77,7 @@ export class Settings extends React.Component{
 
   handleChange(checked) {
     this.setState({ checked
-    })
+    });
     this.props.keyassignment_toggle(checked)
   };
 
