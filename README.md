@@ -7,9 +7,11 @@
 4. [Tastenbelegung ](#tastenbelegung )
 5. [Verwendeten Technologien](#verwendete-technologien)
 6. [Technische Projektbeschreibung](#technische-projektbeschreibung)
+
 ## Idee
 
 ## Installationsanleitung
+
 ###Voraussetzungen:
 [Node.js](https://nodejs.org/)
 [React.js](https://reactjs.org/)
@@ -22,25 +24,37 @@ Den Windows Installer kann man über die [Nodejs.org](https://nodejs.org/en/down
 #####macOS
 Den macOS Installer kann man ebenfalls über die [Nodejs.org](https://nodejs.org/en/download/) Webseite runterladen.
 Oder Folgendes in der Kommandozeile ausführen um die Installation durchzuführen:
-```curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"```
+```
+curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+```
 
 #####Ubuntuu
 Die Installation von Node.js auf Ubuntuu erfolgt über folgendes Kommando:
-```sudo apt-get install nodejs```
+```
+sudo apt-get install nodejs
+```
 Dann npm (node package manager) installieren:
-```sudo apt-get install npm```
+```
+sudo apt-get install npm
+```
 
 ####React.js Installation
 Im Terminal:
-```npm install -g create-react-app```
+```
+npm install -g create-react-app
+```
 ausführen.
 
 ###Projektausführung
 Im Projektordner, wo sich die package.json befindet, wird durch folgendes Kommando alle benötigten Abhängigkeiten heruntergeladen und installiert:
-```npm install```
+```
+npm install
+```
 
 Das Projekt wird durch folgendes Kommando initialisiert:
-```npm start```
+```
+npm start
+```
 
 Nun kann das Projekt unter der URL _http://localhost:3000/_ im Browser aufgerufen werden.
 
@@ -52,8 +66,8 @@ Als Midi-Controller kann jedes beliebiges Midi-Gerät verwendet werden welches "
 ## Verwendete Technologien
 - Web-Technologien
 	 - [JavaScript](https://www.javascript.com/)
-	 - [HTML]
-	 - [CSS]
+	 - HTML
+	 - CSS
  - Frameworks
 	 - [React.js](https://reactjs.org/)
 	 - [Tone.js](https://tonejs.github.io/)
