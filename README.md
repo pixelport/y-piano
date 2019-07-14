@@ -134,3 +134,9 @@ Es wird eine Hauptkomponente (App) Verwendet, die alle States verwaltet. Von die
 	 - Generiert den Share-Link für die momentane Akkord- und BPM-Auswahl
 	 - Verwaltet die dementsprechende UI
 
+### Verwendete Ressourcen:
+ Drums:
+ - https://tonejs.github.io/examples/audio/505/kick.mp3
+ - https://tonejs.github.io/examples/audio/505/snare.mp3
+ - https://tonejs.github.io/examples/audio/505/hh.mp3
+ 
