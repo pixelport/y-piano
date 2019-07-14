@@ -73,7 +73,7 @@ export class RandomGenerator extends React.Component{
         let num1 = this.getRandomNumberBetween(0,1);
         let num2 = this.getRandomNumberBetween(0,1);
         let num3 = this.getRandomNumberBetween(0,1);
-        console.log("RandomDrumNumber: " + num1 + "  " + num2 + "   " + num3);
+        //console.log("RandomDrumNumber: " + num1 + "  " + num2 + "   " + num3);
         //1=true 2=false
         this.props.setKit(num1);
         this.props.setSnare(num2);
@@ -93,13 +93,10 @@ export class RandomGenerator extends React.Component{
         switch (arp) {
             case "sameTime":
                 return sameTime;
-                break;
             case "sameTime4C":
                 return sameTime4C;
-                break;
             case "successivly":
                 return successivly;
-                break;
             default:
                 console.error("Arpeggio: " + arp + " is not supported");
                 break;

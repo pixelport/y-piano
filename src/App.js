@@ -12,9 +12,9 @@ import {Settings} from "./Settings";
 import {OctaveSelector} from "./OctaveSelector";
 import {Progressbar} from "./Progressbar";
 //Picures:
-import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
+//import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
 import sameTime from './pic/arpeggios/gleichzeitig.png';
-import successivly from './pic/arpeggios/nachfolgend.png';
+//import successivly from './pic/arpeggios/nachfolgend.png';
 
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
@@ -87,7 +87,7 @@ class App extends Component {
             const {isKickEnabled, isHHEnabled, isSnareEnabled} = this.state
             const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
             const chordToPlay = this.state.selectedChords[chordIndex];
-            console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
+            //console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
             this.setState(prevState => ({
                 highlightedChord: chordToPlay,
                 chordIndex: chordIndex,
@@ -136,7 +136,7 @@ class App extends Component {
     };
 
     setSelectedChords = (newSelectedChords) => {
-        console.log("setSelectedChords", newSelectedChords);
+        //console.log("setSelectedChords", newSelectedChords);
         this.setState({
             selectedChords: newSelectedChords
         });
@@ -221,7 +221,7 @@ class App extends Component {
     };
 
     playChord = (chord) => {
-        console.log("ARPEGGIO" + this.state.arpeggio);
+        //console.log("ARPEGGIO" + this.state.arpeggio);
 
         switch (this.state.arpeggio) {
             case "":

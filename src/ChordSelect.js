@@ -80,7 +80,7 @@ export class ChordSelect extends React.Component{
         let newChords = this.props.selectedChords;
         newChords[this.state.editedChord] = chord;
         this.props.setSelectedChords(newChords);
-        console.log("Chord " + this.state.editedChord + " changed to " + chord);
+        //console.log("Chord " + this.state.editedChord + " changed to " + chord);
     };
 
     render() {

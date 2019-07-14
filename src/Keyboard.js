@@ -14,7 +14,7 @@ export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, hi
     const onMouseOver = (e, note) => {
         if(e.nativeEvent.buttons === 1)
             playNote(note);
-        console.log(note);
+        //console.log(note);
         return false;
     };
 
@@ -86,7 +86,7 @@ export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, hi
 
     keyInput.forEach(key => {
         playNote(keyInput_map.get(key))
-        console.log(key)
+        //console.log(key)
     });
 
     return (
