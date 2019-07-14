@@ -15,12 +15,10 @@ import {Progressbar} from "./Progressbar";
 import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
 import sameTime from './pic/arpeggios/gleichzeitig.png';
 import successivly from './pic/arpeggios/nachfolgend.png';
-//import Texture from "./pic/other/texture.jpg"
 
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
 const increase_percent = 1;
-
 
 class App extends Component {
 
@@ -117,7 +115,7 @@ class App extends Component {
     }
 
     setKeyassignment = (bool) => {
-        this.setState({keyassignment: bool})
+        this.setState({keyassignment: bool}, () => saveToLocalStorage(this.state))
     };
 
     setCurrentKey = (event) => {
@@ -300,7 +298,7 @@ class App extends Component {
             return;
         this.setState({
             octaveOffset: newOctaveOffset
-        });
+        }, () => saveToLocalStorage(this.state));
     };
 
     onKitChange = (e) => {
@@ -324,7 +322,6 @@ class App extends Component {
     
     render() {
         const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm, isKickEnabled, isSnareEnabled, isHHEnabled} = this.state;
-        console.log("bpm", bpm);
         return (
             <div className="App">
                 <header className="App-header">

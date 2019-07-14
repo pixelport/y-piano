@@ -6,7 +6,9 @@ module.exports = {
       bpm: appState.bpm,
       isKickEnabled: appState.isKickEnabled,
       isSnareEnabled: appState.isSnareEnabled,
-      isHHEnabled: appState.isHHEnabled
+      isHHEnabled: appState.isHHEnabled,
+      keyassignment: appState.keyassignment,
+      octaveOffset: appState.octaveOffset
     };
     localStorage.setItem('appState', JSON.stringify(stateToSave));
   },
