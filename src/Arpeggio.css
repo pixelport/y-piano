@@ -65,8 +65,7 @@
 }
 
 .selectArpeggio{
-    object-fit:scale-down;
-    display: block;
+    object-fit: scale-down;
     position: relative;
-    margin-right: 0.5em;
+    margin-left: 15px;
 }

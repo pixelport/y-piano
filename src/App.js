@@ -416,7 +416,7 @@ class App extends Component {
                         <br/>
                         <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
                             <button className="uk-button uk-button-primary buttonHeight buttonMargin"
-                                    onClick={this.onMidiExport}><i className="fas fa-download"></i>Midi Export
+                                    onClick={this.onMidiExport}><i className="fas fa-download"></i> Midi Export
                             </button>
                             <ShareButton appState={this.state}/>
                         </div>
