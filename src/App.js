@@ -42,6 +42,7 @@ class App extends Component {
             arpeggio: "",
             selectedArpeggio: sameTime,
             keyassignment: false,
+            useScrollbarForBpm: false,
             octaveOffset: 4,
             // drums
             isKickEnabled: false,
@@ -65,6 +66,7 @@ class App extends Component {
             window.history.replaceState({}, document.title, "/");
         } else {
             // no data from share link available, try to load from local storage
+            console.log(loadFromLocalStorage());
             this.state = {
                 ...this.state,
                 ...loadFromLocalStorage(),
@@ -186,6 +188,10 @@ class App extends Component {
     };
 
     handleWheelInput = (event) => {
+        if(this.state.useScrollbarForBpm === false){
+            return;
+        }
+        
         const bpmIncrease = event.deltaY < 0 ? increase_percent : -increase_percent;
         this.setState(prevState => {
             let newBpm = prevState.bpm + bpmIncrease;
@@ -319,9 +325,13 @@ class App extends Component {
     setHH = (bool) => {
         this.setState({isHHEnabled: bool}, () => saveToLocalStorage(this.state))
     };
+
+    setScrollbarForBpm = (bool) => {
+      this.setState({useScrollbarForBpm: bool}, () => saveToLocalStorage(this.state))
+    };
     
     render() {
-        const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm, isKickEnabled, isSnareEnabled, isHHEnabled} = this.state;
+        const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm, isKickEnabled, isSnareEnabled, isHHEnabled, keyassignment, useScrollbarForBpm} = this.state;
         return (
             <div className="App">
                 <header className="App-header">
@@ -330,7 +340,11 @@ class App extends Component {
                         <Settings playNote={this.playNote} polySynth={this.polySynth}
                                   addHighlightedNote={this.addHighlightedNote}
                                   removeHighlightedNote={this.removeHighlightedNote}
-                                  keyassignment_toggle={this.setKeyassignment}/>
+                                  keyassignment={keyassignment}
+                                  keyassignment_toggle={this.setKeyassignment}
+                                  useScrollbarForBpm_toggle={this.setScrollbarForBpm}
+                                  useScrollbarForBpm={useScrollbarForBpm}
+                        />
                         <p className="app-title">Y-Piano</p>
                         <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
                         <Keyboard

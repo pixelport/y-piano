@@ -8,6 +8,7 @@ module.exports = {
       isSnareEnabled: appState.isSnareEnabled,
       isHHEnabled: appState.isHHEnabled,
       keyassignment: appState.keyassignment,
+      useScrollbarForBpm: appState.useScrollbarForBpm,
       octaveOffset: appState.octaveOffset
     };
     localStorage.setItem('appState', JSON.stringify(stateToSave));

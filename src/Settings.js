@@ -8,7 +8,6 @@ export class Settings extends React.Component{
   state = {
     settingsOpen: false,
     selectedInputId: "",
-    checked: false
   };
 
   constructor(){
@@ -20,7 +19,6 @@ export class Settings extends React.Component{
         console.log("WebMidi enabled!");
       }
     });
-    this.handleChange = this.handleChange.bind(this);
   }
   
   onSettingsClick = () => {
@@ -74,15 +72,12 @@ export class Settings extends React.Component{
       selectedInputId: e.target.value
     })
   };
-
-  handleChange(checked) {
-    this.setState({ checked
-    })
-    this.props.keyassignment_toggle(checked)
-  };
+  
   
   render(){
-    const {settingsOpen, selectedInputId, checked} = this.state;
+    const {settingsOpen, selectedInputId} = this.state;
+    const {keyassignment, keyassignment_toggle, useScrollbarForBpm, useScrollbarForBpm_toggle} = this.props;
+    
     const inputs = WebMidi.inputs;
     return (
       <div>
@@ -106,10 +101,10 @@ export class Settings extends React.Component{
           <div>
             <br/>
             <label htmlFor="material-switch">
-              <span className="setting-titel1" >key assignment</span>
+              <span className="setting-titel1" >Show key assignment</span>
               <Switch
-                  checked={this.state.checked}
-                  onChange={this.handleChange}
+                  checked={keyassignment}
+                  onChange={(isChecked) => keyassignment_toggle(isChecked)}
                   onColor="#86d3ff"
                   onHandleColor="#2693e6"
                   handleDiameter={30}
@@ -121,6 +116,26 @@ export class Settings extends React.Component{
                   width={48}
                   className="react-switch"
                   id="material-switch"
+              />
+            </label>
+          </div>
+          <div className="uk-margin-small-top">
+            <label htmlFor="material-switch-bpm-scroll">
+              <span className="setting-titel1">Use scrollbar for BPM</span>
+              <Switch
+                checked={useScrollbarForBpm}
+                onChange={(isChecked) =>  useScrollbarForBpm_toggle(isChecked)}
+                onColor="#86d3ff"
+                onHandleColor="#2693e6"
+                handleDiameter={30}
+                uncheckedIcon={false}
+                checkedIcon={false}
+                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                height={20}
+                width={48}
+                className="react-switch"
+                id="material-switch-bpm-scroll"
               />
             </label>
           </div>
