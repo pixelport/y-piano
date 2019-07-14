@@ -63,8 +63,6 @@ class Arpeggio extends React.Component{
                 </div>
                 <button className="selectArpeggio uk-button uk-button-primary"
                      onClick={this.clickArpeggioButton}>Arpeggio</button>
-                {/*<img className={"selectArpeggio"} alt="selectArpeggio" src={this.props.selectedArpeggio} onClick={this.clickArpeggioButton}/>*/}
-
             </div>
         )
     }

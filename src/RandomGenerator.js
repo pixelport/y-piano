@@ -73,8 +73,6 @@ export class RandomGenerator extends React.Component{
         let num1 = this.getRandomNumberBetween(0,1);
         let num2 = this.getRandomNumberBetween(0,1);
         let num3 = this.getRandomNumberBetween(0,1);
-        //console.log("RandomDrumNumber: " + num1 + "  " + num2 + "   " + num3);
-        //1=true 2=false
         this.props.setKit(num1);
         this.props.setSnare(num2);
         this.props.setHH(num3);
@@ -84,7 +82,6 @@ export class RandomGenerator extends React.Component{
     randomArpeggios = () =>{
         let num = this.getRandomNumberBetween(0,2);
         let arp = AllArpreggios[num];
-        //console.log("RandomGen: Arpeggios: " + arp + "   Random Number: " + num);
         this.props.setArpeggio(arp);
         this.props.setArpeggioPic(this.mapperArpeggiosStringToPic(arp));
     };

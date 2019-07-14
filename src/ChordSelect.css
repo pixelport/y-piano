@@ -5,10 +5,10 @@
 }
 
 .selectField{
-    /* background: #232534; */
     display: flex;
     flex-flow: row nowrap;
-    width: 100% }
+    width: 100%;
+}
 
 .selectButton{
     box-sizing: border-box;

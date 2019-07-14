@@ -1,7 +1,7 @@
 import React from 'react'
 import './Settings.css';
 import WebMidi from "webmidi";
-import Switch from "react-switch";  //npm install react-switch
+import Switch from "react-switch";
 
 export class Settings extends React.Component{
 
@@ -53,7 +53,6 @@ export class Settings extends React.Component{
       (e) => {
         const note = e.note.name + e.note.octave;
         //console.log("Received 'noteoff' message (" + note + ").");
-        //this.props.playNote(e.note.name + e.note.octave);
         this.props.polySynth.triggerAttack(note);
         this.props.addHighlightedNote(note);
       }
@@ -69,7 +68,6 @@ export class Settings extends React.Component{
   };
   
   onSelectChange = (e) => {
-    //console.log(e.target.value);
     this.setState({
       selectedInputId: e.target.value
     })

@@ -11,10 +11,9 @@ import {C, G, Am, F, ChordSelect} from "./ChordSelect";
 import {Settings} from "./Settings";
 import {OctaveSelector} from "./OctaveSelector";
 import {Progressbar} from "./Progressbar";
+
 //Picures:
-//import sameTime4C from './pic/arpeggios/4malgelichzeitig.png';
 import sameTime from './pic/arpeggios/gleichzeitig.png';
-//import successivly from './pic/arpeggios/nachfolgend.png';
 
 const minBPM_progress = 20;
 const maxBPM_progress = 200;
@@ -84,7 +83,7 @@ class App extends Component {
         };
 
         this.loop = new Tone.Loop(function (time) {
-            const {isKickEnabled, isHHEnabled, isSnareEnabled} = this.state
+            const {isKickEnabled, isHHEnabled, isSnareEnabled} = this.state;
             const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
             const chordToPlay = this.state.selectedChords[chordIndex];
             //console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
@@ -123,7 +122,6 @@ class App extends Component {
     };
 
     setCurrentKey = (event) => {
-        // this.resetCurrentKey(event);
         this.setState(prevState => ({
             currentKey: prevState.currentKey.concat(event.key)
         }));
@@ -136,7 +134,6 @@ class App extends Component {
     };
 
     setSelectedChords = (newSelectedChords) => {
-        //console.log("setSelectedChords", newSelectedChords);
         this.setState({
             selectedChords: newSelectedChords
         });
@@ -261,10 +258,8 @@ class App extends Component {
 
 
     playLength = () => {
-        //console.log("60/this.state.increaseBPM : 60/" + this.state.bpm + " = " + 60 / this.state.bpm);
         let playLength = 60 / this.state.bpm;
         playLength = playLength - (playLength * 0.1);
-        //console.log("BPM: " + this.state.bpm + "   PlayLenght: " + playLength);
         return playLength;
     };
 
@@ -272,27 +267,14 @@ class App extends Component {
      *  PlayLenght calculatet from BPM and a bit shorter, so it sounds better
      */
     shorterPlayLength = () => {
-        //console.log("60/this.state.increaseBPM : 60/" + this.state.bpm + " = " + 60 / this.state.bpm);
         let playLength = 60 / this.state.bpm;
         playLength = playLength - (playLength * 0.1);
-        //console.log("BPM: " + this.state.bpm + "   PlayLenght: " + playLength);
         return playLength;
     };
 
     roundTwoDigit = (number) => {
-        //console.log("Rounder: Math.round( number * 10 ) / 10: " + Math.round(number * 10) / 10)
         return (Math.round(number * 100) / 100);
     };
-
-    /*
-    dividedPlayLenghtbyXAndRound = (x) =>{
-        return this.roundTwoDigit(this.playLength()/x);
-    };
-
-    multiplyPlayLenghtbyXAndRound = (x) =>{
-        return this.roundTwoDigit(this.playLength()*x);
-    };*/
-
 
     /*--------------------------------------- End Play Note Chord ---------------------------------------*/
     /*--------------------------------------- Arpeggios ---------------------------------------*/
