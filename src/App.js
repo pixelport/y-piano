@@ -345,41 +345,48 @@ class App extends Component {
                             octaveOffset={octaveOffset}
                             resetCurrentKey={this.resetCurrentKey}/>
                     </div>
-                    <br/>
-                    <button className="uk-button uk-button-primary"
+                    <button className="uk-button uk-button-primary uk-margin-medium-top"
                             onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
-                      <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText">
+                      <div className="uk-margin-medium-top">
+                        <Arpeggio
+                          setArpeggioPic={this.setArpeggioPic}
+                          selectedArpeggio={this.state.selectedArpeggio}
+                          setArpeggio={this.setArpeggio}/>
+                      </div>  
+                  
+                    <div className="uk-margin-small-top uk-grid-small uk-child-width-auto uk-grid smallerText">
                         <label><input className="uk-checkbox" type="checkbox" onChange={this.onKitChange} checked={isKickEnabled}/> Kit</label>
                         <label><input className="uk-checkbox" type="checkbox" onChange={this.onSnareChange} checked={isSnareEnabled}/> Snare</label>
                         <label><input className="uk-checkbox" type="checkbox" onChange={this.onHHChange} checked={isHHEnabled}/> Hi-Hat</label>
-                      </div>
-                    <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
-                        <RandomGenerator
-                            setSelectedChords={this.setSelectedChords}
-                            update_loopInterval={this.update_loopInterval}
-                            setBPM={this.setBPM}
-                            setKit={this.setKit}
-                            setSnare={this.setSnare}
-                            setHH={this.setHH}
-                            setArpeggioPic={this.setArpeggioPic}
-                            setArpeggio={this.setArpeggio}/>
-                        <Arpeggio
-                            setArpeggioPic={this.setArpeggioPic}
-                            selectedArpeggio={this.state.selectedArpeggio}
-                            setArpeggio={this.setArpeggio}/>
                     </div>
+                    
+                    <div className="uk-margin-medium-top">
                     <ChordSelect
                         chordIndex={chordIndex}
                         selectedChords={selectedChords}
                         setSelectedChords={this.setSelectedChords}
                         playChord={this.playChord}/>
-                    <div className={"smallBrTop"}>
+                    </div>
+                    <div className={"uk-margin-medium-top"}>
                         <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
                     </div>
                     <br/>
-                    <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
-                        <button className="uk-button uk-button-primary buttonHeight buttonMargin" onClick={this.onMidiExport}>Midi Export</button>
-                        <ShareButton appState={this.state}/>
+                    <div className={"uk-margin uk-flex uk-flex-center uk-flex-row"}>
+                      <div className="uk-margin-small-right">  
+                        <button className="uk-button uk-button-primary" onClick={this.onMidiExport}>Midi Export</button>
+                      </div>
+                      <div className="uk-margin-small-right">
+                        <RandomGenerator
+                          setSelectedChords={this.setSelectedChords}
+                          update_loopInterval={this.update_loopInterval}
+                          setBPM={this.setBPM}
+                          setKit={this.setKit}
+                          setSnare={this.setSnare}
+                          setHH={this.setHH}
+                          setArpeggioPic={this.setArpeggioPic}
+                          setArpeggio={this.setArpeggio}/>
+                      </div>    
+                      <ShareButton appState={this.state}/>
                     </div>
                 </header>
             </div>

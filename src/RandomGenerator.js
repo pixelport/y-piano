@@ -109,10 +109,7 @@ export class RandomGenerator extends React.Component{
 
     render() {
         return(
-            <div className={"cen"}>
-                <div> Random Music </div>
-                <button className="uk-button uk-button-primary but" onClick={this.onRandomClick}>{"Try It"}</button>
-            </div>
+            <button className="uk-button uk-button-primary" onClick={this.onRandomClick}>Random</button>
         )
     }
 }

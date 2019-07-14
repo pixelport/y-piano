@@ -53,7 +53,6 @@ class Arpeggio extends React.Component{
     render() {
         return(
             <div>
-
                 <div className={this.state.showApreggioSelectWindow ? "apreggioSelectWindow" : "hide"}>
                     <button className="X" onClick={this.clickX}>X</button>
 
@@ -61,9 +60,8 @@ class Arpeggio extends React.Component{
                     <img className={this.props.selectedArpeggio === sameTime4C ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="sameTime4C Arpeggio" src={sameTime4C} onClick={this.clickSelectArpeggio.bind(this, sameTime4C)}/>
                     <img className={this.props.selectedArpeggio === successivly ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="successivly Arpeggio" src={successivly} onClick={this.clickSelectArpeggio.bind(this, successivly)}/>
                 </div>
-                <div>Arpeggio</div>
+              {/*<span className="uk-text-small">Arpeggio</span>*/}
                 <img className={"selectArpeggio"} alt="selectArpeggio" src={this.props.selectedArpeggio} onClick={this.clickArpeggioButton}/>
-
             </div>
         )
     }
