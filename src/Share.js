@@ -34,7 +34,7 @@ export class ShareButton extends React.Component {
       <div className="uk-margin">
         <div className="uk-inline">
           <button className="uk-button uk-button-primary buttonHeight" type="button" onClick={this.onShareClick}>
-            <i class="fas fa-share-alt"></i> Share
+            <i className="fas fa-share-alt"></i> Share
           </button>
           <div uk-dropdown="mode: click; pos: right-center; offset: 15;">
             <ul className="uk-nav uk-dropdown-nav">

@@ -39,10 +39,10 @@
 
 .setting-titel1{
     font-size: 20px;
-    margin-right: 300px;
     position: center;
 }
 
 .react-switch{
     float: right;
+    margin-top: 7px;
 }

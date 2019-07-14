@@ -88,14 +88,14 @@ export class ChordSelect extends React.Component{
         const { isModalOpen, editedChord } = this.state;
         //console.log("selectedChords", selectedChords);
         return(
-            <div class="selectWrap App-section">
+            <div className="selectWrap App-section">
 
                 <div className="selectWindow SettingsWindow" id="selectWindow" hidden={!isModalOpen}>
                     <button className="X uk-button" onClick={this.clickX}>
                         X
                     </button>
                     <p id="pChord">Chord: {editedChord * 1 + 1}</p>
-                    <div class="selectList">
+                    <div className="selectList">
                         {AllChords.map(chord => {
                             const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
                             return (<button

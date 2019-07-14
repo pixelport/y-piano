@@ -95,7 +95,7 @@ export class Settings extends React.Component{
             X
           </button>
           <p className="uk-text-center">Settings</p>
-          <div className="uk-margin">
+          <div>
             <label className="uk-form-label" htmlFor="input-devices">USB-Midi Input</label>
             <div className="uk-form-controls">
               <select className="uk-select" id="input-devices" onChange={this.onSelectChange} value={selectedInputId}>
@@ -104,9 +104,8 @@ export class Settings extends React.Component{
               </select>
             </div>
           </div>
-          <a className="uk-button uk-button-primary" href="#/" onClick={this.useInputDevice}>Use Input device</a>
-          <div>
-            <br/>
+          <a className="uk-button uk-button-primary uk-margin-small-top" href="#/" onClick={this.useInputDevice}>Use Input device</a>
+          <div className="uk-margin-medium-top">
             <label htmlFor="material-switch">
               <span className="setting-titel1" >Show key assignment</span>
               <Switch
