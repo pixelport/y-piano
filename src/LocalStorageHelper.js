@@ -3,7 +3,10 @@ module.exports = {
     let stateToSave = {
       arpeggio: appState.arpeggio,
       selectedChords: appState.selectedChords,
-      bpm: appState.bpm
+      bpm: appState.bpm,
+      isKickEnabled: appState.isKickEnabled,
+      isSnareEnabled: appState.isSnareEnabled,
+      isHHEnabled: appState.isHHEnabled
     };
     localStorage.setItem('appState', JSON.stringify(stateToSave));
   },

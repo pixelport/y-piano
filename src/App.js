@@ -304,22 +304,22 @@ class App extends Component {
     };
 
     onKitChange = (e) => {
-        this.setState({isKickEnabled: e.target.checked});
+        this.setKit(e.target.checked);
     };
     onSnareChange = (e) => {
-        this.setState({isSnareEnabled: e.target.checked});
+        this.setSnare(e.target.checked);
     };
     onHHChange = (e) => {
-        this.setState({isHHEnabled: e.target.checked});
+        this.setHH(e.target.checked);  
     };
     setKit = (bool) => {
-      this.setState({isKickEnabled: bool})
+        this.setState({isKickEnabled: bool}, () => saveToLocalStorage(this.state))
     };
     setSnare = (bool) => {
-        this.setState({isSnareEnabled: bool})
+        this.setState({isSnareEnabled: bool}, () => saveToLocalStorage(this.state))
     };
     setHH = (bool) => {
-        this.setState({isHHEnabled: bool})
+        this.setState({isHHEnabled: bool}, () => saveToLocalStorage(this.state))
     };
     
     render() {

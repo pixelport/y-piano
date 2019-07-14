@@ -10,7 +10,10 @@ export class ShareButton extends React.Component {
     let sharedAppState = {
       arpeggio: appState.arpeggio,
       selectedChords: appState.selectedChords,
-      bpm: appState.bpm
+      bpm: appState.bpm,
+      isKickEnabled: appState.isKickEnabled,
+      isSnareEnabled: appState.isSnareEnabled,
+      isHHEnabled: appState.isHHEnabled
     };
     let appStateEncoded = btoa(JSON.stringify(sharedAppState));
     
