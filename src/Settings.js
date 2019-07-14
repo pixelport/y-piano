@@ -3,6 +3,7 @@ import './Settings.css';
 import WebMidi from "webmidi";
 import Switch from "react-switch";  //npm install react-switch
 
+
 export class Settings extends React.Component{
 
   state = {
@@ -105,10 +106,10 @@ export class Settings extends React.Component{
             </div>
           </div>
           <a className="uk-button uk-button-primary" href="#/" onClick={this.useInputDevice}>Use Input device</a>
-          <div>
-            <br/>
-            <label htmlFor="material-switch">
-              <span className="setting-titel1" >Show key assignment</span>
+<div class="flex-container">
+          <div class="flex-item flex-container-row">
+
+              <span className="setting-titel1">Show key assignment</span>
               <Switch
                   checked={keyassignment}
                   onChange={(isChecked) => keyassignment_toggle(isChecked)}
@@ -124,10 +125,9 @@ export class Settings extends React.Component{
                   className="react-switch"
                   id="material-switch"
               />
-            </label>
+
           </div>
-          <div className="uk-margin-small-top">
-            <label htmlFor="material-switch-bpm-scroll">
+<div class="flex-item flex-container-row">
               <span className="setting-titel1">Use scrollbar for BPM</span>
               <Switch
                 checked={useScrollbarForBpm}
@@ -144,8 +144,8 @@ export class Settings extends React.Component{
                 className="react-switch"
                 id="material-switch-bpm-scroll"
               />
-            </label>
-          </div>
+</div>
+</div>
         </div>
       </div>)
   }

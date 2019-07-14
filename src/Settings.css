@@ -38,11 +38,37 @@
         color: var(--primary); }
 
 .setting-titel1{
-    font-size: 20px;
-    margin-right: 300px;
+    line-height: 20px;
+    font-size: 17px;
+    margin-right: 50px;
     position: center;
+    padding: -10px;
 }
+
+.flex-container-column{
+    display:flex;
+    flex-direction: column;
+}
+
+.flex-container-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.flex-item{
+   margin: 5px 0;
+}
+
+
 
 .react-switch{
     float: right;
+}
+material-switch-bpm-scroll
+{
+    Display:flex;
+    Align-items:center;
+    Justify-content:space-between;
 }
