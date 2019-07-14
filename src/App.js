@@ -78,11 +78,11 @@ class App extends Component {
         //create a 4 voice Synth and connect it to the master output (your speakers)
         this.polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
         const drums = {
-          kick: new Tone.Player("https://tonejs.github.io/examples/audio/505/kick.mp3").toMaster(),
-          snare: new Tone.Player("https://tonejs.github.io/examples/audio/505/snare.mp3").toMaster(),
-          hh: new Tone.Player("https://tonejs.github.io/examples/audio/505/hh.mp3").toMaster()
+            kick: new Tone.Player("https://tonejs.github.io/examples/audio/505/kick.mp3").toMaster(),
+            snare: new Tone.Player("https://tonejs.github.io/examples/audio/505/snare.mp3").toMaster(),
+            hh: new Tone.Player("https://tonejs.github.io/examples/audio/505/hh.mp3").toMaster()
         };
-        
+
         this.loop = new Tone.Loop(function (time) {
             const {isKickEnabled, isHHEnabled, isSnareEnabled} = this.state
             const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
@@ -93,12 +93,12 @@ class App extends Component {
                 chordIndex: chordIndex,
             }));
             this.playChord(chordToPlay);
-            
-            if(isSnareEnabled && drums.snare.loaded && chordIndex % 2 === 1)
+
+            if (isSnareEnabled && drums.snare.loaded && chordIndex % 2 === 1)
                 drums.snare.start();
-            if(isKickEnabled && drums.kick.loaded)
+            if (isKickEnabled && drums.kick.loaded)
                 drums.kick.start();
-            if(isHHEnabled && drums.hh.loaded)
+            if (isHHEnabled && drums.hh.loaded)
                 drums.hh.start();
         }.bind(this), "3n");
 
@@ -123,7 +123,7 @@ class App extends Component {
     };
 
     setCurrentKey = (event) => {
-       // this.resetCurrentKey(event);
+        // this.resetCurrentKey(event);
         this.setState(prevState => ({
             currentKey: prevState.currentKey.concat(event.key)
         }));
@@ -190,7 +190,7 @@ class App extends Component {
     };
 
     handleWheelInput = (event) => {
-        if(this.state.useScrollbarForBpm === false){
+        if (this.state.useScrollbarForBpm === false) {
             return;
         }
 
@@ -210,7 +210,7 @@ class App extends Component {
         });
     };
 
-    setBPM = (bpm) =>{
+    setBPM = (bpm) => {
         this.setState({bpm: bpm})
     };
 
@@ -243,16 +243,16 @@ class App extends Component {
     };
 
     playChordSuccessivly = (chord) => {
-        this.polySynth.triggerAttackRelease(chord[0], this.roundTwoDigit(this.shorterPlayLength()/3), '+' + this.roundTwoDigit(this.playLength()/3*0));
-        this.polySynth.triggerAttackRelease(chord[1], this.roundTwoDigit(this.shorterPlayLength()/3), '+' + this.roundTwoDigit(this.playLength()/3*1));
-        this.polySynth.triggerAttackRelease(chord[2], this.roundTwoDigit(this.shorterPlayLength()/3), '+' + this.roundTwoDigit(this.playLength()/3*2));
+        this.polySynth.triggerAttackRelease(chord[0], this.roundTwoDigit(this.shorterPlayLength() / 3), '+' + this.roundTwoDigit(this.playLength() / 3 * 0));
+        this.polySynth.triggerAttackRelease(chord[1], this.roundTwoDigit(this.shorterPlayLength() / 3), '+' + this.roundTwoDigit(this.playLength() / 3 * 1));
+        this.polySynth.triggerAttackRelease(chord[2], this.roundTwoDigit(this.shorterPlayLength() / 3), '+' + this.roundTwoDigit(this.playLength() / 3 * 2));
     };
 
     playChordSameTime4C = (chord) => {
-        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength()/4), '+' + this.roundTwoDigit(this.playLength()/4*0));
-        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength()/4), '+' + this.roundTwoDigit(this.playLength()/4*1));
-        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength()/4), '+' + this.roundTwoDigit(this.playLength()/4*2));
-        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength()/4), '+' + this.roundTwoDigit(this.playLength()/4*3));
+        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength() / 4), '+' + this.roundTwoDigit(this.playLength() / 4 * 0));
+        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength() / 4), '+' + this.roundTwoDigit(this.playLength() / 4 * 1));
+        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength() / 4), '+' + this.roundTwoDigit(this.playLength() / 4 * 2));
+        this.polySynth.triggerAttackRelease(chord, this.roundTwoDigit(this.shorterPlayLength() / 4), '+' + this.roundTwoDigit(this.playLength() / 4 * 3));
     };
 
     playChordSameTime = (chord) => {
@@ -263,7 +263,7 @@ class App extends Component {
     playLength = () => {
         //console.log("60/this.state.increaseBPM : 60/" + this.state.bpm + " = " + 60 / this.state.bpm);
         let playLength = 60 / this.state.bpm;
-        playLength = playLength - (playLength*0.1);
+        playLength = playLength - (playLength * 0.1);
         //console.log("BPM: " + this.state.bpm + "   PlayLenght: " + playLength);
         return playLength;
     };
@@ -274,7 +274,7 @@ class App extends Component {
     shorterPlayLength = () => {
         //console.log("60/this.state.increaseBPM : 60/" + this.state.bpm + " = " + 60 / this.state.bpm);
         let playLength = 60 / this.state.bpm;
-        playLength = playLength - (playLength*0.1);
+        playLength = playLength - (playLength * 0.1);
         //console.log("BPM: " + this.state.bpm + "   PlayLenght: " + playLength);
         return playLength;
     };
@@ -296,7 +296,7 @@ class App extends Component {
 
     /*--------------------------------------- End Play Note Chord ---------------------------------------*/
     /*--------------------------------------- Arpeggios ---------------------------------------*/
-    setArpeggioPic = (arpeggio) =>{
+    setArpeggioPic = (arpeggio) => {
         this.setState({selectedArpeggio: arpeggio})
     };
     /*--------------------------------------- End Arpeggios ---------------------------------------*/
@@ -340,84 +340,88 @@ class App extends Component {
         const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm, isKickEnabled, isSnareEnabled, isHHEnabled, keyassignment, useScrollbarForBpm} = this.state;
         return (
             <div className={"App" + (this.state.isDarkMode ? " dark" : "")}>
-                <div className="App-background" />
+                <div className="App-background"/>
 
                 <div className="App-container">
                     <header className="App-header">
                         <div className="App-theme-button" onClick={this.handleThemeChange}>
                             {this.state.isDarkMode
-                                ? <i className="fas fa-sun" />
-                                : <i className="fas fa-moon" />}
+                                ? <i className="fas fa-sun"/>
+                                : <i className="fas fa-moon"/>}
                         </div>
 
-                    <div className="outer-keyboard-ctn">
-                        <Settings playNote={this.playNote} polySynth={this.polySynth}
-                                  addHighlightedNote={this.addHighlightedNote}
-                                  removeHighlightedNote={this.removeHighlightedNote}
-                                  keyassignment={keyassignment}
-                                  useScrollbarForBpm_toggle={this.setScrollbarForBpm}
-                                  useScrollbarForBpm={useScrollbarForBpm}
-                                  keyassignment_toggle={this.setKeyassignment}/>
-                        <p className="app-title">Y-Piano</p>
-                        <div className="App-section">
-                        <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
-                        <Keyboard
-                            highlightedChord={highlightedChord}
-                            highlightedKeys={highlightedKeys}
-                            playNote={this.playNote}
-                            keyInput={currentKey}
-                            keyAssignment={this.state.keyassignment}
-                            octaveOffset={octaveOffset}
-                            resetCurrentKey={this.resetCurrentKey}/>
-                            <div className="App-controls">
-                                <button className="App-controls-button"
-                                        onClick={this.onPlayPauseClick}>
-                                    <i className={'fas fa-' + (isPlaying ? 'pause' : 'play')}></i>
-                                </button>
+                        <div className="outer-keyboard-ctn">
+                            <Settings playNote={this.playNote} polySynth={this.polySynth}
+                                      addHighlightedNote={this.addHighlightedNote}
+                                      removeHighlightedNote={this.removeHighlightedNote}
+                                      keyassignment={keyassignment}
+                                      useScrollbarForBpm_toggle={this.setScrollbarForBpm}
+                                      useScrollbarForBpm={useScrollbarForBpm}
+                                      keyassignment_toggle={this.setKeyassignment}/>
+                            <p className="app-title">Y-Piano</p>
+                            <div className="App-section">
+                                <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
+                                <Keyboard
+                                    highlightedChord={highlightedChord}
+                                    highlightedKeys={highlightedKeys}
+                                    playNote={this.playNote}
+                                    keyInput={currentKey}
+                                    keyAssignment={this.state.keyassignment}
+                                    octaveOffset={octaveOffset}
+                                    resetCurrentKey={this.resetCurrentKey}/>
+                                <div className="App-controls">
+                                    <button className="App-controls-button"
+                                            onClick={this.onPlayPauseClick}>
+                                        <i className={'fas fa-' + (isPlaying ? 'pause' : 'play')}></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button className="uk-button uk-button-primary App-controls-button"
-                            onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
+
                         <button className="App-controls-button">
                             <i className="fas fa-drum"></i>
                         </button>
-                      <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText">
-                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onKitChange} checked={isKickEnabled}/> Kit</label>
-                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onSnareChange} checked={isSnareEnabled}/> Snare</label>
-                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onHHChange} checked={isHHEnabled}/> Hi-Hat</label>
-                      </div>
-                    <div className="App-controls">
-                        <RandomGenerator
+                        <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText">
+                            <label><input className="uk-checkbox" type="checkbox" onChange={this.onKitChange}
+                                          checked={isKickEnabled}/> Kit</label>
+                            <label><input className="uk-checkbox" type="checkbox" onChange={this.onSnareChange}
+                                          checked={isSnareEnabled}/> Snare</label>
+                            <label><input className="uk-checkbox" type="checkbox" onChange={this.onHHChange}
+                                          checked={isHHEnabled}/> Hi-Hat</label>
+                        </div>
+                        <div className="App-controls">
+                            <RandomGenerator
+                                setSelectedChords={this.setSelectedChords}
+                                update_loopInterval={this.update_loopInterval}
+                                setBPM={this.setBPM}
+                                setKit={this.setKit}
+                                setSnare={this.setSnare}
+                                setHH={this.setHH}
+                                setArpeggioPic={this.setArpeggioPic}
+                                setArpeggio={this.setArpeggio}/>
+                            <Arpeggio
+                                setArpeggioPic={this.setArpeggioPic}
+                                selectedArpeggio={this.state.selectedArpeggio}
+                                setArpeggio={this.setArpeggio}/>
+                        </div>
+                        <ChordSelect
+                            chordIndex={chordIndex}
+                            selectedChords={selectedChords}
                             setSelectedChords={this.setSelectedChords}
-                            update_loopInterval={this.update_loopInterval}
-                            setBPM={this.setBPM}
-                            setKit={this.setKit}
-                            setSnare={this.setSnare}
-                            setHH={this.setHH}
-                            setArpeggioPic={this.setArpeggioPic}
-                            setArpeggio={this.setArpeggio}/>
-                        <Arpeggio
-                            setArpeggioPic={this.setArpeggioPic}
-                            selectedArpeggio={this.state.selectedArpeggio}
-                            setArpeggio={this.setArpeggio}/>
-                    </div>
-                    <ChordSelect
-                        chordIndex={chordIndex}
-                        selectedChords={selectedChords}
-                        setSelectedChords={this.setSelectedChords}
-                        playChord={this.playChord}/>
-                    <div className={"smallBrTop"}>
-                        <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
-                    </div>
-                    <br/>
-                    <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
-                        <button className="uk-button uk-button-primary buttonHeight buttonMargin"
-                                onClick={this.onMidiExport}><i className="fas fa-download"></i>Midi Export</button>
-                        <ShareButton appState={this.state}/>
-                    </div>
-                </header>
-            </div>
+                            playChord={this.playChord}/>
+                        <div className={"smallBrTop"}>
+                            <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress}
+                                         maxValue={maxBPM_progress}/>
+                        </div>
+                        <br/>
+                        <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
+                            <button className="uk-button uk-button-primary buttonHeight buttonMargin"
+                                    onClick={this.onMidiExport}><i className="fas fa-download"></i>Midi Export
+                            </button>
+                            <ShareButton appState={this.state}/>
+                        </div>
+                    </header>
+                </div>
             </div>
         );
     }
