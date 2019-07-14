@@ -4,7 +4,7 @@ import WebMidi from "webmidi";
 import Switch from "react-switch";  //npm install react-switch
 
 export class Settings extends React.Component{
-  
+
   state = {
     settingsOpen: false,
     selectedInputId: "",
@@ -22,7 +22,7 @@ export class Settings extends React.Component{
     });
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   onSettingsClick = () => {
     this.setState({
       settingsOpen: true
@@ -34,16 +34,16 @@ export class Settings extends React.Component{
       settingsOpen: false
     });
   };
-  
+
   useInputDevice = () => {
     const {selectedInputId} = this.state;
-    
+
     // remove all listener for all previous inputs
     WebMidi.inputs.forEach(i => i.removeListener());
-    
+
     if(!selectedInputId)
       return;
-    
+
     const input = WebMidi.getInputById(selectedInputId);
     if(!input){
       alert("Konnte USB-Midi input: " + selectedInputId + " nicht verwenden");
@@ -67,7 +67,7 @@ export class Settings extends React.Component{
       }
     );
   };
-  
+
   onSelectChange = (e) => {
     console.log(e.target.value);
     this.setState({
@@ -80,7 +80,7 @@ export class Settings extends React.Component{
     })
     this.props.keyassignment_toggle(checked)
   };
-  
+
   render(){
     const {settingsOpen, selectedInputId, checked} = this.state;
     const inputs = WebMidi.inputs;
@@ -89,7 +89,7 @@ export class Settings extends React.Component{
         <div className="settings-btn"><i className="fas fa-cog" onClick={this.onSettingsClick}></i></div>
 
         <div className="SettingsWindow uk-padding-small" hidden={!settingsOpen}>
-          <button className="X" onClick={this.clickX}>
+          <button className="X uk-button" onClick={this.clickX}>
             X
           </button>
           <p className="uk-text-center">Settings</p>

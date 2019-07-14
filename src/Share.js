@@ -2,9 +2,9 @@ import React from 'react';
 
 export class ShareButton extends React.Component {
   state = {
-    generatedShareLink: "",  
+    generatedShareLink: "",
   };
-  
+
   onShareClick = () => {
     const {appState} = this.props;
     let sharedAppState = {
@@ -13,12 +13,12 @@ export class ShareButton extends React.Component {
       bpm: appState.bpm
     };
     let appStateEncoded = btoa(JSON.stringify(sharedAppState));
-    
+
     this.setState({
       generatedShareLink: window.origin + "?share=" + appStateEncoded
     })
   };
-  
+
   onLinkInputClick = (ev) => {
     ev.target.focus();
     ev.target.select();
@@ -31,14 +31,14 @@ export class ShareButton extends React.Component {
       <div className="uk-margin">
         <div className="uk-inline">
           <button className="uk-button uk-button-primary buttonHeight" type="button" onClick={this.onShareClick}>
-            {/*<i className="fas fa-link"></i>*/}Share
+            <i class="fas fa-share-alt"></i> Share
           </button>
           <div uk-dropdown="mode: click; pos: right-center; offset: 15;">
             <ul className="uk-nav uk-dropdown-nav">
               <li className="uk-active"><a href={generatedShareLink} target="_blank" rel="noopener noreferrer">Your Link</a></li>
-              <li><input 
-                    type="text" 
-                    className="uk-input uk-form-width-medium uk-disabled"  
+              <li><input
+                    type="text"
+                    className="uk-input uk-form-width-medium uk-disabled"
                     readOnly
                     value={generatedShareLink}
                     style={{pointerEvents: 'all'}}
@@ -48,7 +48,7 @@ export class ShareButton extends React.Component {
             </ul>
           </div>
         </div>
-      </div>  
+      </div>
     </div>)
   }
 }
@@ -65,7 +65,7 @@ export const getLinkSharedAppState = () => {
   let shareParam = getUrlParameter('share');
   if(!shareParam)
     return {};
-  
+
   try{
     return JSON.parse(atob(shareParam));
   }

@@ -54,15 +54,16 @@ class Arpeggio extends React.Component{
         return(
             <div>
 
-                <div className={this.state.showApreggioSelectWindow ? "apreggioSelectWindow" : "hide"}>
-                    <button className="X" onClick={this.clickX}>X</button>
+                <div className={this.state.showApreggioSelectWindow ? "apreggioSelectWindow SettingsWindow" : "hide"}>
+                    <button className="X uk-button" onClick={this.clickX}>X</button>
 
                     <img className={this.props.selectedArpeggio === sameTime ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="sameTime Arpeggio" src={sameTime} onClick={this.clickSelectArpeggio.bind(this, sameTime)}/>
                     <img className={this.props.selectedArpeggio === sameTime4C ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="sameTime4C Arpeggio" src={sameTime4C} onClick={this.clickSelectArpeggio.bind(this, sameTime4C)}/>
                     <img className={this.props.selectedArpeggio === successivly ? "arpeggioImgSelected" : "arpeggioImgNotSelected"}  alt="successivly Arpeggio" src={successivly} onClick={this.clickSelectArpeggio.bind(this, successivly)}/>
                 </div>
-                <div>Arpeggio</div>
-                <img className={"selectArpeggio"} alt="selectArpeggio" src={this.props.selectedArpeggio} onClick={this.clickArpeggioButton}/>
+                <button className="selectArpeggio uk-button uk-button-primary"
+                     onClick={this.clickArpeggioButton}>Arpeggio</button>
+                {/*<img className={"selectArpeggio"} alt="selectArpeggio" src={this.props.selectedArpeggio} onClick={this.clickArpeggioButton}/>*/}
 
             </div>
         )

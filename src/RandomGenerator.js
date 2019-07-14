@@ -49,7 +49,6 @@ export class RandomGenerator extends React.Component{
     onRandomClick = () => {
         this.randomChords();
         this.randomBPM();
-        this.randomDrum();
         this.randomArpeggios();
     };
 
@@ -67,18 +66,6 @@ export class RandomGenerator extends React.Component{
         let num = this.getRandomNumberBetween(minBPM_progress,maxBPM_progress);
         this.props.update_loopInterval(num);
         this.props.setBPM(num);
-    };
-
-    randomDrum = () =>{
-        let num1 = this.getRandomNumberBetween(0,1);
-        let num2 = this.getRandomNumberBetween(0,1);
-        let num3 = this.getRandomNumberBetween(0,1);
-        console.log("RandomDrumNumber: " + num1 + "  " + num2 + "   " + num3);
-        //1=true 2=false
-        this.props.setKit(num1);
-        this.props.setSnare(num2);
-        this.props.setHH(num3);
-
     };
 
     randomArpeggios = () =>{
@@ -110,8 +97,9 @@ export class RandomGenerator extends React.Component{
     render() {
         return(
             <div className={"cen"}>
-                <div> Random Music </div>
-                <button className="uk-button uk-button-primary but" onClick={this.onRandomClick}>{"Try It"}</button>
+                <button className="uk-button uk-button-primary"
+                    onClick={this.onRandomClick}>
+                        <i className="fas fa-random"/> Random</button>
             </div>
         )
     }

@@ -28,6 +28,8 @@ class App extends Component {
         super();
 
         this.state = {
+            isDarkMode: false,
+
             chordIndex: -1,
             selectedChords: [
                 // very often used chords (in the key of C): C, G, Am, F
@@ -80,7 +82,7 @@ class App extends Component {
           snare: new Tone.Player("https://tonejs.github.io/examples/audio/505/snare.mp3").toMaster(),
           hh: new Tone.Player("https://tonejs.github.io/examples/audio/505/hh.mp3").toMaster()
         };
-        
+
         this.loop = new Tone.Loop(function (time) {
             const {isKickEnabled, isHHEnabled, isSnareEnabled} = this.state
             const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
@@ -91,7 +93,7 @@ class App extends Component {
                 chordIndex: chordIndex,
             }));
             this.playChord(chordToPlay);
-            
+
             if(isSnareEnabled)
                 drums.snare.start();
             if(isKickEnabled)
@@ -312,76 +314,90 @@ class App extends Component {
     onHHChange = (e) => {
         this.setState({isHHEnabled: e.target.checked});
     };
-    setKit = (bool) => {
-      this.setState({isKickEnabled: bool})
+
+    handleThemeChange = e => {
+        this.setState({isDarkMode: !this.state.isDarkMode})
     };
-    setSnare = (bool) => {
-        this.setState({isSnareEnabled: bool})
-    };
-    setHH = (bool) => {
-        this.setState({isHHEnabled: bool})
-    };
-    
+
     render() {
         const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm, isKickEnabled, isSnareEnabled, isHHEnabled} = this.state;
         console.log("bpm", bpm);
         return (
-            <div className="App">
-                <header className="App-header">
+            <div className={"App" + (this.state.isDarkMode ? " dark" : "")}>
+                <div className="App-background" />
 
-                    <div className="outer-keyboard-ctn">
-                        <Settings playNote={this.playNote} polySynth={this.polySynth}
-                                  addHighlightedNote={this.addHighlightedNote}
-                                  removeHighlightedNote={this.removeHighlightedNote}
-                                  keyassignment_toggle={this.setKeyassignment}/>
-                        <p className="app-title">Y-Piano</p>
-                        <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
-                        <Keyboard
-                            highlightedChord={highlightedChord}
-                            highlightedKeys={highlightedKeys}
-                            playNote={this.playNote}
-                            keyInput={currentKey}
-                            keyAssignment={this.state.keyassignment}
-                            octaveOffset={octaveOffset}
-                            resetCurrentKey={this.resetCurrentKey}/>
-                    </div>
-                    <br/>
-                    <button className="uk-button uk-button-primary"
-                            onClick={this.onPlayPauseClick}>{isPlaying ? "Pause" : "Play"}</button>
-                      <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText">
-                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onKitChange} checked={isKickEnabled}/> Kit</label>
-                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onSnareChange} checked={isSnareEnabled}/> Snare</label>
-                        <label><input className="uk-checkbox" type="checkbox" onChange={this.onHHChange} checked={isHHEnabled}/> Hi-Hat</label>
-                      </div>
-                    <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
-                        <RandomGenerator
+                <div className="App-container">
+                    <header className="App-header">
+                        <div className="App-theme-button" onClick={this.handleThemeChange}>
+                            {this.state.isDarkMode
+                                ? <i className="fas fa-sun" />
+                                : <i className="fas fa-moon" />}
+                        </div>
+
+                        <div className="outer-keyboard-ctn">
+                            <Settings playNote={this.playNote} polySynth={this.polySynth}
+                                      addHighlightedNote={this.addHighlightedNote}
+                                      removeHighlightedNote={this.removeHighlightedNote}
+                                      keyassignment_toggle={this.setKeyassignment}/>
+                            <p className="app-title">y-piano</p>
+
+                            <div class="App-section">
+                                <OctaveSelector octaveOffset={octaveOffset} setOctaveOffset={this.setOctaveOffset}/>
+
+                                <Keyboard
+                                    highlightedChord={highlightedChord}
+                                    highlightedKeys={highlightedKeys}
+                                    playNote={this.playNote}
+                                    keyInput={currentKey}
+                                    keyAssignment={this.state.keyassignment}
+                                    octaveOffset={octaveOffset}
+                                    resetCurrentKey={this.resetCurrentKey}/>
+
+                                <div class="App-controls">
+                                    <button className="App-controls-button"
+                                        onClick={this.onPlayPauseClick}>
+                                      <i class={'fas fa-'+(isPlaying ? 'pause' : 'play')}></i>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                        <button className="App-controls-button">
+                            <i className="fas fa-drum"></i>
+                        </button>
+                        <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText">
+                            <label><input className="uk-checkbox" type="checkbox" onChange={this.onKitChange} checked={isKickEnabled}/> Kit</label>
+                            <label><input className="uk-checkbox" type="checkbox" onChange={this.onSnareChange} checked={isSnareEnabled}/> Snare</label>
+                            <label><input className="uk-checkbox" type="checkbox" onChange={this.onHHChange} checked={isHHEnabled}/> Hi-Hat</label>
+                        </div>
+                        <div className="App-controls">
+                            <Arpeggio
+                                setArpeggioPic={this.setArpeggioPic}
+                                selectedArpeggio={this.state.selectedArpeggio}
+                                setArpeggio={this.setArpeggio}/>
+                            <RandomGenerator
+                                setSelectedChords={this.setSelectedChords}
+                                update_loopInterval={this.update_loopInterval}
+                                setBPM={this.setBPM}
+                                setArpeggioPic={this.setArpeggioPic}
+                                setArpeggio={this.setArpeggio}/>
+                        </div>
+                        <ChordSelect
+                            chordIndex={chordIndex}
+                            selectedChords={selectedChords}
                             setSelectedChords={this.setSelectedChords}
-                            update_loopInterval={this.update_loopInterval}
-                            setBPM={this.setBPM}
-                            setKit={this.setKit}
-                            setSnare={this.setSnare}
-                            setHH={this.setHH}
-                            setArpeggioPic={this.setArpeggioPic}
-                            setArpeggio={this.setArpeggio}/>
-                        <Arpeggio
-                            setArpeggioPic={this.setArpeggioPic}
-                            selectedArpeggio={this.state.selectedArpeggio}
-                            setArpeggio={this.setArpeggio}/>
-                    </div>
-                    <ChordSelect
-                        chordIndex={chordIndex}
-                        selectedChords={selectedChords}
-                        setSelectedChords={this.setSelectedChords}
-                        playChord={this.playChord}/>
-                    <div className={"smallBrTop"}>
-                        <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
-                    </div>
-                    <br/>
-                    <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
-                        <button className="uk-button uk-button-primary buttonHeight buttonMargin" onClick={this.onMidiExport}>Midi Export</button>
-                        <ShareButton appState={this.state}/>
-                    </div>
-                </header>
+                            playChord={this.playChord}/>
+                        <div className={"smallBrTop"}>
+                            <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress} maxValue={maxBPM_progress}/>
+                        </div>
+                        <br/>
+                        <div className={"uk-margin uk-grid-small uk-child-width-auto uk-grid smallerText"}>
+                            <button className="uk-button uk-button-primary buttonHeight buttonMargin"
+                                onClick={this.onMidiExport}><i class="fas fa-download"></i> Midi Export</button>
+                            <ShareButton appState={this.state}/>
+                        </div>
+                    </header>
+                </div>
             </div>
         );
     }

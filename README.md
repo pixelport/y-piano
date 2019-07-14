@@ -13,8 +13,8 @@
 ## Installationsanleitung
 
 Voraussetzungen:
-	- [Node.js](https://nodejs.org/)
-	- [React.js](https://reactjs.org/)
+- [Node.js](https://nodejs.org/)
+- [React.js](https://reactjs.org/)
 
 ### Node.js Installation
 
@@ -59,23 +59,23 @@ npm start
 Nun kann das Projekt unter der URL _http://localhost:3000/_ im Browser aufgerufen werden.
 
 ## Benutzeranleitung
-Mit Y-Piano können Sie musikalische Kompositionen kreieren. 
+Mit Y-Piano können musikalische Kompositionen kreiert werden. 
 Dazu stellt Y-Piano unterschiedliche Funktionen zur Verfügung:
 
-Der Nutzer hat die Möglichkeit die Tasten eines virtuellen Pianos durch Mausklick oder Computertastaturinputs in Echtzeit zu spielen. Buttons über dem virtuellen Piano können genutzt werden, um zwischen den gewünschten Oktaven des Pianos zu wählen.
-Darüber hinaus kann das virtuelle Piano durch ein MIDI-Gerät bedient werden. Dieses kann im Settingsmenü, welches durch Anklicken des Zahnrad Icons erscheint, mit der Anwendung verknüpft werden.
-Im besagten Settingsmenü besteht außerdem die Möglichkeit durch einen Toggle-Switch die Anzeige der Computertastaturbelegung wahlweise anzuzeigen. 
+Der Nutzer hat die Möglichkeit die Tasten eines virtuellen Pianos durch Mausklick oder Computertastaturinputs in Echtzeit zu spielen. Die Schaltflächen über dem virtuellen Piano können genutzt werden, um zwischen den gewünschten Oktaven des Pianos zu wählen.
+Darüber hinaus kann das virtuelle Piano durch ein MIDI-Gerät bedient werden. Dieses kann im Settingsmenü, welches durch Anklicken des Zahnradsymbols erscheint, mit der Anwendung verknüpft werden.
+Im besagten Settingsmenü besteht außerdem die Möglichkeit durch einen Schalter die Anzeige der Computertastaturbelegung wahlweise anzuzeigen. 
 
-Es ist möglich 4 individuelle Akkorde festzulegen. Hierzu müssen die jeweiligen Rechtecke anklicken, um dann in einem Overlay-Menü die gewünschten Akkorde auszuwählen.
-Ihre Auswahl kann nun, durch Klicken des Play- Buttons, in einem Loop gleichzeitig abgespielt werden oder als Arpeggios nacheinander.
+Es ist möglich vier individuelle Akkorde festzulegen. Hierzu müssen die jeweiligen Rechtecke angeklickt werden, um dann in einem Overlay-Menü die gewünschten Akkorde auszuwählen.
+Die durch den Benutzer getroffene Auswahl kann nun, durch Klicken der Play-Schaltfläche, in einer Schleife gleichzeitig abgespielt werden oder als Arpeggios nacheinander.
 
-Drums können Ihren Loop ergänzen. Hierzu aktivieren Sie die Checkboxen ("Kit","Snare","Hi-Hat") der entsprechenden Drums.
+Drums können in der Schleife ergänzt werden. Hierzu aktivieren Sie die Checkboxen ("Kit","Snare","Hi-Hat") der entsprechenden Drums.
 
 Ein BPM-Regler ermöglicht es das Tempo zu beeinflussen, welcher durch das Mausrad bedienbar ist.
 
 Sollten Sie eine zufällige Auswahl der eben bennanten Funktionen wünschen, klicken Sie den "Try It"-Button.
 
-Schließlich können Sie Ihre Einstellungen als MIDI-Sequenz exportieren durch Klicken des "MIDI-Export"-Buttons oder Sie generieren einen Share Link mit Hilfe des "Share"-Buttons. 
+Schließlich können Sie Ihre Einstellungen als MIDI-Sequenz exportieren indem Sie die "MIDI-Export"-Schaltfläche betätigen, oder Sie generieren einen Share-Link mit Hilfe des "Share"-Buttons. 
 ## Tastenbelegung 
 Als Midi-Controller kann jedes beliebiges Midi-Gerät verwendet werden welches "noteon" und "noteoff" events unterstützt. Wir verwendeten ein Microbrute Red zum testen.
 ### Tastatur und Mausrad

@@ -53,11 +53,15 @@ export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, hi
         keyInput_map.set(keyboardInput_white[i],whiteNote);
 
         keys.push(<div
-            key={i}
-            className={"piano-key " + (isKeyHighlighted(whiteNote) ? " highlighted" : "")}
-            onMouseDown={onWhiteKey}
-            onMouseOver={onWhiteKey}
-        >{(hasKeyInputMap_Note_ForKeyInput(whiteNote)) ? whiteNote : show_keyAssignment(keyboardInput_white[i])}</div>);
+                key={i}
+                className={"piano-key " + (isKeyHighlighted(whiteNote) ? " highlighted" : "")}
+                onMouseDown={onWhiteKey}
+                onMouseOver={onWhiteKey}
+            >
+            <div className="piano-key-content">
+                {(hasKeyInputMap_Note_ForKeyInput(whiteNote)) ? whiteNote : show_keyAssignment(keyboardInput_white[i])}
+            </div>
+        </div>);
 
         // black key
         // indexes 2 and 6 don't have black keys
@@ -70,10 +74,12 @@ export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, hi
             const blackNoteSharp = blackKeysSharpNotation[key] + octave;
             const isBlackKeyHighlighted = isKeyHighlighted(blackNoteFlat) || isKeyHighlighted(blackNoteSharp);
             keys.push(<div key={i + 'b'}
-                className={"piano-key key-black" + (isBlackKeyHighlighted ? " highlighted" : "")}
-                onMouseDown={onBlackKey}
-                onMouseOver={onBlackKey}
-            >{(hasKeyInputMap_Note_ForKeyInput(blackNoteFlat)) ? blackNoteFlat : show_keyAssignment(keyboardInput_black[i])}</div>);
+                    className={"piano-key key-black" + (isBlackKeyHighlighted ? " highlighted" : "")}
+                    onMouseDown={onBlackKey}
+                    onMouseOver={onBlackKey}
+                >
+                    <div className="piano-key-content">{(hasKeyInputMap_Note_ForKeyInput(blackNoteFlat)) ? blackNoteFlat : show_keyAssignment(keyboardInput_black[i])}</div>
+                </div>);
 
     }
   }
