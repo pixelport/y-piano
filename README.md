@@ -1,4 +1,5 @@
 #  Y-Piano
+Im Rahmen des Moduls "Audio- und Videotechnik" ist [Y-Piano](https://y-piano.netlify.com/) entstanden. Ein älteres Design kann [hier](https://y-piano-blue.netlify.com/) ausprobiert werden.
 
 ## Inhalt
 1. [Idee](#idee)
@@ -9,6 +10,8 @@
 6. [Technische Projektbeschreibung](#technische-projektbeschreibung)
 
 ## Idee
+Viele Songs bauen auf dem gleichen Schema auf. Meist besteht der typische [Pop-Song](https://www.youtube.com/watch?v=5pidokakU4I) aus vier sich wiederholende Akkorde mit einer Melodie. 
+Die richtigen 4-Akorde zu finden ist ein wichtiger Teil des Kompositionsprozesses. Unsere Idee war es ein Tool zu entwickeln um bei diesem Prozess zu helfen.
 
 ## Installationsanleitung
 
@@ -73,7 +76,7 @@ Drums können in der Schleife ergänzt werden. Hierzu aktivieren Sie die Checkbo
 
 Ein BPM-Regler ermöglicht es das Tempo zu beeinflussen, welcher durch das Mausrad bedienbar ist.
 
-Sollten Sie eine zufällige Auswahl der eben bennanten Funktionen wünschen, klicken Sie den "Try It"-Button.
+Sollten Sie eine zufällige Auswahl der eben bennanten Funktionen wünschen, klicken Sie den "Random"-Button.
 
 Schließlich können Sie Ihre Einstellungen als MIDI-Sequenz exportieren indem Sie die "MIDI-Export"-Schaltfläche betätigen, oder Sie generieren einen Share-Link mit Hilfe des "Share"-Buttons. 
 ## Tastenbelegung 
