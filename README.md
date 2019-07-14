@@ -12,23 +12,23 @@
 
 ## Installationsanleitung
 
-###Voraussetzungen:
-[Node.js](https://nodejs.org/)
-[React.js](https://reactjs.org/)
+Voraussetzungen:
+	- [Node.js](https://nodejs.org/)
+	- [React.js](https://reactjs.org/)
 
-####Node.js Installation
+###Node.js Installation
 
-#####Windows
+**Windows**
 Den Windows Installer kann man über die [Nodejs.org](https://nodejs.org/en/download/) Webseite runterladen.
 
-#####macOS
+**macOS**
 Den macOS Installer kann man ebenfalls über die [Nodejs.org](https://nodejs.org/en/download/) Webseite runterladen.
 Oder Folgendes in der Kommandozeile ausführen um die Installation durchzuführen:
 ```
 curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
 ```
 
-#####Ubuntuu
+**Ubuntuu**
 Die Installation von Node.js auf Ubuntuu erfolgt über folgendes Kommando:
 ```
 sudo apt-get install nodejs
@@ -38,7 +38,7 @@ Dann npm (node package manager) installieren:
 sudo apt-get install npm
 ```
 
-####React.js Installation
+###React.js Installation
 Im Terminal:
 ```
 npm install -g create-react-app
