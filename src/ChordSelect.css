@@ -1,21 +1,30 @@
-
-.selectField{
-    height: 200px;
-    width: 1000px;
-    display: block;
-    background: #232534;
-    border-radius: 20px;
+.selectWrap {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 100%;
 }
 
+.selectField{
+    /* background: #232534; */
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100% }
+
 .selectButton{
-    height: 75%;
-    width: 20%;
+    box-sizing: border-box;
+    flex: 1;
     display: block;
-    background: #ffffff;
     border-radius: 5px;
     float: left;
-    margin: 2.5%;
-    font-size: 25px;
+    margin: 5px;
+    padding: 0 16px;
+    font-size: 20px;
+}
+
+.selectList {
+    display: grid;
+    grid-gap: 20px;
+    grid-template: auto / repeat(auto-fit, minmax(80px, 1fr));
 }
 
 .selectButton.not-edited{
@@ -26,44 +35,16 @@
     background: #bbbec1 !important;
 }
 
-.selectWindow{
-    position: absolute;
-    top: 25%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 500px;
-    height: 355px;
-    z-index: 3;
-
-    background: #232534;
-    border-radius: 10px;
-    border: 5px solid #000000;
-}
-
-.X{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    display: block;
-    background: #232534;
-    border: 0;
-    color: #ffffff;
-    font-size: 20px;
-}
-
 .chordButton{
-    height: 75%;
-    width: 20%;
     display: block;
-    background: #ffffff;
     border-radius: 5px;
-    float: left;
-    margin: 2.5%;
-    font-size: 25px;
+    font-size: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .chordButton.selected{
-    background: #bbbec1 !important;
+    background: linear-gradient(to right, var(--primary), var(--secondary) 200%) !important;
+    border-color: transparent;
+    color: #fff;
 }

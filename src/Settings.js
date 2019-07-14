@@ -4,10 +4,11 @@ import WebMidi from "webmidi";
 import Switch from "react-switch";  //npm install react-switch
 
 export class Settings extends React.Component{
-  
+
   state = {
     settingsOpen: false,
     selectedInputId: "",
+    checked: false
   };
 
   constructor(){
@@ -19,6 +20,7 @@ export class Settings extends React.Component{
         console.log("WebMidi enabled!");
       }
     });
+    this.handleChange = this.handleChange.bind(this);
   }
   
   onSettingsClick = () => {
@@ -72,19 +74,24 @@ export class Settings extends React.Component{
       selectedInputId: e.target.value
     })
   };
-  
-  
+
+  handleChange(checked) {
+    this.setState({ checked
+    })
+    this.props.keyassignment_toggle(checked)
+  };
+
   render(){
     const {settingsOpen, selectedInputId} = this.state;
     const {keyassignment, keyassignment_toggle, useScrollbarForBpm, useScrollbarForBpm_toggle} = this.props;
-    
+
     const inputs = WebMidi.inputs;
     return (
       <div>
         <div className="settings-btn"><i className="fas fa-cog" onClick={this.onSettingsClick}></i></div>
 
         <div className="SettingsWindow uk-padding-small" hidden={!settingsOpen}>
-          <button className="X" onClick={this.clickX}>
+          <button className="X uk-button" onClick={this.clickX}>
             X
           </button>
           <p className="uk-text-center">Settings</p>

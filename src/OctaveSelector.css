@@ -1,8 +1,10 @@
 .octave-label{
-    padding: 0px 20px;
     display: inline-block;
+    padding: 0px 20px;
 }
 .octave-selector{
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
     text-align: left;
 }

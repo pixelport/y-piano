@@ -18,7 +18,7 @@ export let Bb =["Bb4", "D5", "F5"];
 export let B = ["B4", "D#5", "F#5"];
 
 // minor chords
-// TODO: add more minor chords 
+// TODO: add more minor chords
 // http://www.piano-keyboard-guide.com/minor-chords.html
 export let Am = ["A4", "C5", "E5"];
 
@@ -82,24 +82,24 @@ export class ChordSelect extends React.Component{
         this.props.setSelectedChords(newChords);
         console.log("Chord " + this.state.editedChord + " changed to " + chord);
     };
-    
+
     render() {
         const { chordIndex, selectedChords } = this.props;
         const { isModalOpen, editedChord } = this.state;
         //console.log("selectedChords", selectedChords);
         return(
-            <div>
+            <div class="selectWrap App-section">
 
-                <div className="selectWindow" id="selectWindow" hidden={!isModalOpen}>
-                    <button className="X" onClick={this.clickX}>
+                <div className="selectWindow SettingsWindow" id="selectWindow" hidden={!isModalOpen}>
+                    <button className="X uk-button" onClick={this.clickX}>
                         X
                     </button>
                     <p id="pChord">Chord: {editedChord * 1 + 1}</p>
-                    <div>
+                    <div class="selectList">
                         {AllChords.map(chord => {
                             const isChordSelected = selectedChords[editedChord].join() === chord.chord.join();
                             return (<button
-                                className={"chordButton uk-button uk-button-default" + (isChordSelected ? " selected" : "")}
+                                className={"chordButton uk-button" + (isChordSelected ? " selected" : "")}
                                 key={chord.name}
                                 onClick={this.clickChordButton.bind(this, chord.chord)}
 
@@ -120,7 +120,7 @@ export class ChordSelect extends React.Component{
                           console.warn("Warning: could not find chord name for chord:", chord);
                         else
                           chordName = foundChord.name;
-                        
+
                         return (<button key={i} className={className} onClick={this.clickButton.bind(this, i)}>
                             {chordName}
                         </button>)

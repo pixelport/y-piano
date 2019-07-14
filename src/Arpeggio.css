@@ -19,28 +19,11 @@
 
 .apreggioSelectWindow{
     position: absolute;
-    top: 25%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 200px;
-    height: 200px;
     z-index: 3;
-
-    background: #232534;
-    border-radius: 10px;
-    border: 5px solid #000000;
 }
-.X{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    display: block;
-    background: #232534;
-    border: 0;
-    color: #ffffff;
-    font-size: 20px;
+.apreggioSelectWindow.SettingsWindow{
+    max-width: 200px;
+    padding-top: 60px;
 }
 .arpeggioImgSelected{
     width: 50%;
@@ -82,11 +65,8 @@
 }
 
 .selectArpeggio{
-    width: 150px;
-    height: 40px;
     object-fit:scale-down;
     display: block;
     position: relative;
-    margin: 6px;
-    background: #1E88F0;
+    margin-right: 0.5em;
 }
