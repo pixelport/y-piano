@@ -121,7 +121,7 @@ Es wird eine Hauptkomponente (App) Verwendet, die alle States verwaltet. Von die
  - Progressbar
 	 - Verwaltet die UI zum Anzeigen/Auswählen der BPM
  - RandomGenerator
-	 - Wählt zufällig die Akkorde, BPM und den Arpeggio aus.
+	 - Wählt zufällig die Akkorde, BPM, Drums und den Arpeggio aus.
 	 - Verwaltet die dementsprechende UI
  - Settings
 	 - Auswahlmöglichkeit für den MIDI-Controller
