@@ -92,11 +92,11 @@ class App extends Component {
             }));
             this.playChord(chordToPlay);
             
-            if(isSnareEnabled)
+            if(isSnareEnabled && drums.snare.loaded && chordIndex % 2 === 1)
                 drums.snare.start();
-            if(isKickEnabled)
+            if(isKickEnabled && drums.kick.loaded)
                 drums.kick.start();
-            if(isHHEnabled)
+            if(isHHEnabled && drums.hh.loaded)
                 drums.hh.start();
         }.bind(this), "3n");
 
