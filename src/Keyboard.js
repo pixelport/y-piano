@@ -7,7 +7,7 @@ const blackKeysSharpNotation = ["C#", "D#", null, "F#", "G#", "A#"];
 const blackKeysFlatNotation = ["Db", "Eb", null, "Gb", "Ab", "Bb"];
 
 const keyboardInput_white = ["q", "w", "e", "r", "t", "z","u","i","o","p","ü","a","s","d"];
-const keyboardInput_black = ["Q","W",null,"R","T","Z",null,"I","O",null,"Ü","A","S",null];
+const keyboardInput_black = ["1","2",null,"3","4","5",null,"6","7",null,"8","9","0",null];
 
 export const Keyboard= ({playNote, keyInput, keyAssignment, highlightedChord, highlightedKeys, octaveOffset}) => {
 
