@@ -82,11 +82,10 @@ class App extends Component {
             hh: new Tone.Player("https://tonejs.github.io/examples/audio/505/hh.mp3").toMaster()
         };
 
-        this.loop = new Tone.Loop(function (time) {
+        this.loop = new Tone.Loop(function () {
             const {isKickEnabled, isHHEnabled, isSnareEnabled} = this.state;
             const chordIndex = this.state.chordIndex >= 3 ? 0 : this.state.chordIndex + 1;
             const chordToPlay = this.state.selectedChords[chordIndex];
-            //console.log('loop', time, 'chordToPlay', chordToPlay, " ", chordIndex);
             this.setState(prevState => ({
                 highlightedChord: chordToPlay,
                 chordIndex: chordIndex,
@@ -109,6 +108,8 @@ class App extends Component {
         window.addEventListener("keydown", this.setCurrentKey);
         window.addEventListener("keyup", this.resetCurrentKey);
         window.addEventListener("wheel", this.handleWheelInput);
+        // init bpm
+        this.update_loopInterval(this.state.bpm)
     }
 
     componentWillUnmount() {
@@ -182,7 +183,6 @@ class App extends Component {
 
     update_loopInterval = (bpm) => {
         let interval_in_sek = 1 / (bpm / 60);
-        //console.log("neus looptempo:"+(interval_in_sek).toFixed(2));
         this.loop.interval = (interval_in_sek).toFixed(2);
     };
 
@@ -208,7 +208,7 @@ class App extends Component {
     };
 
     setBPM = (bpm) => {
-        this.setState({bpm: bpm})
+        this.setState({bpm: bpm}, () => saveToLocalStorage(this.state))
     };
 
     /*--------------------------------------- Play Note Chord ---------------------------------------*/
