@@ -6,6 +6,7 @@ export class Progressbar extends React.Component {
     
     onInputChange = (e) => {
       this.props.onChange(Number(e.target.value));
+      this.props.update_loopInterval(Number(e.target.value))
     };
     
     render() {

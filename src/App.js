@@ -410,7 +410,7 @@ class App extends Component {
                             setSelectedChords={this.setSelectedChords}
                             playChord={this.playChord}/>
                         <div className={"smallBrTop"}>
-                            <Progressbar onChange={this.setBPM} value={bpm} minValue={minBPM_progress}
+                            <Progressbar onChange={this.setBPM} update_loopInterval={this.update_loopInterval} value={bpm} minValue={minBPM_progress}
                                          maxValue={maxBPM_progress}/>
                         </div>
                         <br/>
