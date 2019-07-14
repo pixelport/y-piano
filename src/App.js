@@ -312,6 +312,15 @@ class App extends Component {
     onHHChange = (e) => {
         this.setState({isHHEnabled: e.target.checked});
     };
+    setKit = (bool) => {
+      this.setState({isKickEnabled: bool})
+    };
+    setSnare = (bool) => {
+        this.setState({isSnareEnabled: bool})
+    };
+    setHH = (bool) => {
+        this.setState({isHHEnabled: bool})
+    };
     
     render() {
         const {isPlaying, currentKey, selectedChords, highlightedChord, chordIndex, highlightedKeys, octaveOffset, bpm, isKickEnabled, isSnareEnabled, isHHEnabled} = this.state;
@@ -349,6 +358,9 @@ class App extends Component {
                             setSelectedChords={this.setSelectedChords}
                             update_loopInterval={this.update_loopInterval}
                             setBPM={this.setBPM}
+                            setKit={this.setKit}
+                            setSnare={this.setSnare}
+                            setHH={this.setHH}
                             setArpeggioPic={this.setArpeggioPic}
                             setArpeggio={this.setArpeggio}/>
                         <Arpeggio
